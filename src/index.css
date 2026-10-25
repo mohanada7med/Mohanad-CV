@@ -9,21 +9,11 @@
 
 /* 2. Centralized Typography System */
 :root {
-  --font-display-ar: 'MyArabicFont', sans-serif;
-  --font-body-ar: 'MyArabicFont', sans-serif;
-
-  --font-display-en:
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-
-  --font-body-en: 'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-
+  /* 4 Primary Typography Roles */
+  --font-display-ar: 'MyArabicFont', 'Alexandria';
+  --font-body-ar: 'IBM Plex Sans Arabic', 'Alexandria';
+  --font-display-en: 'Space Grotesk', sans-serif;
+  --font-body-en: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   /* Keep the rest of your existing variables below */
@@ -127,14 +117,28 @@ body {
    3. AUTOMATIC ARABIC & ENGLISH TYPOGRAPHY & DIRECTION SYSTEM
    ========================================================================== */
 html[lang="ltr"],
+html[lang="en"],
 html[dir="ltr"] {
   direction: ltr;
   font-family: var(--font-body-en);
 }
 
+html[lang="ltr"] body,
+html[lang="en"] body,
+html[dir="ltr"] body {
+  font-family: var(--font-body-en);
+}
+
 html[lang="rtl"],
+html[lang="ar"],
 html[dir="rtl"] {
   direction: rtl;
+  font-family: var(--font-body-ar);
+}
+
+html[lang="rtl"] body,
+html[lang="ar"] body,
+html[dir="rtl"] body {
   font-family: var(--font-body-ar);
 }
 
@@ -181,6 +185,14 @@ html[lang="en"] p,
 html[dir="ltr"] p {
   font-family: var(--font-body-en);
   line-height: 1.65;
+}
+
+/* Mobile Stage Responsive Behavior (Prevent clipping on viewports < 1024px) */
+@media (max-width: 1023px) {
+  #master-stage {
+    height: auto !important;
+    overflow: visible !important;
+  }
 }
 
 /* Typography Helpers */
@@ -771,5 +783,41 @@ html[dir="rtl"] .comic-btn {
   .comic-panel {
     border-width: 3px;
     box-shadow: 4px 4px 0px #000000;
+  }
+
+  /* Safe container widths */
+  .app-container {
+    padding-left: clamp(12px, 3.5vw, 20px) !important;
+    padding-right: clamp(12px, 3.5vw, 20px) !important;
+  }
+}
+
+/* Touch-friendly horizontal scroll rows */
+.touch-scroll-row {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.touch-scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* Accessibility: Visible Focus Rings */
+:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 3px;
+}
+
+/* Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -256,7 +256,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
             borderRadius: '100px',
             color: '#ffffff',
             fontSize: '11px',
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'Alexandria, sans-serif',
             fontWeight: 800,
             boxShadow: '0 0 18px rgba(204, 255, 0, 0.45)',
           }}
