@@ -1,19 +1,59 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import type { Language } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import { Camera, MapPin, Film, PlayCircle } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface AboutSectionProps {
   lang: Language;
 }
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
+  const aboutRef = useRef<HTMLElement>(null);
   const t = PORTFOLIO_DATA.ui[lang];
   const creator = PORTFOLIO_DATA.creator;
 
+  useEffect(() => {
+    const el = aboutRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      // Parallax on creator portrait
+      gsap.to('.scrolly-about-portrait', {
+        y: -40,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        },
+      });
+
+      // Stagger story blocks
+      gsap.from('.scrolly-story-block', {
+        y: 40,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 0.75,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 70%',
+        },
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={aboutRef}
       id="about"
       style={{
         position: 'relative',
@@ -91,7 +131,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
           }}
         >
           {/* Creator Portrait Composition */}
-          <div style={{ position: 'relative' }}>
+          <div className="scrolly-about-portrait" style={{ position: 'relative' }}>
             <div
               style={{
                 position: 'relative',
@@ -190,7 +230,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
           </div>
 
           {/* Narrative & Philosophy */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          <div className="scrolly-story-block" style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
             <div>
               <span
                 style={{

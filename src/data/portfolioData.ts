@@ -86,6 +86,8 @@ export const PORTFOLIO_DATA = {
       tiktok: "https://www.tiktok.com",
       instagram: "https://www.instagram.com",
       whatsapp: "https://wa.me/201023456789",
+      youtube: "https://www.youtube.com",
+      behance: "https://www.behance.net",
     }
   },
 

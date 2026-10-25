@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import type { Language } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import { ArrowUpRight, Sparkles, Orbit, Compass } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface BrandConstellationProps {
   lang: Language;
@@ -14,7 +18,41 @@ export const BrandConstellation: React.FC<BrandConstellationProps> = ({
   onSelectBrand,
 }) => {
   const [activeBrandId, setActiveBrandId] = useState<string>('b-laban');
+  const sectionRef = useRef<HTMLElement>(null);
   const t = PORTFOLIO_DATA.ui[lang];
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from('.scrolly-brand-card', {
+        scale: 0.85,
+        opacity: 0,
+        y: 30,
+        stagger: 0.08,
+        duration: 0.65,
+        ease: 'back.out(1.5)',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 80%',
+        },
+      });
+
+      gsap.from('.scrolly-brand-spotlight', {
+        x: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 75%',
+        },
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleBrandClick = (brandName: string, id: string) => {
     sound.playClick();
@@ -32,6 +70,7 @@ export const BrandConstellation: React.FC<BrandConstellationProps> = ({
 
   return (
     <section
+      ref={sectionRef}
       id="brands"
       style={{
         position: 'relative',
@@ -144,6 +183,7 @@ export const BrandConstellation: React.FC<BrandConstellationProps> = ({
                     setActiveBrandId(brand.id);
                   }}
                   data-cursor="EXPLORE"
+                  className="scrolly-brand-card"
                   style={{
                     padding: '24px',
                     borderRadius: '20px',
@@ -221,7 +261,7 @@ export const BrandConstellation: React.FC<BrandConstellationProps> = ({
 
           {/* Active Brand Showcase Card */}
           <div
-            className="glass-panel-elevated"
+            className="glass-panel-elevated scrolly-brand-spotlight"
             style={{
               padding: '36px',
               borderRadius: '24px',

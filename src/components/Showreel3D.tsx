@@ -51,17 +51,17 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     container.appendChild(renderer.domElement);
 
-    // Ambient & Accent Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    // Ambient & Accent Lights (Monochrome)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
     scene.add(ambientLight);
 
-    const limePoint = new THREE.PointLight(0xccff00, 3, 14);
-    limePoint.position.set(0, 2, 4);
-    scene.add(limePoint);
+    const whitePoint = new THREE.PointLight(0xffffff, 2.5, 16);
+    whitePoint.position.set(0, 2, 4);
+    scene.add(whitePoint);
 
-    const orangePoint = new THREE.PointLight(0xff5500, 2.5, 14);
-    orangePoint.position.set(0, -2, 4);
-    scene.add(orangePoint);
+    const grayPoint = new THREE.PointLight(0xa1a1aa, 1.8, 16);
+    grayPoint.position.set(0, -2, 4);
+    scene.add(grayPoint);
 
     // Curved Carousel 3D Screen Array
     const carouselGroup = new THREE.Group();
@@ -227,9 +227,9 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
               gap: '8px',
               padding: '6px 14px',
               borderRadius: '100px',
-              backgroundColor: 'rgba(204, 255, 0, 0.08)',
-              border: '1px solid rgba(204, 255, 0, 0.25)',
-              color: '#ccff00',
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              color: '#ffffff',
               fontSize: '11px',
               fontFamily: 'JetBrains Mono, monospace',
               fontWeight: 700,
@@ -293,7 +293,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
             backgroundColor: 'rgba(12, 13, 18, 0.75)',
             backdropFilter: 'blur(12px)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
-            color: '#ccff00',
+            color: '#ffffff',
             fontSize: '11px',
             fontFamily: 'JetBrains Mono, monospace',
             fontWeight: 700,
@@ -318,7 +318,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '20px',
-            border: '1px solid rgba(204, 255, 0, 0.25)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
           }}
         >
           {/* Active Reel Info */}
@@ -330,7 +330,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
                 borderRadius: '16px',
                 overflow: 'hidden',
                 backgroundColor: '#000000',
-                border: '1px solid #ccff00',
+                border: '1px solid #ffffff',
                 flexShrink: 0,
               }}
             >
@@ -346,7 +346,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
                 style={{
                   fontSize: '11px',
                   fontFamily: 'JetBrains Mono, monospace',
-                  color: '#ccff00',
+                  color: '#ffffff',
                   fontWeight: 700,
                 }}
               >
@@ -397,14 +397,14 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
                 gap: '10px',
                 padding: '12px 26px',
                 borderRadius: '100px',
-                backgroundColor: '#ccff00',
+                backgroundColor: '#ffffff',
                 color: '#070709',
                 fontSize: '13px',
                 fontWeight: 800,
                 border: 'none',
                 cursor: 'pointer',
                 fontFamily: lang === 'en' ? 'Syne, sans-serif' : 'Alexandria, sans-serif',
-                boxShadow: '0 0 25px rgba(204, 255, 0, 0.35)',
+                boxShadow: '0 0 25px rgba(255, 255, 255, 0.25)',
               }}
             >
               <Play size={16} fill="#070709" />

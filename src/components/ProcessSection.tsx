@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import type { Language } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import { GitCommit, Check } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ProcessSectionProps {
   lang: Language;
@@ -10,8 +14,41 @@ interface ProcessSectionProps {
 
 export const ProcessSection: React.FC<ProcessSectionProps> = ({ lang }) => {
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const t = PORTFOLIO_DATA.ui[lang];
   const steps = PORTFOLIO_DATA.process;
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from('.scrolly-process-tab', {
+        y: 35,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.65,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 80%',
+        },
+      });
+
+      gsap.from('.scrolly-process-card', {
+        y: 45,
+        opacity: 0,
+        duration: 0.75,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 70%',
+        },
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleStepClick = (index: number) => {
     sound.playClick();
@@ -20,6 +57,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ lang }) => {
 
   return (
     <section
+      ref={sectionRef}
       id="process"
       style={{
         position: 'relative',
@@ -88,6 +126,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ lang }) => {
             return (
               <button
                 key={step.number}
+                className="scrolly-process-tab"
                 onClick={() => handleStepClick(idx)}
                 onMouseEnter={() => sound.playHover()}
                 data-cursor={`STEP ${step.number}`}
@@ -134,7 +173,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ lang }) => {
         {/* Active Stage Detailed Card */}
         {steps[activeStepIndex] && (
           <div
-            className="glass-panel-elevated"
+            className="glass-panel-elevated scrolly-process-card"
             style={{
               padding: 'clamp(28px, 4vw, 48px)',
               borderRadius: '28px',

@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import type { Language, ServiceItem } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import { Plus, Minus, CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ServicesSectionProps {
   lang: Language;
@@ -10,7 +14,29 @@ interface ServicesSectionProps {
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ lang }) => {
   const [expandedId, setExpandedId] = useState<string>('short-form');
+  const sectionRef = useRef<HTMLElement>(null);
   const t = PORTFOLIO_DATA.ui[lang];
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from('.scrolly-service-card', {
+        y: 45,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 80%',
+        },
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleToggle = (id: string) => {
     sound.playClick();
@@ -26,6 +52,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ lang }) => {
 
   return (
     <section
+      ref={sectionRef}
       id="services"
       style={{
         position: 'relative',
@@ -84,6 +111,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ lang }) => {
             return (
               <div
                 key={service.id}
+                className="scrolly-service-card"
                 style={{
                   borderTop: '1px solid rgba(255, 255, 255, 0.1)',
                   paddingTop: '28px',

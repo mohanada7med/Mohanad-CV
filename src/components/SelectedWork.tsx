@@ -1,24 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import type { Project, Language } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import { ProjectModal } from './ProjectModal';
 import { Play, Sparkles, Filter, ArrowUpRight, Flame } from 'lucide-react';
 
+gsap.registerPlugin(ScrollTrigger);
+
 interface SelectedWorkProps {
   lang: Language;
   selectedBrandFilter?: string;
   onClearBrandFilter?: () => void;
+  onOpenProject?: (project: Project) => void;
 }
 
 export const SelectedWork: React.FC<SelectedWorkProps> = ({
   lang,
   selectedBrandFilter,
   onClearBrandFilter,
+  onOpenProject: externalOpenProject,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
+  const [internalModalProject, setInternalModalProject] = useState<Project | null>(null);
+  const workRef = useRef<HTMLElement>(null);
   const t = PORTFOLIO_DATA.ui[lang];
+
+  useEffect(() => {
+    const el = workRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from('.scrolly-featured-card', {
+        y: 60,
+        opacity: 0,
+        scale: 0.98,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 75%',
+        },
+      });
+
+      gsap.from('.scrolly-project-tile', {
+        y: 50,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.scrolly-projects-grid',
+          start: 'top 85%',
+        },
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, [activeCategory, selectedBrandFilter]);
 
   // Category filter options
   const categories = [
@@ -43,16 +83,20 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
 
   const handleOpenProject = (project: Project) => {
     sound.playClick();
-    setActiveModalProject(project);
+    if (externalOpenProject) {
+      externalOpenProject(project);
+    } else {
+      setInternalModalProject(project);
+    }
   };
 
   const handleNavigateModal = (direction: 'next' | 'prev') => {
-    if (!activeModalProject) return;
-    const currentIndex = PORTFOLIO_DATA.projects.findIndex((p) => p.id === activeModalProject.id);
+    if (!internalModalProject) return;
+    const currentIndex = PORTFOLIO_DATA.projects.findIndex((p) => p.id === internalModalProject.id);
     let nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
     if (nextIndex >= PORTFOLIO_DATA.projects.length) nextIndex = 0;
     if (nextIndex < 0) nextIndex = PORTFOLIO_DATA.projects.length - 1;
-    setActiveModalProject(PORTFOLIO_DATA.projects[nextIndex]);
+    setInternalModalProject(PORTFOLIO_DATA.projects[nextIndex]);
   };
 
   // Featured project (e.g. B.Laban Pistachio Rush)
@@ -61,6 +105,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
 
   return (
     <section
+      ref={workRef}
       id="work"
       style={{
         position: 'relative',
@@ -186,15 +231,15 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                 style={{
                   padding: '8px 18px',
                   borderRadius: '100px',
-                  backgroundColor: isActive ? '#ccff00' : 'rgba(255, 255, 255, 0.04)',
-                  color: isActive ? '#070709' : '#b0b4c5',
-                  border: isActive ? '1px solid #ccff00' : '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.04)',
+                  color: isActive ? '#000000' : '#a1a1aa',
+                  border: isActive ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.08)',
                   fontSize: '12px',
                   fontWeight: isActive ? 800 : 500,
                   fontFamily: lang === 'en' ? 'Syne, sans-serif' : 'Alexandria, sans-serif',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  boxShadow: isActive ? '0 0 20px rgba(204, 255, 0, 0.3)' : 'none',
+                  boxShadow: isActive ? '0 0 20px rgba(255, 255, 255, 0.25)' : 'none',
                 }}
               >
                 {cat.label}
@@ -228,7 +273,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
                   boxShadow: '0 20px 60px rgba(0, 0, 0, 0.7)',
                 }}
-                className="featured-project-card"
+                className="featured-project-card scrolly-featured-card"
               >
                 <div
                   style={{
@@ -316,15 +361,15 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                         width: '74px',
                         height: '74px',
                         borderRadius: '50%',
-                        backgroundColor: 'rgba(204, 255, 0, 0.92)',
+                        backgroundColor: '#ffffff',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#070709',
-                        boxShadow: '0 0 35px rgba(204, 255, 0, 0.6)',
+                        color: '#000000',
+                        boxShadow: '0 0 35px rgba(255, 255, 255, 0.4)',
                       }}
                     >
-                      <Play size={32} fill="#070709" />
+                      <Play size={32} fill="#000000" />
                     </div>
                   </div>
 
@@ -342,7 +387,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                         style={{
                           fontSize: '12px',
                           fontFamily: 'JetBrains Mono, monospace',
-                          color: '#ccff00',
+                          color: '#ffffff',
                           fontWeight: 700,
                         }}
                       >
@@ -353,7 +398,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                       </span>
                     </div>
 
-                    <div style={{ fontSize: '18px', color: '#ff5500', fontWeight: 800, fontFamily: 'Syne, sans-serif' }}>
+                    <div style={{ fontSize: '18px', color: '#ffffff', fontWeight: 800, fontFamily: 'Syne, sans-serif' }}>
                       {lang === 'en' ? featuredProject.brand : featuredProject.brand_ar}
                     </div>
 
@@ -378,11 +423,11 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                       style={{
                         padding: '16px',
                         borderRadius: '16px',
-                        backgroundColor: 'rgba(204, 255, 0, 0.05)',
-                        border: '1px solid rgba(204, 255, 0, 0.2)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#ccff00', fontSize: '11px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, marginBottom: '6px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#ffffff', fontSize: '11px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, marginBottom: '6px' }}>
                         <Sparkles size={13} />
                         <span>{lang === 'en' ? 'CREATIVE HOOK' : 'الهوك الإبداعي'}</span>
                       </div>
@@ -398,7 +443,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '8px',
-                          color: '#ccff00',
+                          color: '#ffffff',
                           fontSize: '13px',
                           fontWeight: 700,
                           fontFamily: 'JetBrains Mono, monospace',
@@ -415,6 +460,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
 
             {/* 2. Asymmetric Secondary Projects Grid */}
             <div
+              className="scrolly-projects-grid"
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
@@ -438,7 +484,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                     flexDirection: 'column',
                     position: 'relative',
                   }}
-                  className="project-card"
+                  className="project-card scrolly-project-tile"
                 >
                   {/* Thumbnail Video Panel */}
                   <div
@@ -487,7 +533,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                           borderRadius: '6px',
                           backgroundColor: 'rgba(7, 7, 9, 0.8)',
                           backdropFilter: 'blur(8px)',
-                          color: '#ccff00',
+                          color: '#ffffff',
                           fontSize: '11px',
                           fontWeight: 700,
                           fontFamily: 'JetBrains Mono, monospace',
@@ -501,7 +547,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                           borderRadius: '6px',
                           backgroundColor: 'rgba(7, 7, 9, 0.8)',
                           backdropFilter: 'blur(8px)',
-                          color: '#ffffff',
+                          color: '#a1a1aa',
                           fontSize: '11px',
                           fontFamily: 'JetBrains Mono, monospace',
                         }}
@@ -519,12 +565,12 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                         width: '46px',
                         height: '46px',
                         borderRadius: '50%',
-                        backgroundColor: '#ccff00',
+                        backgroundColor: '#ffffff',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         color: '#070709',
-                        boxShadow: '0 0 20px rgba(204, 255, 0, 0.4)',
+                        boxShadow: '0 0 20px rgba(255, 255, 255, 0.3)',
                       }}
                     >
                       <Play size={18} fill="#070709" />
@@ -538,7 +584,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                         style={{
                           fontSize: '11px',
                           fontFamily: 'JetBrains Mono, monospace',
-                          color: '#ccff00',
+                          color: '#ffffff',
                           fontWeight: 700,
                         }}
                       >
@@ -583,24 +629,27 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
       </div>
 
       {/* Project Detail Overlay Modal */}
-      <ProjectModal
-        project={activeModalProject}
-        lang={lang}
-        onClose={() => setActiveModalProject(null)}
-        onNavigate={handleNavigateModal}
-      />
+      {!externalOpenProject && internalModalProject && (
+        <ProjectModal
+          key={internalModalProject.id}
+          project={internalModalProject}
+          lang={lang}
+          onClose={() => setInternalModalProject(null)}
+          onNavigate={handleNavigateModal}
+        />
+      )}
 
       <style>{`
         .featured-project-card:hover {
-          border-color: #ccff00 !important;
-          box-shadow: 0 25px 70px rgba(204, 255, 0, 0.15) !important;
+          border-color: rgba(255, 255, 255, 0.6) !important;
+          box-shadow: 0 25px 70px rgba(255, 255, 255, 0.08) !important;
         }
         .featured-project-card:hover .project-image-zoom {
           transform: scale(1.05);
         }
         .project-card:hover {
           transform: translateY(-6px);
-          border-color: rgba(204, 255, 0, 0.4) !important;
+          border-color: rgba(255, 255, 255, 0.5) !important;
           box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
         }
         .project-card:hover .project-image-zoom {

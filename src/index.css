@@ -1,25 +1,30 @@
 :root {
   --bg-deep: #070709;
+  --bg-espresso: #0e0a08;
+  --bg-chocolate: #261710;
+  --bg-chocolate-light: #382419;
+  --cream-putty: #ccd5c9;
+  --cream-putty-hover: #e4ebe0;
   --bg-darker: #040405;
   --bg-surface: #0e0f14;
   --bg-card: #13141b;
   --bg-card-hover: #191b24;
-  --lime: #ccff00;
-  --lime-glow: rgba(204, 255, 0, 0.25);
-  --orange: #ff5500;
-  --orange-glow: rgba(255, 85, 0, 0.25);
-  --cyan: #00f0ff;
-  --white: #f5f6fa;
-  --gray-100: #e2e4ec;
-  --gray-300: #b0b4c5;
-  --gray-500: #717588;
-  --gray-700: #343746;
-  --gray-800: #1d1e26;
-  --gray-900: #111218;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.15);
-  --border-lime: rgba(204, 255, 0, 0.4);
-  --border-orange: rgba(255, 85, 0, 0.4);
+  --lime: #ffffff;
+  --lime-glow: rgba(255, 255, 255, 0.25);
+  --orange: #e4e4e7;
+  --orange-glow: rgba(255, 255, 255, 0.15);
+  --cyan: #f4f4f5;
+  --white: #ffffff;
+  --gray-100: #f4f4f5;
+  --gray-300: #d4d4d8;
+  --gray-500: #a1a1aa;
+  --gray-700: #52525b;
+  --gray-800: #27272a;
+  --gray-900: #18181b;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-medium: rgba(255, 255, 255, 0.2);
+  --border-lime: rgba(255, 255, 255, 0.35);
+  --border-orange: rgba(255, 255, 255, 0.35);
   --font-display-en: 'Syne', 'Space Grotesk', sans-serif;
   --font-body-en: 'Space Grotesk', -apple-system, sans-serif;
   --font-display-ar: 'Alexandria', sans-serif;
@@ -266,3 +271,178 @@ html[dir="rtl"] .animate-marquee {
     cursor: none !important;
   }
 }
+
+/* Studio Hero & Monumental Split Typography */
+.studio-hero-gradient {
+  background: radial-gradient(ellipse 120% 100% at 50% 30%, #301d14 0%, #1a0e08 45%, #080706 90%);
+}
+
+.monumental-name {
+  font-family: 'Alexandria', 'Syne', sans-serif;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--cream-putty);
+  user-select: none;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+/* Folder Dossier Deck System (Inspired by Reference) */
+.folder-dossier-card {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+.folder-dossier-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Dynamic Tab Cutout Header */
+.folder-tab-notch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px 6px 14px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  position: relative;
+  margin-bottom: -1px;
+}
+
+/* Gear Stack Interactive Fan-Out */
+.gear-fan-container {
+  position: relative;
+  height: 140px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.gear-fan-card {
+  position: absolute;
+  bottom: 0;
+  width: 90px;
+  height: 120px;
+  border-radius: 14px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  transform-origin: bottom center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.gear-fan-container:hover .gear-fan-card:nth-child(1) {
+  transform: translateX(-80px) rotate(-18deg) translateY(-8px);
+}
+.gear-fan-container:hover .gear-fan-card:nth-child(2) {
+  transform: translateX(-40px) rotate(-9deg) translateY(-14px);
+}
+.gear-fan-container:hover .gear-fan-card:nth-child(3) {
+  transform: translateX(0px) rotate(0deg) translateY(-20px);
+}
+.gear-fan-container:hover .gear-fan-card:nth-child(4) {
+  transform: translateX(40px) rotate(9deg) translateY(-14px);
+}
+.gear-fan-container:hover .gear-fan-card:nth-child(5) {
+  transform: translateX(80px) rotate(18deg) translateY(-8px);
+}
+
+/* Floating Dock Pill */
+.floating-dock-pill {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Smooth Tilt Perspective Container */
+.perspective-container {
+  perspective: 1200px;
+}
+
+/* Kinetic Masked Typography Helpers */
+.text-mask-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: 1;
+}
+
+.text-mask-inner {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Fullscreen Pinned Master Scene */
+.master-scene-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #070709;
+}
+
+/* Corner Camera HUD Framing Brackets */
+.hud-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: rgba(204, 255, 0, 0.4);
+  pointer-events: none;
+  z-index: 25;
+}
+.hud-tl { top: 28px; left: 28px; border-top: 2px solid; border-left: 2px solid; }
+.hud-tr { top: 28px; right: 28px; border-top: 2px solid; border-right: 2px solid; }
+.hud-bl { bottom: 28px; left: 28px; border-bottom: 2px solid; border-left: 2px solid; }
+.hud-br { bottom: 28px; right: 28px; border-bottom: 2px solid; border-right: 2px solid; }
+
+/* Cinematic Lens Flare Glow Layer */
+.cinema-flare-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform, opacity;
+}
+
+/* Custom Scroll Progress Ticker */
+.scroll-cue-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* Mobile natural vertical scrolling without height traps */
+@media (max-width: 1023px) {
+  .master-scene-stage {
+    height: auto !important;
+    min-height: 100vh;
+    padding-top: 100px !important;
+    padding-bottom: 80px !important;
+  }
+}
+
+/* Prefers Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+

@@ -7,26 +7,24 @@ interface Hero3DProps {
 
 export const Hero3D: React.FC<Hero3DProps> = ({ onLoaded }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [webglSupported, setWebglSupported] = useState<boolean>(true);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    // Check WebGL support
+  const [webglSupported] = useState<boolean>(() => {
+    if (typeof document === 'undefined') return true;
     try {
       const testCanvas = document.createElement('canvas');
-      const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
-      if (!gl) {
-        setWebglSupported(false);
-        if (onLoaded) onLoaded();
-        return;
-      }
+      return !!(testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl'));
     } catch {
-      setWebglSupported(false);
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    if (!webglSupported) {
       if (onLoaded) onLoaded();
       return;
     }
+
+    const container = containerRef.current;
+    if (!container) return;
 
     // Three.js Scene Setup
     const scene = new THREE.Scene();
@@ -442,7 +440,7 @@ export const Hero3D: React.FC<Hero3DProps> = ({ onLoaded }) => {
       texture2.dispose();
       texture3.dispose();
     };
-  }, [onLoaded]);
+  }, [onLoaded, webglSupported]);
 
   if (!webglSupported) {
     return (

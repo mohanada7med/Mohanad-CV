@@ -7,21 +7,15 @@ export const CustomCursor: React.FC = () => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [isClicking, setIsClicking] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(true);
+  const [isTouchDevice] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true;
+    return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  });
 
   const requestRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Check if touch device
-    const checkTouch = () => {
-      return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-    };
-
-    if (checkTouch()) {
-      setIsTouchDevice(true);
-      return;
-    }
-    setIsTouchDevice(false);
+    if (isTouchDevice) return;
     document.body.classList.add('custom-cursor-active');
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -68,7 +62,7 @@ export const CustomCursor: React.FC = () => {
       document.removeEventListener('mouseenter', handleMouseEnter);
       document.body.classList.remove('custom-cursor-active');
     };
-  }, [isVisible]);
+  }, [isVisible, isTouchDevice]);
 
   // Smooth lerp for trailing ring
   useEffect(() => {
@@ -106,12 +100,12 @@ export const CustomCursor: React.FC = () => {
           top: `${position.y}px`,
           width: hasLabel ? '0px' : isHovering ? '6px' : '8px',
           height: hasLabel ? '0px' : isHovering ? '6px' : '8px',
-          backgroundColor: '#ccff00',
+          backgroundColor: '#ffffff',
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
           transition: 'width 0.2s, height 0.2s, opacity 0.2s',
           opacity: hasLabel ? 0 : 1,
-          boxShadow: '0 0 10px #ccff00',
+          boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
         }}
       />
 
@@ -124,21 +118,21 @@ export const CustomCursor: React.FC = () => {
           width: hasLabel ? '88px' : isHovering ? '48px' : '32px',
           height: hasLabel ? '88px' : isHovering ? '48px' : '32px',
           borderRadius: '50%',
-          border: hasLabel ? '1px solid #ccff00' : isHovering ? '1.5px solid #ccff00' : '1px solid rgba(255, 255, 255, 0.4)',
-          backgroundColor: hasLabel ? 'rgba(7, 7, 9, 0.92)' : isHovering ? 'rgba(204, 255, 0, 0.12)' : 'transparent',
+          border: hasLabel ? '1px solid #ffffff' : isHovering ? '1.5px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.4)',
+          backgroundColor: hasLabel ? 'rgba(10, 10, 12, 0.95)' : isHovering ? 'rgba(255, 255, 255, 0.12)' : 'transparent',
           backdropFilter: hasLabel ? 'blur(8px)' : 'none',
           transform: `translate(-50%, -50%) scale(${isClicking ? 0.85 : 1})`,
           transition: 'width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, border-color 0.2s',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: hasLabel ? '0 0 24px rgba(204, 255, 0, 0.35)' : 'none',
+          boxShadow: hasLabel ? '0 0 24px rgba(255, 255, 255, 0.3)' : 'none',
         }}
       >
         {hasLabel && (
           <span
             style={{
-              color: '#ccff00',
+              color: '#ffffff',
               fontSize: '11px',
               fontFamily: 'JetBrains Mono, monospace',
               fontWeight: 700,

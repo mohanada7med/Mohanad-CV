@@ -19,13 +19,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
 }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [isMuted, setIsMuted] = useState<boolean>(true);
-  const [progress, setProgress] = useState<number>(35);
+  const [progress, setProgress] = useState<number>(15);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
 
   useEffect(() => {
     if (!project) return;
-    setIsPlaying(true);
-    setProgress(15);
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowRight') onNavigate(lang === 'ar' ? 'prev' : 'next');
@@ -113,8 +111,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               style={{
                 padding: '4px 10px',
                 borderRadius: '6px',
-                backgroundColor: '#ccff00',
-                color: '#070709',
+                backgroundColor: '#ffffff',
+                color: '#000000',
                 fontSize: '11px',
                 fontWeight: 800,
                 fontFamily: 'JetBrains Mono, monospace',
@@ -250,7 +248,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                     style={{
                       fontFamily: 'JetBrains Mono, monospace',
                       fontSize: '11px',
-                      color: '#ccff00',
+                      color: '#ffffff',
                       fontWeight: 700,
                       backgroundColor: 'rgba(0,0,0,0.6)',
                       padding: '3px 8px',
@@ -275,7 +273,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   <span
                     style={{
                       fontSize: '11px',
-                      color: '#ccff00',
+                      color: '#ffffff',
                       fontFamily: 'JetBrains Mono, monospace',
                       fontWeight: 700,
                     }}
@@ -319,15 +317,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                       width: '64px',
                       height: '64px',
                       borderRadius: '50%',
-                      backgroundColor: 'rgba(204, 255, 0, 0.9)',
+                      backgroundColor: '#ffffff',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#070709',
-                      boxShadow: '0 0 30px #ccff00',
+                      color: '#000000',
+                      boxShadow: '0 0 30px rgba(255, 255, 255, 0.4)',
                     }}
                   >
-                    <Play size={28} fill="#070709" />
+                    <Play size={28} fill="#000000" />
                   </div>
                 )}
               </button>
@@ -347,8 +345,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   style={{
                     height: '100%',
                     width: `${progress}%`,
-                    backgroundColor: '#ccff00',
-                    boxShadow: '0 0 10px #ccff00',
+                    backgroundColor: '#ffffff',
+                    boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
                   }}
                 />
               </div>
@@ -404,7 +402,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   justifyContent: 'center',
                 }}
               >
-                {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} color="#ccff00" />}
+                {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} color="#ffffff" />}
               </button>
             </div>
           </div>
@@ -417,7 +415,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 style={{
                   fontSize: '13px',
                   fontFamily: 'JetBrains Mono, monospace',
-                  color: '#ccff00',
+                  color: '#ffffff',
                   fontWeight: 700,
                   marginBottom: '6px',
                 }}
@@ -446,10 +444,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                     padding: '4px 10px',
                     borderRadius: '6px',
                     backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
                     fontSize: '11px',
                     fontFamily: 'JetBrains Mono, monospace',
-                    color: '#b0b4c5',
+                    color: '#d4d4d8',
                   }}
                 >
                   #{tag}
@@ -467,11 +465,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               style={{
                 padding: '20px',
                 borderRadius: '16px',
-                backgroundColor: 'rgba(204, 255, 0, 0.04)',
-                border: '1px solid rgba(204, 255, 0, 0.2)',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#ccff00' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#ffffff' }}>
                 <Sparkles size={16} />
                 <span style={{ fontSize: '11px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800 }}>
                   {lang === 'en' ? 'CREATIVE HOOK & CONCEPT' : 'الفكرة الإبداعية والهوك'}
@@ -487,11 +485,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               style={{
                 padding: '20px',
                 borderRadius: '16px',
-                backgroundColor: 'rgba(255, 85, 0, 0.04)',
-                border: '1px solid rgba(255, 85, 0, 0.2)',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#ff5500' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#ffffff' }}>
                 <Target size={16} />
                 <span style={{ fontSize: '11px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800 }}>
                   {lang === 'en' ? 'CAMPAIGN OBJECTIVE' : 'الهدف التسويقي للحملة'}
@@ -513,12 +511,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', color: '#ffffff' }}>
-                  <Layers size={15} color="#ccff00" />
+                  <Layers size={15} color="#ffffff" />
                   <span style={{ fontSize: '11px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
                     {lang === 'en' ? 'VERIFIED PERFORMANCE' : 'النتائج والاستبقاء'}
                   </span>
                 </div>
-                <p style={{ fontSize: '13px', color: '#8d90a0' }}>
+                <p style={{ fontSize: '13px', color: '#a1a1aa' }}>
                   {lang === 'en' ? project.results_en : project.results_ar}
                 </p>
               </div>
@@ -571,8 +569,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   gap: '8px',
                   padding: '10px 18px',
                   borderRadius: '100px',
-                  backgroundColor: '#ccff00',
-                  color: '#070709',
+                  backgroundColor: '#ffffff',
+                  color: '#000000',
                   fontSize: '12px',
                   fontWeight: 800,
                   border: 'none',

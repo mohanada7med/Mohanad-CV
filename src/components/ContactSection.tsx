@@ -1,17 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 import type { Language } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import confetti from 'canvas-confetti';
 import { Mail, MessageCircle, Send, Copy, Check, Sparkles, ArrowUpRight } from 'lucide-react';
 
+gsap.registerPlugin(ScrollTrigger);
+
 interface ContactSectionProps {
   lang: Language;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
+  const contactRef = useRef<HTMLElement>(null);
   const t = PORTFOLIO_DATA.ui[lang];
   const creator = PORTFOLIO_DATA.creator;
+
+  useEffect(() => {
+    const el = contactRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from('.scrolly-contact-card', {
+        y: 60,
+        opacity: 0,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 75%',
+        },
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -87,6 +113,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
 
   return (
     <section
+      ref={contactRef}
       id="contact"
       style={{
         position: 'relative',
@@ -164,7 +191,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
           }}
         >
           {/* Left Column: Direct Fast Channels */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div className="scrolly-contact-card" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {/* Direct WhatsApp Card */}
             <div
               className="glass-panel-elevated"
@@ -357,7 +384,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
 
           {/* Right Column: Interactive Collaboration Inquiry Form */}
           <div
-            className="glass-panel-elevated"
+            className="glass-panel-elevated scrolly-contact-card"
             style={{
               padding: 'clamp(28px, 4vw, 40px)',
               borderRadius: '28px',

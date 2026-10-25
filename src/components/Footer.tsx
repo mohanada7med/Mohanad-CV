@@ -8,6 +8,8 @@ interface FooterProps {
   lang: Language;
 }
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export const Footer: React.FC<FooterProps> = ({ lang }) => {
   const t = PORTFOLIO_DATA.ui[lang];
   const creator = PORTFOLIO_DATA.creator;
@@ -82,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               <span>{lang === 'en' ? t.footer_location : 'أسيوط، مصر — متاح للتعاون محلياً ودولياً'}</span>
             </div>
             <div style={{ color: '#8d90a0', fontSize: '13px', marginTop: '6px' }}>
-              {t.footer_rights} © 2019 — {new Date().getFullYear()}
+              {t.footer_rights} © 2019 — {CURRENT_YEAR}
             </div>
           </div>
 
