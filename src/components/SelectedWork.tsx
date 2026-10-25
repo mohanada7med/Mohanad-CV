@@ -5,7 +5,7 @@ import { PORTFOLIO_DATA } from '../data/portfolioData';
 import type { Project, Language } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import { ProjectModal } from './ProjectModal';
-import { Play, Sparkles, Filter, ArrowUpRight, Flame, Film, Star, Zap } from 'lucide-react';
+import { Play, Sparkles, Filter, ArrowUpRight, Flame } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -258,7 +258,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
             <span>{isAr ? 'التصنيف:' : 'GENRE:'}</span>
           </div>
 
-          {categories.map((cat, i) => {
+          {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
               <button
@@ -549,7 +549,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({
                 gap: '32px',
               }}
             >
-              {regularProjects.map((project, idx) => (
+              {regularProjects.map((project) => (
                 <div
                   key={project.id}
                   onClick={() => handleOpenProject(project)}

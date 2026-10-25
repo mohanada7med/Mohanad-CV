@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import gsap from 'gsap';
-import { PORTFOLIO_DATA, type Language } from '../../data/portfolioData';
+import { type Language } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 import { ComicBadge, ComicStars, DoodleArrow, SpeechBubble } from '../comic/ComicElements';
-import { Sparkles, ArrowDown, Film, Zap, Flame, Video, Award, Target } from 'lucide-react';
+import { ArrowDown, Film, Zap, Flame, Video, Award, Target } from 'lucide-react';
 
 interface Scene01IntroProps {
   lang: Language;
@@ -19,7 +19,6 @@ interface Particle {
 }
 
 export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) => {
-  const creator = PORTFOLIO_DATA.creator;
   const isAr = lang === 'ar';
 
   const introRef = useRef<HTMLDivElement>(null);
@@ -510,11 +509,12 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
               }}
             >
               <SpeechBubble
-                text={isAr ? 'جاهزين لإعلان يقلب موازين السوق؟ 🎬💥' : 'Ready to craft viral cinematic records? 🎬💥'}
-                tailPosition="bottom-center"
+                tailDirection="bottom-left"
                 bgColor="#ffffff"
                 textColor="#000000"
-              />
+              >
+                <span>{isAr ? 'جاهزين لإعلان يقلب موازين السوق؟ 🎬💥' : 'Ready to craft viral cinematic records? 🎬💥'}</span>
+              </SpeechBubble>
             </div>
           </div>
 
