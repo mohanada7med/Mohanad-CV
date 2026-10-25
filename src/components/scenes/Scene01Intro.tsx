@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { type Language } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
-import { ComicBadge, ComicStars, DoodleArrow, SpeechBubble } from '../comic/ComicElements';
+import { ComicBadge, ComicStars, DoodleArrow } from '../comic/ComicElements';
 import { ArrowDown, Film, Zap, Flame, Video, Award, Target } from 'lucide-react';
 
 interface Scene01IntroProps {
@@ -33,8 +33,8 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
   const [sfxWord, setSfxWord] = useState<{ text: string; id: number } | null>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
 
-  const firstName = isAr ? 'مُـهَـنَّـد' : 'MOHANAD';
-  const lastName = isAr ? 'أحْـمَـد' : 'AHMED';
+  const firstName = isAr ? 'مُــــهَـنَّـد' : 'MOHANAD';
+  const lastName = isAr ? 'أحْـمَــــد' : 'AHMED';
 
   // 1. الدخول الأولي الساحر بـ GSAP (Cinematic Slam & Expand)
   useEffect(() => {
@@ -508,13 +508,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
                 transform: 'rotate(-2deg)',
               }}
             >
-              <SpeechBubble
-                tailDirection="bottom-left"
-                bgColor="#ffffff"
-                textColor="#000000"
-              >
-                <span>{isAr ? 'جاهزين لإعلان يقلب موازين السوق؟ 🎬💥' : 'Ready to craft viral cinematic records? 🎬💥'}</span>
-              </SpeechBubble>
+
             </div>
           </div>
 

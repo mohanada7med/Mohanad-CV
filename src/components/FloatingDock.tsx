@@ -102,35 +102,43 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
     <div
       style={{
         position: 'fixed',
-        bottom: isScrolled ? '18px' : '26px',
+        bottom: isScrolled
+          ? 'calc(14px + env(safe-area-inset-bottom, 0px))'
+          : 'calc(20px + env(safe-area-inset-bottom, 0px))',
         left: 0,
         right: 0,
         zIndex: 1000,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '0 16px',
+        padding: '0 clamp(8px, 2vw, 16px)',
         pointerEvents: 'none',
         transition: 'bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
       }}
     >
-      {/* الـ Tooltip يطفو لأعلى فوق الـ Dock */}
+      {/* Floating Tooltip Banner */}
       {activeTooltip && (
         <div
           style={{
-            marginBottom: '12px',
-            padding: '6px 14px',
+            marginBottom: '10px',
+            padding: '5px 12px',
             borderRadius: '8px',
             backgroundColor: '#ffffff',
             border: '2.5px solid #000000',
             color: '#000000',
-            fontSize: '12px',
+            fontSize: '11px',
             fontWeight: 900,
-            fontFamily: lang === 'en' ? 'JetBrains Mono, monospace' : 'var(--font-display-ar, sans-serif)',
+            fontFamily: lang === 'en' ? 'var(--font-mono)' : 'var(--font-display-ar)',
             whiteSpace: 'nowrap',
-            boxShadow: '4px 4px 0px #000000',
+            boxShadow: '3px 3px 0px #000000',
             pointerEvents: 'none',
             transform: 'rotate(-1.5deg)',
+            maxWidth: '90vw',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
           }}
         >
           {activeTooltip}
@@ -143,19 +151,21 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
           pointerEvents: 'auto',
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
-          padding: '7px 12px',
+          gap: 'clamp(4px, 1.2vw, 8px)',
+          padding: 'clamp(5px, 1vw, 7px) clamp(8px, 1.5vw, 12px)',
           borderRadius: '20px',
           backgroundColor: '#0c0d16',
           border: '3px solid #000000',
           boxShadow: isScrolled
-            ? '6px 6px 0px #000000, 6px 6px 0px 3px #ccff00'
-            : '8px 8px 0px #000000, 8px 8px 0px 3px #ccff00',
+            ? '5px 5px 0px #000000, 5px 5px 0px 2.5px #ccff00'
+            : '7px 7px 0px #000000, 7px 7px 0px 2.5px #ccff00',
           transition: 'all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-          transform: isScrolled ? 'scale(0.96)' : 'scale(1)',
+          maxWidth: 'calc(100vw - 16px)',
+          boxSizing: 'border-box',
+          overflowX: 'auto',
         }}
       >
-        {/* زر تبديل اللغة كملصق كرتوني */}
+        {/* Language switch button */}
         <button
           onClick={() => {
             sound.playWhoosh();
@@ -168,40 +178,41 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
           onMouseLeave={() => setActiveTooltip(null)}
           title={lang === 'en' ? 'Switch to Arabic' : 'التحويل للإنجليزية'}
           style={{
-            height: '36px',
-            padding: '0 14px',
+            height: 'clamp(32px, 8.5vw, 36px)',
+            padding: '0 clamp(8px, 2vw, 12px)',
             borderRadius: '10px',
             backgroundColor: '#ffe600',
             border: '2.5px solid #000000',
             color: '#000000',
-            fontSize: '13px',
+            fontSize: 'clamp(11px, 2.8vw, 13px)',
             fontWeight: 900,
-            fontFamily: 'JetBrains Mono, monospace',
+            fontFamily: 'var(--font-mono)',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '5px',
-            boxShadow: '3px 3px 0px #000000',
+            gap: '4px',
+            boxShadow: '2.5px 2.5px 0px #000000',
+            flexShrink: 0,
             transition: 'transform 0.15s ease, box-shadow 0.15s ease',
           }}
           onMouseDown={(e) => {
-            e.currentTarget.style.transform = 'translate(2px, 2px)';
+            e.currentTarget.style.transform = 'translate(1.5px, 1.5px)';
             e.currentTarget.style.boxShadow = '1px 1px 0px #000000';
           }}
           onMouseUp={(e) => {
             e.currentTarget.style.transform = 'translate(0, 0)';
-            e.currentTarget.style.boxShadow = '3px 3px 0px #000000';
+            e.currentTarget.style.boxShadow = '2.5px 2.5px 0px #000000';
           }}
         >
-          <Sparkles size={13} color="#000000" />
+          <Sparkles size={12} color="#000000" />
           <span>{lang === 'en' ? 'عربي' : 'EN'}</span>
         </button>
 
-        {/* فاصل كرتوني عمودي */}
-        <div style={{ width: '3px', height: '24px', backgroundColor: '#000000', borderRadius: '2px' }} />
+        {/* Vertical divider */}
+        <div style={{ width: '2px', height: '22px', backgroundColor: '#33374a', borderRadius: '1px', flexShrink: 0 }} />
 
-        {/* أزرار المشاهد والواتساب */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        {/* Scene navigation buttons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(4px, 1vw, 8px)', flexShrink: 0 }}>
           {dockItems.map((item) => {
             const Icon = item.icon;
             const tooltipText = lang === 'en' ? item.labelEn : item.labelAr;
@@ -212,7 +223,7 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
                 onMouseEnter={(e) => {
                   sound.playHover();
                   setActiveTooltip(tooltipText);
-                  e.currentTarget.style.transform = 'translateY(-4px) scale(1.08)';
+                  e.currentTarget.style.transform = 'translateY(-3px) scale(1.06)';
                 }}
                 onMouseLeave={(e) => {
                   setActiveTooltip(null);
@@ -221,8 +232,8 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
                 aria-label={tooltipText}
                 style={{
                   position: 'relative',
-                  width: '38px',
-                  height: '38px',
+                  width: 'clamp(32px, 8.5vw, 38px)',
+                  height: 'clamp(32px, 8.5vw, 38px)',
                   borderRadius: '10px',
                   backgroundColor: item.bg,
                   color: item.activeColor,
@@ -231,28 +242,29 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '3px 3px 0px #000000',
+                  boxShadow: '2.5px 2.5px 0px #000000',
+                  flexShrink: 0,
                   transition: 'transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.15s ease',
                 }}
                 onMouseDown={(e) => {
-                  e.currentTarget.style.transform = 'translate(2px, 2px)';
+                  e.currentTarget.style.transform = 'translate(1.5px, 1.5px)';
                   e.currentTarget.style.boxShadow = '1px 1px 0px #000000';
                 }}
                 onMouseUp={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px) scale(1.08)';
-                  e.currentTarget.style.boxShadow = '3px 3px 0px #000000';
+                  e.currentTarget.style.transform = 'translateY(-3px) scale(1.06)';
+                  e.currentTarget.style.boxShadow = '2.5px 2.5px 0px #000000';
                 }}
               >
-                <Icon size={19} strokeWidth={2.6} />
+                <Icon size={17} strokeWidth={2.6} />
               </button>
             );
           })}
         </div>
 
-        {/* فاصل كرتوني عمودي */}
-        <div style={{ width: '3px', height: '24px', backgroundColor: '#000000', borderRadius: '2px' }} />
+        {/* Vertical divider */}
+        <div style={{ width: '2px', height: '22px', backgroundColor: '#33374a', borderRadius: '1px', flexShrink: 0 }} />
 
-        {/* زر التحكم بالصوت */}
+        {/* Audio Toggle Button */}
         <button
           onClick={() => {
             onAudioToggle();
@@ -268,7 +280,7 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
                   ? 'Turn On SFX 🔊'
                   : 'تشغيل المؤثرات 🔊'
             );
-            e.currentTarget.style.transform = 'translateY(-3px)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
           }}
           onMouseLeave={(e) => {
             setActiveTooltip(null);
@@ -276,39 +288,26 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
           }}
           aria-label={isAudioActive ? 'Sound On' : 'Sound Muted'}
           style={{
-            height: '36px',
-            padding: '0 12px',
+            height: 'clamp(32px, 8.5vw, 36px)',
+            padding: '0 clamp(8px, 1.5vw, 10px)',
             borderRadius: '10px',
-            backgroundColor: isAudioActive ? '#ccff00' : '#222538',
+            backgroundColor: isAudioActive ? '#ccff00' : '#1b1d28',
+            color: isAudioActive ? '#000000' : '#8d90a0',
             border: '2.5px solid #000000',
-            color: isAudioActive ? '#000000' : '#8c90a4',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            boxShadow: '3px 3px 0px #000000',
-            transition: 'all 0.2s ease',
-          }}
-          onMouseDown={(e) => {
-            e.currentTarget.style.transform = 'translate(2px, 2px)';
-            e.currentTarget.style.boxShadow = '1px 1px 0px #000000';
-          }}
-          onMouseUp={(e) => {
-            e.currentTarget.style.transform = 'translateY(-3px)';
-            e.currentTarget.style.boxShadow = '3px 3px 0px #000000';
+            justifyContent: 'center',
+            gap: '4px',
+            boxShadow: '2.5px 2.5px 0px #000000',
+            flexShrink: 0,
+            transition: 'all 0.15s ease',
           }}
         >
           {isAudioActive ? (
-            <>
-              <Volume2 size={17} strokeWidth={2.8} />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '3px', height: '14px' }}>
-                <span style={{ width: '3px', height: '12px', backgroundColor: '#000000', borderRadius: '2px', animation: 'comic-pulse 0.8s infinite' }} />
-                <span style={{ width: '3px', height: '7px', backgroundColor: '#000000', borderRadius: '2px', animation: 'comic-pulse 0.6s infinite 0.2s' }} />
-                <span style={{ width: '3px', height: '14px', backgroundColor: '#000000', borderRadius: '2px', animation: 'comic-pulse 0.9s infinite 0.4s' }} />
-              </div>
-            </>
+            <Volume2 size={16} strokeWidth={2.6} color="#000000" />
           ) : (
-            <VolumeX size={17} strokeWidth={2.6} />
+            <VolumeX size={16} strokeWidth={2.4} color="#8d90a0" />
           )}
         </button>
       </nav>

@@ -15,9 +15,9 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeProjectIndex, setActiveProjectIndex] = useState<number>(0);
   const [modalProject, setModalProject] = useState<Project | null>(null);
-
   const t = PORTFOLIO_DATA.ui[lang];
   const isAr = lang === 'ar';
+
   const projects = PORTFOLIO_DATA.projects;
   const currentProject = projects[activeProjectIndex] || projects[0];
 
@@ -41,20 +41,33 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x0a0b12, 0.045);
 
+    const getResponsiveCameraZ = (width: number) => {
+      if (width < 440) return 7.8;
+      if (width < 768) return 6.8;
+      if (width < 1024) return 5.8;
+      return 5.2;
+    };
+
+    const getResponsiveXSpacing = (width: number) => {
+      if (width < 440) return 0.95;
+      if (width < 768) return 1.1;
+      return 1.35;
+    };
+
     const camera = new THREE.PerspectiveCamera(
       45,
       container.clientWidth / container.clientHeight,
       0.1,
       100
     );
-    camera.position.set(0, 0.1, 5.2);
+    camera.position.set(0, 0.1, getResponsiveCameraZ(container.clientWidth));
 
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     container.appendChild(renderer.domElement);
 
-    // إضاءة سينمائية متطابقة مع ألوان الهوية
+    // Dynamic cinematic lighting matching theme colors
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.8);
     scene.add(ambientLight);
 
@@ -66,7 +79,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
     rimLight.position.set(-3, -2, 3);
     scene.add(rimLight);
 
-    // بناء هندسة ومجسمات البطاقات
+    // Card geometry with responsive scaling
     const cardWidth = 1.7;
     const cardHeight = 2.65;
     const screenGeo = new THREE.PlaneGeometry(cardWidth, cardHeight);
@@ -104,7 +117,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
       screenMeshes.push(cardGroup);
     });
 
-    // تفاعل السحب بالأصابع والماوس
+    // Touch and mouse drag interaction
     let currentIndex = targetIndexRef.current;
     let isDragging = false;
     let previousMouseX = 0;
@@ -117,7 +130,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
     const onMouseMove = (e: MouseEvent) => {
       if (!isDragging) return;
       const delta = e.clientX - previousMouseX;
-      targetIndexRef.current -= delta * 0.006;
+      targetIndexRef.current -= delta * 0.005;
       targetIndexRef.current = Math.max(0, Math.min(projects.length - 1, targetIndexRef.current));
       previousMouseX = e.clientX;
     };
@@ -142,7 +155,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
     };
     const onTouchMove = (e: TouchEvent) => {
       const delta = e.touches[0].clientX - touchStartX;
-      targetIndexRef.current -= delta * 0.008;
+      targetIndexRef.current -= delta * 0.007;
       targetIndexRef.current = Math.max(0, Math.min(projects.length - 1, targetIndexRef.current));
       touchStartX = e.touches[0].clientX;
     };
@@ -156,32 +169,34 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
     domEl.addEventListener('touchmove', onTouchMove, { passive: true });
     domEl.addEventListener('touchend', onTouchEnd);
 
-    // Animation Loop: توزيع Fan / Stacked Deck
+    // Animation Loop
     let animId: number;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const animate = () => {
       animId = requestAnimationFrame(animate);
 
-      // تنعيم الحركة نحو البطاقة المستهدفة
-      currentIndex += (targetIndexRef.current - currentIndex) * 0.1;
+      const lerpSpeed = prefersReducedMotion ? 0.25 : 0.1;
+      currentIndex += (targetIndexRef.current - currentIndex) * lerpSpeed;
+
+      const currentWidth = container.clientWidth;
+      const xSpacing = getResponsiveXSpacing(currentWidth);
 
       screenMeshes.forEach((mesh, i) => {
         const diff = i - currentIndex;
         const absDiff = Math.abs(diff);
 
-        // إزاحة أفقية منحنية مع تدوير في محور Z يشبه تفرع أوراق اللعب
-        mesh.position.x = diff * 1.35;
+        mesh.position.x = diff * xSpacing;
         mesh.position.y = -Math.pow(diff, 2) * 0.12 + 0.1;
         mesh.position.z = -absDiff * 0.55;
 
-        mesh.rotation.z = -diff * 0.09;
-        mesh.rotation.y = -diff * 0.14;
+        mesh.rotation.z = -diff * 0.08;
+        mesh.rotation.y = -diff * 0.12;
 
-        // تكبير البطاقة الأقرب للمركز
-        const scale = Math.max(0.75, 1 - absDiff * 0.09);
+        const scale = Math.max(0.72, 1 - absDiff * 0.09);
         mesh.scale.setScalar(scale);
 
-        // إخفاء الكروت البعيدة جدًا لتسريع الأداء
-        mesh.visible = absDiff < 4.2;
+        mesh.visible = absDiff < 4.5;
       });
 
       renderer.render(scene, camera);
@@ -190,9 +205,12 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
 
     const handleResize = () => {
       if (!container) return;
-      camera.aspect = container.clientWidth / container.clientHeight;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.position.z = getResponsiveCameraZ(width);
       camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setSize(width, height);
     };
     window.addEventListener('resize', handleResize);
 
@@ -242,7 +260,7 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
       style={{
         position: 'relative',
         minHeight: '100vh',
-        padding: '110px clamp(16px, 4vw, 50px) 90px',
+        padding: 'clamp(80px, 10vh, 110px) clamp(16px, 4vw, 44px) clamp(60px, 8vh, 90px)',
         backgroundColor: '#0a0b12',
         overflow: 'hidden',
         display: 'flex',
@@ -250,41 +268,43 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
         justifyContent: 'space-between',
         borderTop: '4px solid #000000',
         borderBottom: '4px solid #000000',
+        width: '100%',
+        maxWidth: '100%',
       }}
     >
-      {/* Comic Stars */}
+      {/* Decorative Comic Stars */}
       <div style={{ position: 'absolute', top: '40px', right: '5%', pointerEvents: 'none' }}>
         <ComicStars size={32} color="#00e5ff" />
       </div>
 
       {/* Top Header */}
       <div style={{ maxWidth: '1360px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '880px', marginBottom: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '18px', flexWrap: 'wrap' }}>
-            <ComicBadge text="SPATIAL 3D STUDIO" subtext="FAN DECK" bg="#00e5ff" rotation={-2} />
+        <div style={{ maxWidth: '880px', marginBottom: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
+            <ComicBadge text="SPATIAL 3D STUDIO" subtext="CYLINDER REEL" bg="#00e5ff" rotation={-2} />
             <span
               style={{
-                fontSize: '12px',
-                fontFamily: 'JetBrains Mono, monospace',
+                fontSize: '11px',
+                fontFamily: 'var(--font-mono)',
                 color: '#ccff00',
                 fontWeight: 900,
                 textTransform: 'uppercase',
               }}
             >
-              ★ RADIAL STACKED REEL
+              ★ INTERACTIVE 360° REEL CAROUSEL
             </span>
           </div>
 
           <h2
             style={{
-              fontSize: 'clamp(2.2rem, 4.4vw, 3.8rem)',
+              fontSize: 'clamp(2rem, 4.4vw, 3.8rem)',
               fontWeight: 900,
               color: '#ffffff',
               lineHeight: 1.15,
-              marginBottom: '16px',
+              marginBottom: '14px',
               fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
               textTransform: 'uppercase',
-              letterSpacing: '-0.02em',
+              letterSpacing: isAr ? 'normal' : '-0.02em',
               filter: 'drop-shadow(3px 3px 0px #000000)',
             }}
           >
@@ -293,12 +313,12 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
 
           <p
             style={{
-              fontSize: 'clamp(15px, 1.3vw, 17px)',
+              fontSize: 'clamp(14px, 1.25vw, 17px)',
               color: '#c5c8dc',
               lineHeight: 1.7,
               margin: 0,
-              fontWeight: 600,
-              fontFamily: isAr ? 'var(--font-body-ar)' : 'Space Grotesk, sans-serif',
+              fontWeight: 500,
+              fontFamily: isAr ? 'var(--font-body-ar)' : 'var(--font-body-en)',
             }}
           >
             {t.showreel_sub}
@@ -306,14 +326,16 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
         </div>
       </div>
 
-      {/* 3D WebGL Canvas Container */}
+      {/* 3D WebGL Canvas Container with fluid height */}
       <div
         style={{
           position: 'relative',
           width: '100%',
-          height: '560px',
-          margin: '20px 0',
+          maxWidth: '100%',
+          height: 'clamp(380px, 48vh, 560px)',
+          margin: '12px 0',
           cursor: 'grab',
+          overflow: 'hidden',
         }}
         data-cursor="DRAG 3D"
       >
@@ -327,24 +349,27 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
           }}
         />
 
-        {/* Floating Instruction Banner */}
+        {/* Floating Instruction Comic Sticker Banner */}
         <div
           style={{
             position: 'absolute',
-            top: '20px',
+            top: '16px',
             left: '50%',
             transform: 'translateX(-50%) rotate(-1deg)',
-            padding: '8px 22px',
+            padding: '6px 16px',
             borderRadius: '12px',
             backgroundColor: '#ffe600',
             border: '2.5px solid #000000',
             color: '#000000',
-            fontSize: '12px',
-            fontFamily: 'JetBrains Mono, monospace',
+            fontSize: 'clamp(10px, 2.5vw, 12px)',
+            fontFamily: 'var(--font-mono)',
             fontWeight: 900,
-            boxShadow: '4px 4px 0px #000000',
+            boxShadow: '3px 3px 0px #000000',
             pointerEvents: 'none',
             zIndex: 10,
+            whiteSpace: 'nowrap',
+            maxWidth: '90%',
+            textAlign: 'center',
           }}
         >
           {t.showreel_instruction}
@@ -357,24 +382,24 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
           className="comic-panel"
           style={{
             borderRadius: '24px',
-            padding: '24px 32px',
+            padding: 'clamp(16px, 3vw, 24px) clamp(16px, 4vw, 32px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: '20px',
+            gap: '16px',
             backgroundColor: '#141622',
             border: '3.5px solid #000000',
             boxShadow: '6px 6px 0px #000000',
           }}
         >
           {/* Active Reel Info */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', minWidth: '0', flex: '1 1 240px' }}>
             <div
               style={{
-                width: '64px',
-                height: '64px',
-                borderRadius: '16px',
+                width: 'clamp(52px, 10vw, 64px)',
+                height: 'clamp(52px, 10vw, 64px)',
+                borderRadius: '14px',
                 overflow: 'hidden',
                 backgroundColor: '#000000',
                 border: '2.5px solid #000000',
@@ -389,25 +414,32 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
               />
             </div>
 
-            <div>
+            <div style={{ minWidth: 0, overflow: 'hidden' }}>
               <div
                 style={{
-                  fontSize: '12px',
-                  fontFamily: 'JetBrains Mono, monospace',
+                  fontSize: '11px',
+                  fontFamily: 'var(--font-mono)',
                   color: '#ccff00',
                   fontWeight: 900,
-                  marginBottom: '4px',
+                  marginBottom: '2px',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 0{activeProjectIndex + 1} OF 0{projects.length} • {lang === 'en' ? currentProject.brand : currentProject.brand_ar}
               </div>
               <h3
                 style={{
-                  fontSize: '22px',
+                  fontSize: 'clamp(16px, 2.5vw, 22px)',
                   fontWeight: 900,
                   fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
                   color: '#ffffff',
                   filter: 'drop-shadow(2px 2px 0px #000000)',
+                  lineHeight: 1.25,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
               >
                 {lang === 'en' ? currentProject.title_en : currentProject.title_ar}
@@ -416,14 +448,14 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
           </div>
 
           {/* Controls: Arrows + Open Video */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0, flexWrap: 'wrap' }}>
             <button
               onClick={handlePrev}
               onMouseEnter={() => sound.playHover()}
               style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '12px',
+                width: '42px',
+                height: '42px',
+                borderRadius: '10px',
                 backgroundColor: '#ffe600',
                 border: '2.5px solid #000000',
                 boxShadow: '3px 3px 0px #000000',
@@ -434,17 +466,9 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
               }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translate(-2px, -2px)';
-                e.currentTarget.style.boxShadow = '5px 5px 0px #000000';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translate(0, 0)';
-                e.currentTarget.style.boxShadow = '3px 3px 0px #000000';
-              }}
               aria-label="Previous Project"
             >
-              <ChevronLeft size={22} color="#000000" />
+              <ChevronLeft size={20} color="#000000" />
             </button>
 
             <button
@@ -454,29 +478,30 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '10px',
-                padding: '12px 26px',
+                gap: '8px',
+                padding: '10px 20px',
                 backgroundColor: '#ccff00',
                 color: '#000000',
-                fontSize: '13px',
+                fontSize: '12px',
                 fontWeight: 900,
-                border: '3px solid #000000',
-                boxShadow: '4px 4px 0px #000000',
+                border: '2.5px solid #000000',
+                boxShadow: '3px 3px 0px #000000',
                 cursor: 'pointer',
                 fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
+                whiteSpace: 'nowrap',
               }}
             >
-              <Play size={18} fill="#000000" />
-              <span>{lang === 'en' ? 'Play Current Reel' : 'تشغيل الريل الحالي 🎬'}</span>
+              <Play size={16} fill="#000000" />
+              <span>{lang === 'en' ? 'Play Reel' : 'تشغيل الريل 🎬'}</span>
             </button>
 
             <button
               onClick={handleNext}
               onMouseEnter={() => sound.playHover()}
               style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '12px',
+                width: '42px',
+                height: '42px',
+                borderRadius: '10px',
                 backgroundColor: '#ffe600',
                 border: '2.5px solid #000000',
                 boxShadow: '3px 3px 0px #000000',
@@ -487,17 +512,9 @@ export const Showreel3D: React.FC<Showreel3DProps> = ({ lang }) => {
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
               }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translate(-2px, -2px)';
-                e.currentTarget.style.boxShadow = '5px 5px 0px #000000';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translate(0, 0)';
-                e.currentTarget.style.boxShadow = '3px 3px 0px #000000';
-              }}
               aria-label="Next Project"
             >
-              <ChevronRight size={22} color="#000000" />
+              <ChevronRight size={20} color="#000000" />
             </button>
           </div>
         </div>
