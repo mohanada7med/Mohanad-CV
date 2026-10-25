@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { PORTFOLIO_DATA, type Language } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 import confetti from 'canvas-confetti';
-import { ComicBadge, ComicStars, SpeechBubble } from '../comic/ComicElements';
-import { MessageCircle, Mail, Copy, Check, ArrowUpRight, Flame } from 'lucide-react';
+import { ComicBadge, ComicStars } from '../comic/ComicElements';
+import { MessageCircle, Mail, Copy, Check, ArrowUpRight, Flame, MapPin, ArrowUp } from 'lucide-react';
 
 interface Scene05ContactProps {
   lang: Language;
@@ -46,8 +46,8 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
       selectedGoal === 'reel'
         ? (isAr ? 'ريلز إعلاني فيروسي' : 'Viral Promo Reel')
         : selectedGoal === 'campaign'
-        ? (isAr ? 'حملة إعلانية متكاملة' : 'Full Brand Campaign')
-        : (isAr ? 'محتوى UGC عالي الاستبقاء' : 'High-Retention UGC & Hooks');
+          ? (isAr ? 'حملة إعلانية متكاملة' : 'Full Brand Campaign')
+          : (isAr ? 'محتوى UGC عالي الاستبقاء' : 'High-Retention UGC & Hooks');
 
     const msg = isAr
       ? `مرحباً كابتن مهند! أنا ${senderName || 'مهتم بالتعاون'} من طرف ${brandName || 'علامة تجارية'}.\nحابين ننتج: ${goalLabel}.\nمحتاجين نحدد موعد ونبدأ التصوير!`
@@ -62,56 +62,54 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
       className="master-scene-stage comic-halftone-bg"
       style={{
         position: 'relative',
-        minHeight: '100vh',
         width: '100%',
-        padding: '110px clamp(16px, 4vw, 50px) 90px',
         backgroundColor: '#0a0b10',
         borderBottom: '4px solid #000000',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         overflow: 'hidden',
+        padding: '40px 20px',
       }}
     >
       {/* Floating Decorative Comic Stars */}
-      <div style={{ position: 'absolute', top: '12%', right: '8%', pointerEvents: 'none' }}>
-        <ComicStars size={36} color="#ccff00" />
+      <div style={{ position: 'absolute', top: '8%', right: '5%', pointerEvents: 'none' }}>
+        <ComicStars size={24} color="#ccff00" />
       </div>
-      <div style={{ position: 'absolute', bottom: '15%', left: '6%', pointerEvents: 'none' }}>
-        <ComicStars size={30} color="#ffe600" />
+      <div style={{ position: 'absolute', bottom: '8%', left: '4%', pointerEvents: 'none' }}>
+        <ComicStars size={20} color="#ffe600" />
       </div>
 
-      <div style={{ maxWidth: '1360px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+      <div style={{ maxWidth: '1100px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 10 }}>
         {/* Comic Finale Eyebrow Banner */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-          <ComicBadge text="FINALE • EPISODE 05" subtext="THE END?" bg="#ccff00" rotation={-3} />
-          <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono, monospace', color: '#ccff00', fontWeight: 900 }}>
-            ★ TO BE CONTINUED ON YOUR NEXT CAMPAIGN!
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+          <ComicBadge text="FINALE • EPISODE 05" subtext="THE END?" bg="#ccff00" rotation={-2} />
+          <span style={{ fontSize: '11px', fontFamily: 'JetBrains Mono, monospace', color: '#ccff00', fontWeight: 900 }}>
+            ★ TO BE CONTINUED!
           </span>
         </div>
 
         {/* Monumental Kinetic Headline */}
-        <div style={{ marginBottom: '36px' }}>
+        <div style={{ marginBottom: '20px' }}>
           <h2
             style={{
-              fontSize: 'clamp(2.6rem, 5.8vw, 5.2rem)',
+              fontSize: 'clamp(1.5rem, 3.2vw, 2.8rem)',
               fontWeight: 900,
-              lineHeight: 1.05,
+              lineHeight: 1.1,
               color: '#ffffff',
               fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
               letterSpacing: '-0.02em',
               margin: 0,
-              filter: 'drop-shadow(4px 4px 0px #000000)',
+              filter: 'drop-shadow(3px 3px 0px #000000)',
             }}
           >
-            {isAr ? 'جاهز نعمل محتوى' : 'READY TO CREATE WHAT'}
-            <br />
+            {isAr ? 'جاهز نعمل محتوى' : 'READY TO CREATE WHAT'}{' '}
             <span
               style={{
                 color: '#ccff00',
                 display: 'inline-block',
                 transform: 'rotate(-1deg)',
-                textShadow: '4px 4px 0px #000000',
+                textShadow: '3px 3px 0px #000000',
               }}
             >
               {isAr ? 'يـوقـف الـسـكـرول ويصنع التريند؟' : 'STOPS THUMBS & GOES VIRAL?'}
@@ -119,12 +117,12 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
           </h2>
           <p
             style={{
-              fontSize: 'clamp(15px, 1.8vw, 18px)',
+              fontSize: 'clamp(13px, 1.4vw, 15px)',
               color: '#d4d5e5',
-              marginTop: '14px',
-              maxWidth: '750px',
-              lineHeight: 1.6,
-              fontFamily: isAr ? 'var(--font-body-ar)' : 'Space Grotesk, sans-serif',
+              marginTop: '8px',
+              maxWidth: '650px',
+              lineHeight: 1.4,
+              fontFamily: isAr ? 'var(--font-body-ar)' : 'var(--font-body-en)',
             }}
           >
             {isAr
@@ -133,12 +131,12 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
           </p>
         </div>
 
-        {/* Dynamic Action Grid: Brief Generator + Clapperboard Action Avatar */}
+        {/* Dynamic Action Grid */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '30px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+            gap: '24px',
             alignItems: 'center',
           }}
         >
@@ -146,37 +144,37 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
           <div
             className="comic-panel"
             style={{
-              padding: 'clamp(24px, 4vw, 36px)',
-              borderRadius: '24px',
-              border: '4px solid #000000',
-              boxShadow: '8px 8px 0px #ccff00, 8px 8px 0px 4px #000000',
+              padding: '24px 18px',
+              borderRadius: '16px',
+              border: '3px solid #000000',
+              boxShadow: '5px 5px 0px #ccff00, 5px 5px 0px 3px #000000',
               backgroundColor: '#141622',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between',
+              gap: '12px',
             }}
           >
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ffffff' }}>
-                  <Flame size={18} color="#ccff00" />
-                  <span style={{ fontSize: '13px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900 }}>
-                    FAST COLLAB BRIEF BUILDER
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#ffffff' }}>
+                  <Flame size={16} color="#ccff00" />
+                  <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900 }}>
+                    FAST BRIEF BUILDER
                   </span>
                 </div>
                 <ComicBadge text="INSTANT" bg="#ffe600" rotation={2} />
               </div>
 
               {/* Goal Type Picker */}
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontSize: '12px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '8px' }}>
-                  {isAr ? 'اختر هدف الحملة أو الفيديو:' : 'SELECT CAMPAIGN OBJECTIVE:'}
+              <div style={{ marginBottom: '12px' }}>
+                <label style={{ display: 'block', fontSize: '11px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '6px' }}>
+                  {isAr ? 'اختر هدف الحملة:' : 'SELECT OBJECTIVE:'}
                 </label>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '8px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '6px' }}>
                   {[
-                    { id: 'reel', labelEn: 'Viral Promo Reel / Commercial', labelAr: 'ريلز إعلاني فيروسي' },
-                    { id: 'campaign', labelEn: 'Full Multi-Platform Campaign', labelAr: 'حملة إعلانية متكاملة' },
-                    { id: 'ugc', labelEn: 'UGC & High-Retention Hook Series', labelAr: 'سلسلة UGC وهوكس سريعة' },
+                    { id: 'reel', labelEn: 'Viral Promo Reel', labelAr: 'ريلز إعلاني فيروسي' },
+                    { id: 'campaign', labelEn: 'Full Campaign', labelAr: 'حملة إعلانية متكاملة' },
+                    { id: 'ugc', labelEn: 'UGC & Hooks Series', labelAr: 'سلسلة UGC وهوكس' },
                   ].map((goal) => {
                     const isSelected = selectedGoal === goal.id;
                     return (
@@ -187,18 +185,16 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                           setSelectedGoal(goal.id as any);
                         }}
                         style={{
-                          padding: '12px 16px',
-                          borderRadius: '12px',
+                          padding: '8px 12px',
+                          borderRadius: '8px',
                           backgroundColor: isSelected ? '#ccff00' : '#0a0a0f',
                           color: isSelected ? '#000000' : '#f5f6fa',
-                          border: '2.5px solid #000000',
-                          fontSize: '13px',
-                          fontWeight: 900,
+                          border: '2px solid #000000',
+                          fontSize: '12px',
+                          fontWeight: 800,
                           cursor: 'pointer',
                           textAlign: isAr ? 'right' : 'left',
-                          boxShadow: isSelected ? '4px 4px 0px #000000' : '2px 2px 0px #000000',
-                          transform: isSelected ? 'translateX(4px)' : 'none',
-                          transition: 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                          boxShadow: isSelected ? '3px 3px 0px #000000' : '1px 1px 0px #000000',
                         }}
                       >
                         {isSelected ? '★ ' : '○ '}
@@ -210,24 +206,24 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
               </div>
 
               {/* Fast Fields */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '11px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '6px' }}>
+                  <label style={{ display: 'block', fontSize: '10px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '4px' }}>
                     {isAr ? 'اسمك:' : 'YOUR NAME:'}
                   </label>
                   <input
                     type="text"
                     value={senderName}
                     onChange={(e) => setSenderName(e.target.value)}
-                    placeholder={isAr ? 'مثال: أحمد' : 'e.g. Alex'}
+                    placeholder={isAr ? 'أحمد' : 'Alex'}
                     style={{
                       width: '100%',
-                      padding: '12px 14px',
-                      borderRadius: '10px',
+                      padding: '8px 10px',
+                      borderRadius: '8px',
                       backgroundColor: '#0a0b10',
                       border: '2px solid #000000',
                       color: '#ffffff',
-                      fontSize: '13px',
+                      fontSize: '12px',
                       fontWeight: 700,
                       outline: 'none',
                     }}
@@ -235,22 +231,22 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '11px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '6px' }}>
-                    {isAr ? 'اسم البراند / الشركة:' : 'BRAND / COMPANY:'}
+                  <label style={{ display: 'block', fontSize: '10px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '4px' }}>
+                    {isAr ? 'الشركة:' : 'COMPANY:'}
                   </label>
                   <input
                     type="text"
                     value={brandName}
                     onChange={(e) => setBrandName(e.target.value)}
-                    placeholder={isAr ? 'مثال: شركة براند' : 'e.g. Acme Studio'}
+                    placeholder={isAr ? 'اسم البراند' : 'Acme'}
                     style={{
                       width: '100%',
-                      padding: '12px 14px',
-                      borderRadius: '10px',
+                      padding: '8px 10px',
+                      borderRadius: '8px',
                       backgroundColor: '#0a0b10',
                       border: '2px solid #000000',
                       color: '#ffffff',
-                      fontSize: '13px',
+                      fontSize: '12px',
                       fontWeight: 700,
                       outline: 'none',
                     }}
@@ -266,17 +262,17 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
               className="comic-btn"
               style={{
                 width: '100%',
-                padding: '16px',
-                fontSize: '15px',
+                padding: '11px',
+                fontSize: '13px',
               }}
             >
-              <MessageCircle size={20} />
-              <span>{isAr ? 'إرسال البريف ومحادثة واتساب مباشرة' : 'Send Brief via WhatsApp'}</span>
-              <ArrowUpRight size={18} />
+              <MessageCircle size={18} />
+              <span>{isAr ? 'محادثة واتساب مباشرة' : 'Send via WhatsApp'}</span>
+              <ArrowUpRight size={16} />
             </button>
           </div>
 
-          {/* Column 2: Cartoon Finale Character Composition (Action Pose holding Clapperboard) */}
+          {/* Column 2: Cartoon Finale Character Composition */}
           <div
             style={{
               display: 'flex',
@@ -285,17 +281,17 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
               position: 'relative',
             }}
           >
-            {/* Clapperboard Character Card */}
+            {/* Clapperboard Character Card - تم تكبير الأبعاد وتدعيم الـ Shadow */}
             <div
               className="comic-panel animate-comic-float"
               style={{
                 position: 'relative',
-                width: 'clamp(240px, 30vw, 340px)',
-                height: 'clamp(320px, 38vw, 440px)',
-                borderRadius: '28px',
-                border: '4.5px solid #000000',
+                width: 'clamp(240px, 32vw, 360px)',
+                height: 'clamp(320px, 42vw, 460px)',
+                borderRadius: '24px',
+                border: '4px solid #000000',
                 backgroundColor: '#161824',
-                boxShadow: '10px 10px 0px #ffe600, 10px 10px 0px 4px #000000',
+                boxShadow: '8px 8px 0px #ffe600, 8px 8px 0px 4px #000000',
                 overflow: 'hidden',
                 zIndex: 4,
               }}
@@ -315,62 +311,36 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '12px',
-                  left: '12px',
-                  right: '12px',
-                  padding: '8px 12px',
+                  bottom: '10px',
+                  left: '10px',
+                  right: '10px',
+                  padding: '7px 10px',
                   backgroundColor: '#000000',
                   border: '2px solid #ccff00',
-                  borderRadius: '10px',
+                  borderRadius: '8px',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   color: '#ffffff',
-                  fontSize: '11px',
+                  fontSize: '10px',
                   fontFamily: 'JetBrains Mono, monospace',
                   fontWeight: 900,
                 }}
               >
-                <span style={{ color: '#ccff00' }}>SCENE: FINALE</span>
+                <span style={{ color: '#ccff00' }}>FINALE</span>
                 <span>TAKE 01 • ACTION!</span>
               </div>
             </div>
 
-            {/* Speech Bubble coming from Mohanad */}
+            {/* Quick Email & Social Profiles Strip - تم تعديل العرض ليتناسق مع حجم الصورة الأكبر */}
             <div
               style={{
-                position: 'absolute',
-                top: '-20px',
-                right: isAr ? 'auto' : '-30px',
-                left: isAr ? '-30px' : 'auto',
-                maxWidth: '240px',
-                zIndex: 10,
-              }}
-            >
-              <SpeechBubble
-                tailDirection={isAr ? 'bottom-right' : 'bottom-left'}
-                bgColor="#ffe600"
-                textColor="#000000"
-                borderColor="#000000"
-                shadowColor="#000000"
-              >
-                <div style={{ fontSize: '12px', lineHeight: 1.4, fontWeight: 900 }}>
-                  {isAr
-                    ? '🎬 "فركش المشهد! جاهزين نصنع إعلانك اللي هيقلب السوشيال ميديا!"'
-                    : '🎬 "That’s a wrap! Let’s roll cameras & make your brand go viral!"'}
-                </div>
-              </SpeechBubble>
-            </div>
-
-            {/* Quick Email & Social Profiles Strip */}
-            <div
-              style={{
-                marginTop: '20px',
+                marginTop: '16px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '12px',
+                gap: '10px',
                 width: '100%',
-                maxWidth: '340px',
+                maxWidth: 'clamp(240px, 32vw, 360px)',
               }}
             >
               {/* Copy Email Button */}
@@ -378,34 +348,25 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                 onClick={handleCopyEmail}
                 onMouseEnter={() => sound.playHover()}
                 style={{
-                  padding: '12px 18px',
-                  borderRadius: '12px',
+                  padding: '10px 14px',
+                  borderRadius: '10px',
                   backgroundColor: '#ffffff',
                   color: '#000000',
-                  border: '3px solid #000000',
-                  boxShadow: '4px 4px 0px #000000',
+                  border: '2.5px solid #000000',
+                  boxShadow: '3px 3px 0px #000000',
                   fontWeight: 900,
                   fontSize: '12px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   cursor: 'pointer',
-                  transition: 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                }}
-                onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  e.currentTarget.style.transform = 'translate(-2px, -2px)';
-                  e.currentTarget.style.boxShadow = '6px 6px 0px #ccff00';
-                }}
-                onMouseOut={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  e.currentTarget.style.transform = 'translate(0px, 0px)';
-                  e.currentTarget.style.boxShadow = '4px 4px 0px #000000';
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Mail size={16} />
-                  <span>{copiedEmail ? (isAr ? 'تم نسخ الإيميل!' : 'Email Copied!') : creator.email}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Mail size={15} />
+                  <span>{copiedEmail ? (isAr ? 'تم النسخ!' : 'Copied!') : creator.email}</span>
                 </div>
-                {copiedEmail ? <Check size={16} color="#00aa44" /> : <Copy size={16} />}
+                {copiedEmail ? <Check size={15} color="#00aa44" /> : <Copy size={15} />}
               </button>
 
               {/* Social Channels Comic Badges */}
@@ -423,7 +384,7 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                     rel="noopener noreferrer"
                     onMouseEnter={() => sound.playHover()}
                     style={{
-                      padding: '6px 14px',
+                      padding: '5px 12px',
                       borderRadius: '8px',
                       backgroundColor: s.bg,
                       color: s.color,
@@ -433,19 +394,135 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                       fontWeight: 900,
                       textDecoration: 'none',
                       fontFamily: 'JetBrains Mono, monospace',
-                      transition: 'transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                    }}
-                    onMouseOver={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                      e.currentTarget.style.transform = 'translate(-2px, -2px) scale(1.08)';
-                    }}
-                    onMouseOut={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                      e.currentTarget.style.transform = 'translate(0px, 0px) scale(1)';
                     }}
                   >
                     {s.name} ↗
                   </a>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Integrated Scrollytelling Epilogue & Director's Colophon */}
+        <div
+          style={{
+            marginTop: 'clamp(30px, 4.5vw, 55px)',
+            paddingTop: '20px',
+            borderTop: '3px solid #000000',
+            position: 'relative',
+          }}
+        >
+          {/* Comic Eyebrow Badge */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '-14px',
+              left: isAr ? 'auto' : '20px',
+              right: isAr ? '20px' : 'auto',
+            }}
+          >
+            <ComicBadge text="EPILOGUE" subtext="CREDITS" bg="#ffe600" rotation={-1} />
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '20px',
+              paddingTop: '8px',
+            }}
+          >
+            {/* Monogram & Title */}
+            <div>
+              <div
+                style={{
+                  fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
+                  fontWeight: 900,
+                  fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.1,
+                }}
+              >
+                <span style={{ color: '#ffffff' }}>MOHANAD</span>{' '}
+                <span style={{ color: '#ccff00' }}>AHMED</span>
+                {isAr && (
+                  <span style={{ color: '#ffe600', margin: '0 10px', fontSize: '0.85em' }}>
+                    مهند أحمد
+                  </span>
+                )}
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  color: '#a1a3b5',
+                  fontSize: '12px',
+                  fontFamily: 'JetBrains Mono, monospace',
+                  marginTop: '4px',
+                }}
+              >
+                <MapPin size={13} color="#ccff00" />
+                <span>
+                  {isAr
+                    ? 'أسيوط، مصر — متاح لتصوير الإعلانات محلياً ودولياً'
+                    : 'Assiut, Egypt — Available for domestic & global shoots'}
+                </span>
+              </div>
+            </div>
+
+            {/* Copyright & Replay Action Button */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+              <div
+                style={{
+                  color: '#717388',
+                  fontSize: '11px',
+                  fontFamily: 'JetBrains Mono, monospace',
+                  fontWeight: 700,
+                }}
+              >
+                © 2019 — 2026 • VIRAL REEL DIRECTOR
+              </div>
+
+              {/* Replay Scrollytelling Button */}
+              <button
+                onClick={() => {
+                  sound.playWhoosh();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                onMouseEnter={() => sound.playHover()}
+                data-cursor="REPLAY"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 18px',
+                  borderRadius: '12px',
+                  backgroundColor: '#ccff00',
+                  color: '#000000',
+                  border: '2.5px solid #000000',
+                  boxShadow: '3px 3px 0px #000000',
+                  fontSize: '12px',
+                  fontWeight: 900,
+                  cursor: 'pointer',
+                  fontFamily: 'JetBrains Mono, monospace',
+                  transition: 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                }}
+                onMouseDown={(e) => {
+                  (e.currentTarget as HTMLElement).style.transform = 'translate(2px, 2px)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '1px 1px 0px #000000';
+                }}
+                onMouseUp={(e) => {
+                  (e.currentTarget as HTMLElement).style.transform = 'translate(0px, 0px)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '3px 3px 0px #000000';
+                }}
+              >
+                <ArrowUp size={15} strokeWidth={3} />
+                <span>{isAr ? 'العودة للبداية' : 'REPLAY TO TOP'}</span>
+              </button>
             </div>
           </div>
         </div>

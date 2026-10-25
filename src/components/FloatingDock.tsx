@@ -17,6 +17,8 @@ interface FloatingDockProps {
   onLanguageChange: (lang: Language) => void;
   isAudioActive: boolean;
   onAudioToggle: () => void;
+  activeSceneIndex?: number;
+  onNavigateToScene?: (index: number) => void;
 }
 
 export const FloatingDock: React.FC<FloatingDockProps> = ({
@@ -24,6 +26,7 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
   onLanguageChange,
   isAudioActive,
   onAudioToggle,
+  onNavigateToScene,
 }) => {
   const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -36,17 +39,22 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleScrollTo = (id: string) => {
+  const handleJump = (index: number, fallbackId: string) => {
     sound.playClick();
-    const el = document.querySelector(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigateToScene) {
+      onNavigateToScene(index);
+    } else {
+      const el = document.querySelector(fallbackId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   const dockItems = [
     {
       id: 'whatsapp',
+      sceneIndex: -1,
       labelEn: 'WhatsApp Direct',
       labelAr: 'تواصل مباشر واتساب',
       icon: MessageCircle,
@@ -62,39 +70,53 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
     },
     {
       id: 'intro',
-      labelEn: 'Scene 01 • Hero Splash',
-      labelAr: 'المشهد 01 • البداية',
+      sceneIndex: 0,
+      labelEn: 'Act 01 • Hero Splash',
+      labelAr: 'الفصل 01 • البداية',
       icon: Film,
       bg: '#ffffff',
       activeColor: '#000000',
-      action: () => handleScrollTo('#scene-intro'),
+      action: () => handleJump(0, '#scene-intro'),
     },
     {
       id: 'about',
-      labelEn: 'Scene 02 • Comic Story',
-      labelAr: 'المشهد 02 • عن مهند',
+      sceneIndex: 1,
+      labelEn: 'Act 02 • The Story & 3s Rule',
+      labelAr: 'الفصل 02 • القصة وسر الـ 3 ثواني',
       icon: User,
       bg: '#ffffff',
       activeColor: '#000000',
-      action: () => handleScrollTo('#scene-about'),
+      action: () => handleJump(1, '#scene-about'),
     },
     {
       id: 'projects',
-      labelEn: 'Scene 03 • Cinema Vault',
-      labelAr: 'المشهد 03 • معرض المشاريع',
+      sceneIndex: 2,
+      labelEn: 'Act 03 • The Reel Vault',
+      labelAr: 'الفصل 03 • معرض الريلز',
       icon: FolderKanban,
-      bg: '#ccff00',
+      bg: '#ffffff',
       activeColor: '#000000',
-      action: () => handleScrollTo('#scene-projects'),
+      action: () => handleJump(2, '#scene-projects'),
     },
     {
       id: 'arsenal',
-      labelEn: 'Scene 04 • The Arsenal',
-      labelAr: 'المشهد 04 • العتاد والمهارات',
+      sceneIndex: 3,
+      labelEn: 'Act 04 • The Arsenal & Gear',
+      labelAr: 'الفصل 04 • العتاد والمهارات',
       icon: LayoutGrid,
       bg: '#ffffff',
       activeColor: '#000000',
-      action: () => handleScrollTo('#scene-arsenal'),
+      action: () => handleJump(3, '#scene-arsenal'),
+    },
+    {
+      id: 'finale',
+      sceneIndex: 4,
+      labelEn: 'Act 05 • Grand Finale & Credits',
+      labelAr: 'الفصل 05 • التعاون والحقوق',
+      icon: Sparkles,
+      bg: '#ffffff',
+      activeColor: '#000000',
+      action: () => handleJump(4, '#scene-contact'),
     },
   ];
 

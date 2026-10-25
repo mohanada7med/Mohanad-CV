@@ -218,17 +218,20 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
         style={{
           position: 'absolute',
           top: '20px',
-          left: 'clamp(16px, 4vw, 50px)',
-          right: 'clamp(16px, 4vw, 50px)',
+          left: 'clamp(12px, 3.5vw, 50px)',
+          right: 'clamp(12px, 3.5vw, 50px)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '10px',
           zIndex: 35,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <ComicBadge text="SPECIAL EDITION" subtext="2026" bg="#ccff00" rotation={-2} />
           <div
+            className="hidden sm:block"
             style={{
               padding: '6px 14px',
               backgroundColor: '#121422',
@@ -250,13 +253,13 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '7px 18px',
+            padding: '7px 16px',
             backgroundColor: '#000000',
             border: '2.5px solid #ccff00',
             borderRadius: '100px',
             color: '#ffffff',
             fontSize: '11px',
-            fontFamily: 'Alexandria, sans-serif',
+            fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display)',
             fontWeight: 800,
             boxShadow: '0 0 18px rgba(204, 255, 0, 0.45)',
           }}
@@ -288,18 +291,20 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
         }}
       >
         <div
+          className="scene-intro-hero-row"
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
             position: 'relative',
-            gap: 'clamp(10px, 2.5vw, 40px)',
+            gap: 'clamp(14px, 2.5vw, 40px)',
           }}
         >
           {/* الجانب الأول: النصف الأول من الاسم + شارات حركية */}
           <div
             ref={leftNameRef}
+            className="scene-intro-name-col"
             style={{
               flex: 1,
               display: 'flex',
@@ -515,6 +520,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
           {/* الجانب الثاني: النصف الثاني من الاسم + شارات حركية */}
           <div
             ref={rightNameRef}
+            className="scene-intro-name-col"
             style={{
               flex: 1,
               display: 'flex',

@@ -79,7 +79,7 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
             gap: 'clamp(28px, 4vw, 50px)',
             alignItems: 'center',
           }}
@@ -122,7 +122,7 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
               </div>
 
               {/* BTS Photo with comic texture */}
-              <div style={{ position: 'relative', height: 'clamp(300px, 36vw, 420px)' }}>
+              <div style={{ position: 'relative', height: 'clamp(280px, 36vw, 420px)' }}>
                 <img
                   src={creator.bts_image}
                   alt="Mohanad Ahmed directing on set"
@@ -190,10 +190,10 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
             <div
               style={{
                 position: 'absolute',
-                bottom: '-28px',
-                right: isAr ? 'auto' : '-20px',
-                left: isAr ? '-20px' : 'auto',
-                maxWidth: '280px',
+                bottom: '-24px',
+                right: isAr ? 'auto' : 'clamp(0px, 2vw, 12px)',
+                left: isAr ? 'clamp(0px, 2vw, 12px)' : 'auto',
+                maxWidth: 'min(280px, calc(100% - 24px))',
                 zIndex: 20,
               }}
             >
@@ -233,7 +233,7 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
                 : 'I do not make forgettable clips. I engineer visuals that stop thumbs & convert audiences.'}
             </h3>
 
-            <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#d4d5e2', margin: 0, fontFamily: isAr ? 'var(--font-body-ar)' : 'Space Grotesk, sans-serif' }}>
+            <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#d4d5e2', margin: 0, fontFamily: isAr ? 'var(--font-body-ar)' : 'var(--font-body-en)' }}>
               {isAr
                 ? 'بدأت رحلتي في عالم صناعة الفيديو عام 2019 برؤية واحدة: الدمج بين جودة الصورة السينمائية وسيكولوجية الانتباه السريع في عصر السوشيال ميديا. مع جمهور تجاوز 100 ألف متابع وأكثر من 20 مليون مشاهدة، أصبحت كل ثانية في الفيديو محسوبة لتحقيق أعلى استبقاء ممكن.'
                 : 'Starting in 2019, my vision has been straightforward: fuse cinema-grade production with high-speed social media retention. With 100K+ followers and over 20M impressions, every second is paced to maximize thumb-stopping engagement and measurable brand growth.'}

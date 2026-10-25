@@ -76,7 +76,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '20px',
+        padding: 'clamp(8px, 2.5vw, 20px)',
         backgroundColor: 'rgba(5, 5, 8, 0.94)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -201,7 +201,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
             overflowY: 'auto',
             maxHeight: 'calc(92vh - 70px)',
           }}
@@ -209,7 +209,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
           {/* Left Column: Interactive 9:16 Video Canvas Player */}
           <div
             style={{
-              padding: '28px',
+              padding: 'clamp(14px, 3vw, 28px)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -224,7 +224,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               style={{
                 width: '100%',
                 maxWidth: '330px',
-                height: '580px',
+                height: 'clamp(420px, 60vw, 580px)',
                 borderRadius: '32px',
                 overflow: 'hidden',
                 position: 'relative',

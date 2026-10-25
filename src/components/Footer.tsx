@@ -48,17 +48,36 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               fontSize: 'clamp(2.8rem, 11vw, 9.8rem)',
               fontWeight: 900,
               lineHeight: 0.88,
+              fontFamily: lang === 'en' ? 'var(--font-display-en)' : 'var(--font-display-ar)',
               letterSpacing: '-0.04em',
               textTransform: 'uppercase',
               filter: 'drop-shadow(6px 6px 0px #000000)',
             }}
           >
-            <span style={{ color: '#ffffff' }}>MOHANAD </span>
-            <span style={{ color: '#ccff00' }}>AHMED</span>
+            <span
+              style={{
+                color: '#ffffff',
+                fontFamily: "sans-serif",
+                fontWeight: 800,
+                letterSpacing: '-2px',
+              }}
+            >
+              MOHANAD
+            </span>{' '}
+            <span
+              style={{
+                color: '#ccff00',
+                fontFamily: "sans-serif",
+                fontWeight: 800,
+                letterSpacing: '-2px',
+              }}
+            >
+              AHMED
+            </span>
           </div>
           <div
             style={{
-              fontSize: 'clamp(1.5rem, 4vw, 3rem)',
+              fontSize: 'clamp(5rem, 4vw, 5rem)',
               fontFamily: 'var(--font-display-ar)',
               fontWeight: 900,
               color: '#ffe600',

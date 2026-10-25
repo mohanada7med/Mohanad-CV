@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_DATA, type Language, type Project } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 import { ComicBadge, ComicBurst } from '../comic/ComicElements';
@@ -8,16 +8,24 @@ interface Scene04ArsenalProps {
   lang: Language;
   onOpenProject?: (project: Project) => void;
   onSelectBrand?: (brandName: string) => void;
+  controlledTab?: 'skills' | 'gear' | 'partners';
 }
 
 export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
   lang,
   onSelectBrand,
+  controlledTab,
 }) => {
   const isAr = lang === 'ar';
   const brands = PORTFOLIO_DATA.brands;
   const [activeTab, setActiveTab] = useState<'skills' | 'gear' | 'partners'>('skills');
   const [selectedGearIndex, setSelectedGearIndex] = useState<number>(0);
+
+  useEffect(() => {
+    if (controlledTab) {
+      setActiveTab(controlledTab);
+    }
+  }, [controlledTab]);
 
   // Creative Gear list with full cinema specs in comic styling
   const gearArsenal = [
@@ -153,6 +161,8 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
               border: '3px solid #000000',
               boxShadow: '4px 4px 0px #000000',
               gap: '6px',
+              flexWrap: 'wrap',
+              maxWidth: '100%',
             }}
           >
             {[
@@ -195,7 +205,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
               gap: '20px',
               animation: 'fadeIn 0.3s ease',
             }}
@@ -252,7 +262,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                       lineHeight: 1.7,
                       color: '#d0d2e2',
                       marginBottom: '24px',
-                      fontFamily: isAr ? 'var(--font-body-ar)' : 'Space Grotesk, sans-serif',
+                      fontFamily: isAr ? 'var(--font-body-ar)' : 'var(--font-body-en)',
                     }}
                   >
                     {isAr ? pillar.descriptionAr : pillar.descriptionEn}
@@ -290,7 +300,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
               gap: '24px',
               alignItems: 'center',
               animation: 'fadeIn 0.3s ease',
@@ -440,7 +450,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))',
               gap: '16px',
               animation: 'fadeIn 0.3s ease',
             }}

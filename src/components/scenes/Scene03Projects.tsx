@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_DATA, type Language, type Project } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 import { ComicBadge, ComicBurst } from '../comic/ComicElements';
@@ -7,23 +7,47 @@ import { Play, ChevronLeft, ChevronRight, Award, Zap } from 'lucide-react';
 interface Scene03ProjectsProps {
   lang: Language;
   onOpenProject: (project: Project) => void;
+  activeProjectIndex?: number;
+  onSelectProject?: (index: number) => void;
 }
 
-export const Scene03Projects: React.FC<Scene03ProjectsProps> = ({ lang, onOpenProject }) => {
+export const Scene03Projects: React.FC<Scene03ProjectsProps> = ({
+  lang,
+  onOpenProject,
+  activeProjectIndex,
+  onSelectProject,
+}) => {
   const isAr = lang === 'ar';
   const projects = PORTFOLIO_DATA.projects;
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [internalIndex, setInternalIndex] = useState<number>(0);
 
+  // Sync with scroll-driven activeProjectIndex if provided
+  useEffect(() => {
+    if (activeProjectIndex !== undefined && activeProjectIndex >= 0 && activeProjectIndex < projects.length) {
+      setInternalIndex(activeProjectIndex);
+    }
+  }, [activeProjectIndex, projects.length]);
+
+  const activeIndex = activeProjectIndex !== undefined ? activeProjectIndex : internalIndex;
   const currentProject = projects[activeIndex] || projects[0];
 
-  const handleNext = () => {
+  const handleSelect = (idx: number) => {
     sound.playClick();
-    setActiveIndex((prev) => (prev + 1) % projects.length);
+    if (onSelectProject) {
+      onSelectProject(idx);
+    } else {
+      setInternalIndex(idx);
+    }
+  };
+
+  const handleNext = () => {
+    const nextIdx = (activeIndex + 1) % projects.length;
+    handleSelect(nextIdx);
   };
 
   const handlePrev = () => {
-    sound.playClick();
-    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    const prevIdx = (activeIndex - 1 + projects.length) % projects.length;
+    handleSelect(prevIdx);
   };
 
   // Sound effect words per project index
@@ -76,15 +100,25 @@ export const Scene03Projects: React.FC<Scene03ProjectsProps> = ({ lang, onOpenPr
           </div>
 
           {/* Project Switcher Comic Pills */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflowX: 'auto', maxWidth: '100%', padding: '4px 0' }}>
+          <div
+            className="touch-scroll-row"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              overflowX: 'auto',
+              maxWidth: '100%',
+              padding: '6px 2px',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
             {projects.map((proj, idx) => {
               const isActive = activeIndex === idx;
               return (
                 <button
                   key={proj.id}
                   onClick={() => {
-                    sound.playClick();
-                    setActiveIndex(idx);
+                    handleSelect(idx);
                   }}
                   onMouseEnter={() => sound.playHover()}
                   style={{
@@ -114,8 +148,8 @@ export const Scene03Projects: React.FC<Scene03ProjectsProps> = ({ lang, onOpenPr
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: 'clamp(30px, 5vw, 60px)',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+            gap: 'clamp(28px, 4vw, 60px)',
             alignItems: 'center',
           }}
         >
@@ -126,21 +160,22 @@ export const Scene03Projects: React.FC<Scene03ProjectsProps> = ({ lang, onOpenPr
               display: 'flex',
               justifyContent: 'center',
               position: 'relative',
+              width: '100%',
             }}
           >
             {/* Corner Sound Effect Burst */}
             <div
               style={{
                 position: 'absolute',
-                top: '-24px',
-                left: isAr ? 'auto' : '-24px',
-                right: isAr ? '-24px' : 'auto',
+                top: '-20px',
+                left: isAr ? 'auto' : 'clamp(-12px, 0vw, 8px)',
+                right: isAr ? 'clamp(-12px, 0vw, 8px)' : 'auto',
                 zIndex: 20,
                 transform: 'rotate(-12deg)',
               }}
             >
-              <ComicBurst size={110} color="#ffe600">
-                <span style={{ fontSize: '14px', fontWeight: 900 }}>
+              <ComicBurst size={100} color="#ffe600">
+                <span style={{ fontSize: '13px', fontWeight: 900 }}>
                   {soundEffects[activeIndex % soundEffects.length]}
                 </span>
               </ComicBurst>
@@ -334,7 +369,7 @@ export const Scene03Projects: React.FC<Scene03ProjectsProps> = ({ lang, onOpenPr
             </div>
 
             {/* Description */}
-            <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#d4d5e2', margin: 0, fontFamily: isAr ? 'var(--font-body-ar)' : 'Space Grotesk, sans-serif' }}>
+            <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#d4d5e2', margin: 0, fontFamily: isAr ? 'var(--font-body-ar)' : 'var(--font-body-en)' }}>
               {isAr ? currentProject.description_ar : currentProject.description_en}
             </p>
 

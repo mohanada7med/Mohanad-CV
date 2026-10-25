@@ -1,19 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PORTFOLIO_DATA, type Language, type Project } from './data/portfolioData';
+import { type Language, type Project } from './data/portfolioData';
 import { sound } from './utils/audio';
 
 gsap.registerPlugin(ScrollTrigger);
 import { CustomCursor } from './components/CustomCursor';
 import { FloatingDock } from './components/FloatingDock';
 import { MasterScrollytelling } from './components/MasterScrollytelling';
-import { FolderDeckSection } from './components/FolderDeckSection';
-import { StorytellingReelBreakdown } from './components/StorytellingReelBreakdown';
-import { SelectedWork } from './components/SelectedWork';
-import { Showreel3D } from './components/Showreel3D';
 import { Footer } from './components/Footer';
-import { ProjectModal } from './components/ProjectModal';
 
 export function App() {
   const [lang, setLang] = useState<Language>(() => {
@@ -25,8 +20,7 @@ export function App() {
     return localStorage.getItem('mohanad_sound_fx') === 'true';
   });
 
-  const [selectedBrandFilter, setSelectedBrandFilter] = useState<string>('');
-  const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
+  const [, setSelectedBrandFilter] = useState<string>('');
   const progressBarRef = useRef<HTMLDivElement>(null);
 
   // Synchronize lang with <html> attribute for proper RTL/LTR styling
@@ -74,23 +68,10 @@ export function App() {
     }
   };
 
-  const handleClearBrandFilter = () => {
-    setSelectedBrandFilter('');
-  };
 
-  const handleOpenProjectModal = (project: Project) => {
-    sound.playClick();
-    setActiveModalProject(project);
-  };
-
-  const handleNavigateModal = (direction: 'next' | 'prev') => {
-    if (!activeModalProject) return;
-    const currentIndex = PORTFOLIO_DATA.projects.findIndex((p) => p.id === activeModalProject.id);
-    if (currentIndex === -1) return;
-    const total = PORTFOLIO_DATA.projects.length;
-    const nextIndex = direction === 'next' ? (currentIndex + 1) % total : (currentIndex - 1 + total) % total;
-    setActiveModalProject(PORTFOLIO_DATA.projects[nextIndex]);
-  };
+  function handleOpenProjectModal(_project: Project): void {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '100vh', backgroundColor: '#070709' }}>
@@ -121,13 +102,15 @@ export function App() {
         />
       </div>
 
+
+
       {/* Analog Cinematic Film Grain Texture */}
       <div className="film-grain" />
 
       {/* Desktop Fluid Custom Cursor */}
       <CustomCursor />
 
-      {/* Dynamic Floating Capsule Dock (Matching Reference Image) */}
+      {/* Dynamic Floating Capsule Dock */}
       <FloatingDock
         lang={lang}
         onLanguageChange={handleLanguageChange}
@@ -144,43 +127,9 @@ export function App() {
           onSelectBrand={handleSelectBrand}
         />
 
-        {/* Deep-Dive Interactive Modules */}
-        {/* GSAP Viral Reel Anatomy Scrollytelling Breakdown */}
-        <StorytellingReelBreakdown lang={lang} />
 
-        {/* 4-Folder Physical Dossier Deck (Inspired by Creative Reference) */}
-        <FolderDeckSection
-          lang={lang}
-          onOpenProject={handleOpenProjectModal}
-          onSelectBrand={handleSelectBrand}
-        />
-
-        {/* 3D Showreel Experience */}
-        <div id="showreel">
-          <Showreel3D lang={lang} />
-        </div>
-
-        {/* Full Editorial Selected Work Archive */}
-        <div id="work">
-          <SelectedWork
-            lang={lang}
-            selectedBrandFilter={selectedBrandFilter}
-            onClearBrandFilter={handleClearBrandFilter}
-            onOpenProject={handleOpenProjectModal}
-          />
-        </div>
       </main>
 
-      {/* Global Project Detail Lightbox Modal */}
-      {activeModalProject && (
-        <ProjectModal
-          key={activeModalProject.id}
-          project={activeModalProject}
-          lang={lang}
-          onClose={() => setActiveModalProject(null)}
-          onNavigate={handleNavigateModal}
-        />
-      )}
 
       {/* Footer Colophon */}
       <Footer lang={lang} />

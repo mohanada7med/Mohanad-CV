@@ -821,3 +821,23 @@ html[dir="rtl"] .comic-btn {
     scroll-behavior: auto !important;
   }
 }
+
+/* Scene 01 Intro Hero Responsive Stack */
+@media (max-width: 820px) {
+  .scene-intro-hero-row {
+    flex-direction: column !important;
+    gap: 22px !important;
+  }
+
+  .scene-intro-name-col {
+    align-items: center !important;
+    text-align: center !important;
+    flex: none !important;
+    width: 100% !important;
+  }
+
+  .scene-intro-name-col h1 {
+    font-size: clamp(2.8rem, 12vw, 4.5rem) !important;
+    text-shadow: 5px 5px 0px #000000, 9px 9px 0px #ff2a5f !important;
+  }
+}
