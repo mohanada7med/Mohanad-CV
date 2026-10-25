@@ -1,0 +1,268 @@
+:root {
+  --bg-deep: #070709;
+  --bg-darker: #040405;
+  --bg-surface: #0e0f14;
+  --bg-card: #13141b;
+  --bg-card-hover: #191b24;
+  --lime: #ccff00;
+  --lime-glow: rgba(204, 255, 0, 0.25);
+  --orange: #ff5500;
+  --orange-glow: rgba(255, 85, 0, 0.25);
+  --cyan: #00f0ff;
+  --white: #f5f6fa;
+  --gray-100: #e2e4ec;
+  --gray-300: #b0b4c5;
+  --gray-500: #717588;
+  --gray-700: #343746;
+  --gray-800: #1d1e26;
+  --gray-900: #111218;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.15);
+  --border-lime: rgba(204, 255, 0, 0.4);
+  --border-orange: rgba(255, 85, 0, 0.4);
+  --font-display-en: 'Syne', 'Space Grotesk', sans-serif;
+  --font-body-en: 'Space Grotesk', -apple-system, sans-serif;
+  --font-display-ar: 'Alexandria', sans-serif;
+  --font-body-ar: 'IBM Plex Sans Arabic', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-deep);
+  color: var(--white);
+  font-family: var(--font-body-en);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--bg-deep);
+  position: relative;
+}
+
+/* Bilingual Direction Logic */
+html[dir="ltr"] {
+  font-family: var(--font-body-en);
+}
+
+html[dir="rtl"] {
+  font-family: var(--font-body-ar);
+}
+
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] .font-heading {
+  font-family: var(--font-display-ar) !important;
+  letter-spacing: normal !important;
+}
+
+html[dir="ltr"] h1,
+html[dir="ltr"] h2,
+html[dir="ltr"] h3,
+html[dir="ltr"] h4,
+html[dir="ltr"] .font-heading {
+  font-family: var(--font-display-en);
+  letter-spacing: -0.035em;
+}
+
+/* Film Grain Texture Overlay */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-darker);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray-700);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--lime);
+}
+
+/* Selection */
+::selection {
+  background: var(--lime);
+  color: #070709;
+}
+
+/* Typography styles */
+.font-display-en { font-family: var(--font-display-en); }
+.font-display-ar { font-family: var(--font-display-ar); }
+.font-mono-code { font-family: var(--font-mono); }
+
+/* Kinetic Marquee */
+@keyframes marquee-loop {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-loop-rtl {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-loop 24s linear infinite;
+}
+
+html[dir="rtl"] .animate-marquee {
+  animation: marquee-loop-rtl 24s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Stroke Typography */
+.text-stroke-subtle {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.22);
+  color: transparent;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.text-stroke-subtle:hover {
+  -webkit-text-stroke: 1.5px var(--lime);
+  color: var(--lime);
+}
+
+.text-stroke-lime {
+  -webkit-text-stroke: 1.5px var(--lime);
+  color: transparent;
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: rgba(14, 15, 20, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-panel-elevated {
+  background: rgba(19, 20, 27, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-medium);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glow effects */
+.glow-lime {
+  box-shadow: 0 0 35px var(--lime-glow);
+}
+
+.glow-orange {
+  box-shadow: 0 0 35px var(--orange-glow);
+}
+
+.border-glow-lime:hover {
+  border-color: var(--lime);
+  box-shadow: 0 0 20px var(--lime-glow);
+}
+
+/* Responsive Containers & Utilities */
+.app-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .app-container {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+}
+
+/* Pulsing Badge Beacon */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(0.95); opacity: 0; }
+}
+
+.beacon-ring {
+  animation: pulse-ring 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+/* Sound Wave bars animation */
+@keyframes soundwave {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+.bar-1 { animation: soundwave 1s ease-in-out infinite 0.1s; }
+.bar-2 { animation: soundwave 0.8s ease-in-out infinite 0.3s; }
+.bar-3 { animation: soundwave 1.2s ease-in-out infinite 0.2s; }
+.bar-4 { animation: soundwave 0.9s ease-in-out infinite 0.4s; }
+
+/* Modal & Transitions */
+.overlay-backdrop {
+  background: rgba(4, 4, 6, 0.9);
+  backdrop-filter: blur(20px);
+}
+
+/* Subtle Hover Shift */
+.magnetic-btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.magnetic-btn:hover {
+  transform: translateY(-2px);
+}
+
+.magnetic-btn:active {
+  transform: translateY(1px);
+}
+
+/* Hide default cursor on desktop when custom cursor is active */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active a,
+  body.custom-cursor-active button {
+    cursor: none !important;
+  }
+}
