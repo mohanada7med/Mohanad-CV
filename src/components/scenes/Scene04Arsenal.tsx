@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { PORTFOLIO_DATA, type Language, type Project } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
-import {
-  CheckCircle2,
-  Cpu,
-  ArrowUpRight,
-} from 'lucide-react';
+import { ComicBadge, ComicBurst } from '../comic/ComicElements';
+import { Zap, Camera, Film, Layers, Flame, CheckCircle2, ArrowUpRight, Sparkles } from 'lucide-react';
 
 interface Scene04ArsenalProps {
   lang: Language;
@@ -22,37 +19,47 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
   const [activeTab, setActiveTab] = useState<'skills' | 'gear' | 'partners'>('skills');
   const [selectedGearIndex, setSelectedGearIndex] = useState<number>(0);
 
-  // Creative Gear list with full cinema specs in monochrome styling
+  // Creative Gear list with full cinema specs in comic styling
   const gearArsenal = [
     {
       name: 'Sony Cinema FX3',
-      role: isAr ? 'الكاميرا السينمائية الرئيسية' : 'Primary Cinema Body',
-      specs: isAr ? 'مستشعر فل فريم 4K 120fps • كوديك All-Intra 10-bit 4:2:2' : 'Full-Frame 4K 120fps • 10-bit 4:2:2 S-Log3 Cinetone',
+      role: isAr ? 'السلاح السينمائي الرئيسي' : 'Primary Cinema Weapon',
+      specs: isAr ? 'مستشعر فل فريم 4K 120fps • كوديك All-Intra 10-bit 4:2:2 • تصوير سينمائي في أصعب ظروف الإضاءة' : 'Full-Frame 4K 120fps • 10-bit 4:2:2 S-Log3 Cinetone • Extreme low-light performance',
       tag: '4K CINEMA',
+      bg: '#ccff00',
+      icon: <Camera size={24} color="#000000" />,
     },
     {
       name: 'Sony FE 24-70mm GM II',
-      role: isAr ? 'عدسة سينمائية فائقة الحدة' : 'Master Flagship Glass',
-      specs: isAr ? 'فتحة F2.8 ثابتة • تركيز بؤري فائق السرعة وبوكيه سينمائي' : 'Constant F2.8 • Ultra-fast Linear XD Motors & Creamy Bokeh',
+      role: isAr ? 'عدسة سينمائية فائقة الحدة' : 'Master Flagship Optical Glass',
+      specs: isAr ? 'فتحة F2.8 ثابتة • محركات XD Linear فائقة السرعة وبوكيه سينمائي كريمي يعزل الهدف تماماً' : 'Constant F2.8 • Ultra-fast Linear XD Motors & Creamy Bokeh for flawless subject isolation',
       tag: 'G-MASTER',
+      bg: '#00e5ff',
+      icon: <Film size={24} color="#000000" />,
     },
     {
       name: 'DaVinci Resolve Studio',
-      role: isAr ? 'جناح التلوين وهندسة الصورة' : 'Color Grading & Mastering',
-      specs: isAr ? 'كولور مانجمنت احترافي • تصحيح ألوان دقيق ومعايرة سينمائية' : 'Node-based ACES / DWG Color Pipeline & Film Emulation',
-      tag: 'GRADING',
+      role: isAr ? 'مختبر هندسة الألوان والخيمياء' : 'Color Alchemy & Mastering Studio',
+      specs: isAr ? 'إدارة ألوان ACES احترافية • معايرة دقيقة لألوان البشرة وFilm Emulation يمنح طابعاً سينمائياً أصيلاً' : 'Node-based ACES / DWG Color Pipeline & Film Emulation for rich cinematic depth',
+      tag: 'COLOR LAB',
+      bg: '#ff3366',
+      icon: <Layers size={24} color="#ffffff" />,
     },
     {
       name: 'DJI RS3 Pro Combo',
-      role: isAr ? 'مانع اهتزاز ومحرك حركة' : '3-Axis Carbon Stabilizer',
-      specs: isAr ? 'تتبع ليدار آلي • أذرع كربونية لحركات كاميرا ناعمة ومعقدة' : 'LiDAR Range Finder Autofocus • Automated SuperSmooth Runs',
+      role: isAr ? 'مانع اهتزاز ومحرك حركة كربوني' : 'Carbon-Fiber 3-Axis Stabilizer',
+      specs: isAr ? 'فوكس ليدار آلي فائق الدقة • حركات كاميرا ناعمة ومعقدة تجعل اللقطة تبدو كإنتاج هوليوود' : 'LiDAR Range Finder Autofocus • Automated SuperSmooth Runs for Hollywood-scale camera blocking',
       tag: 'MOTION',
+      bg: '#ffe600',
+      icon: <Flame size={24} color="#000000" />,
     },
     {
-      name: 'Aputure Amaran 200x Bi-Color',
-      role: isAr ? 'هندسة الإضاءة الدرامية' : 'Studio Key Lighting',
-      specs: isAr ? 'سوفت بوكس 90 سم • CRI 95+ لألوان بشرة طبيعية وفخمة' : '90cm Lantern & Dome • Studio CRI 95+ for Flawless Skin Tones',
+      name: 'Aputure Amaran Studio Lighting',
+      role: isAr ? 'هندسة الإضاءة الدرامية' : 'Studio Key Lighting Rig',
+      specs: isAr ? 'سوفت بوكس 90 سم وفوانيس نشر ضوء • دقة ألوان CRI 95+ لألوان طعام وبشرة جذابة' : '90cm Lantern & Soft Dome • Studio CRI 95+ for appetizing food videography and flawless portraits',
       tag: 'LIGHTING',
+      bg: '#ffffff',
+      icon: <Zap size={24} color="#000000" />,
     },
   ];
 
@@ -60,6 +67,8 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
   const skillPillars = [
     {
       number: '01',
+      tag: 'DIRECTION',
+      tagBg: '#ccff00',
       titleEn: 'Cinema Direction & Cinematography',
       titleAr: 'الإخراج والتصوير السينمائي',
       descriptionEn: 'Lighting design, dynamic camera movement, anamorphic framing, and intentional mise-en-scène crafted for high-end commercials.',
@@ -68,6 +77,8 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
     },
     {
       number: '02',
+      tag: 'ALCHEMY',
+      tagBg: '#ff3366',
       titleEn: 'Post-Production & Color Alchemy',
       titleAr: 'المونتاج والتلوين السينمائي',
       descriptionEn: 'Rhythm editing tuned to human attention spans, DaVinci Resolve color science, sound design, and impact SFX that reinforce each story beat.',
@@ -76,6 +87,8 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
     },
     {
       number: '03',
+      tag: 'VIRAL HOOKS',
+      tagBg: '#ffe600',
       titleEn: 'UGC & Viral Hook Engineering',
       titleAr: 'سيكولوجية الهوك والمحتوى الفيروسي',
       descriptionEn: 'Deconstructing viewer drop-off within the first 400ms. Structuring fast payoff loops, tension curves, and seamless CTA handoffs.',
@@ -87,175 +100,147 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
   return (
     <section
       id="scene-arsenal"
-      className="master-scene-stage"
+      className="master-scene-stage comic-halftone-bg"
       style={{
         position: 'relative',
         minHeight: '100vh',
         width: '100%',
         padding: '110px clamp(16px, 4vw, 50px) 70px',
-        backgroundColor: '#080808',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: '#0c0d14',
+        borderBottom: '4px solid #000000',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
       }}
     >
-      <div style={{ maxWidth: '1440px', width: '100%', margin: '0 auto' }}>
-        {/* Scene Header with Expressive Kinetic Typography */}
+      <div style={{ maxWidth: '1360px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        {/* Section Header Strip */}
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'flex-end',
-            marginBottom: '40px',
+            alignItems: 'center',
+            marginBottom: '32px',
             flexWrap: 'wrap',
-            gap: '20px',
+            gap: '16px',
           }}
         >
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ffffff', marginBottom: '8px' }}>
-              <Cpu size={14} />
-              <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, letterSpacing: '0.08em' }}>
-                SCENE 04 • TECHNICAL ARSENAL & SKILL MATRIX
-              </span>
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <ComicBadge text="PANEL #04" subtext="WEAPONS" bg="#ff3366" textColor="#ffffff" rotation={-2} />
             <h2
               style={{
-                fontSize: 'clamp(2.2rem, 4.4vw, 3.8rem)',
+                fontSize: 'clamp(1.6rem, 2.8vw, 2.4rem)',
                 fontWeight: 900,
-                lineHeight: 1.1,
                 color: '#ffffff',
-                fontFamily: isAr ? 'Alexandria, sans-serif' : 'Syne, sans-serif',
-                letterSpacing: '-0.02em',
                 margin: 0,
+                fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
+                textTransform: 'uppercase',
+                letterSpacing: '-0.02em',
+                filter: 'drop-shadow(3px 3px 0px #000000)',
               }}
             >
-              {isAr ? 'العتاد التقني والخبرة الإنتاجية' : 'The Creative Arsenal & Weaponry'}
+              {isAr ? 'العتاد التقني والأسلحة الإبداعية' : 'THE CREATIVE WEAPONRY & ARSENAL'}
             </h2>
           </div>
 
-          {/* Interactive Mode Tabs */}
+          {/* Interactive Mode Comic Tabs */}
           <div
             style={{
               display: 'flex',
               padding: '4px',
-              borderRadius: '100px',
-              backgroundColor: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
+              borderRadius: '16px',
+              backgroundColor: '#161724',
+              border: '3px solid #000000',
+              boxShadow: '4px 4px 0px #000000',
+              gap: '6px',
             }}
           >
             {[
-              { id: 'skills', labelEn: 'Skill Matrix', labelAr: 'المهارات والخبرات' },
+              { id: 'skills', labelEn: 'Superpower Matrix', labelAr: 'المهارات والخبرات' },
               { id: 'gear', labelEn: 'Cinema Rig Suite', labelAr: 'العتاد والكاميرات' },
-              { id: 'partners', labelEn: 'Brand Network', labelAr: 'شبكة الشركاء' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  sound.playClick();
-                  setActiveTab(tab.id as any);
-                }}
-                onMouseEnter={() => sound.playHover()}
-                style={{
-                  padding: '8px 18px',
-                  borderRadius: '100px',
-                  backgroundColor: activeTab === tab.id ? '#ffffff' : 'transparent',
-                  color: activeTab === tab.id ? '#000000' : '#a1a1aa',
-                  border: 'none',
-                  fontSize: '12px',
-                  fontWeight: 800,
-                  fontFamily: isAr ? 'Alexandria, sans-serif' : 'JetBrains Mono, monospace',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                {isAr ? tab.labelAr : tab.labelEn}
-              </button>
-            ))}
+              { id: 'partners', labelEn: 'Allied Brands', labelAr: 'شبكة الشركاء' },
+            ].map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    sound.playClick();
+                    setActiveTab(tab.id as any);
+                  }}
+                  onMouseEnter={() => sound.playHover()}
+                  style={{
+                    padding: '8px 18px',
+                    borderRadius: '10px',
+                    backgroundColor: isActive ? '#ccff00' : 'transparent',
+                    color: isActive ? '#000000' : '#a1a3b5',
+                    border: isActive ? '2px solid #000000' : 'none',
+                    fontSize: '12px',
+                    fontWeight: 900,
+                    fontFamily: isAr ? 'var(--font-display-ar)' : 'JetBrains Mono, monospace',
+                    cursor: 'pointer',
+                    boxShadow: isActive ? '2px 2px 0px #000000' : 'none',
+                    transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  }}
+                >
+                  {isAr ? tab.labelAr : tab.labelEn}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* TAB 1: Core Skill Matrix (Dynamic Layout & Staggered Reveal) */}
+        {/* TAB 1: Comic Superpower Skill Cards */}
         {activeTab === 'skills' && (
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '24px',
-              animation: 'fadeIn 0.4s ease',
+              gap: '20px',
+              animation: 'fadeIn 0.3s ease',
             }}
           >
             {skillPillars.map((pillar) => (
               <div
                 key={pillar.number}
-                className="glass-panel"
+                className="comic-panel"
                 style={{
-                  padding: '32px 28px',
-                  borderRadius: '24px',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  padding: '28px',
+                  borderRadius: '20px',
+                  border: '3.5px solid #000000',
+                  boxShadow: '6px 6px 0px #000000',
+                  backgroundColor: '#151722',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  backgroundColor: '#0c0c0e',
-                  transition: 'transform 0.3s ease, border-color 0.3s ease',
+                  cursor: 'pointer',
+                  transition: 'all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                  sound.playHover();
+                  (e.currentTarget as HTMLElement).style.transform = 'translate(-4px, -4px)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = `8px 8px 0px ${pillar.tagBg}`;
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  (e.currentTarget as HTMLElement).style.transform = 'translate(0px, 0px)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '6px 6px 0px #000000';
                 }}
               >
-                {/* Accent Top Border Line */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: '2px',
-                    backgroundColor: '#ffffff',
-                  }}
-                />
-
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <span
-                      style={{
-                        fontSize: '12px',
-                        fontFamily: 'JetBrains Mono, monospace',
-                        fontWeight: 900,
-                        color: '#ffffff',
-                      }}
-                    >
-                      PILLAR {pillar.number}
-                    </span>
-                    <span
-                      style={{
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                        fontSize: '10px',
-                        fontFamily: 'JetBrains Mono, monospace',
-                        color: '#d4d4d8',
-                      }}
-                    >
-                      VERIFIED
-                    </span>
+                    <ComicBadge text={`POWER #${pillar.number}`} subtext={pillar.tag} bg={pillar.tagBg} rotation={-2} />
+                    <Sparkles size={18} color="#ccff00" />
                   </div>
 
                   <h3
                     style={{
                       fontSize: '22px',
-                      fontWeight: 800,
+                      fontWeight: 900,
                       color: '#ffffff',
-                      fontFamily: isAr ? 'Alexandria, sans-serif' : 'Syne, sans-serif',
+                      fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
                       marginBottom: '12px',
                       lineHeight: 1.25,
+                      filter: 'drop-shadow(2px 2px 0px #000000)',
                     }}
                   >
                     {isAr ? pillar.titleAr : pillar.titleEn}
@@ -264,31 +249,34 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                   <p
                     style={{
                       fontSize: '14px',
-                      color: '#a1a1aa',
-                      lineHeight: 1.6,
-                      margin: 0,
+                      lineHeight: 1.7,
+                      color: '#d0d2e2',
+                      marginBottom: '24px',
+                      fontFamily: isAr ? 'var(--font-body-ar)' : 'Space Grotesk, sans-serif',
                     }}
                   >
                     {isAr ? pillar.descriptionAr : pillar.descriptionEn}
                   </p>
                 </div>
 
-                {/* Sub-skills pills */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '24px' }}>
+                {/* Comic Skill Chips */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   {pillar.skills.map((skill, sIdx) => (
                     <span
                       key={sIdx}
                       style={{
-                        padding: '5px 10px',
+                        padding: '6px 12px',
                         borderRadius: '8px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        color: '#e4e4e7',
+                        backgroundColor: '#0a0a0f',
+                        border: '2px solid #000000',
+                        color: '#f5f6fa',
                         fontSize: '11px',
+                        fontWeight: 800,
                         fontFamily: 'JetBrains Mono, monospace',
+                        boxShadow: '2px 2px 0px #000000',
                       }}
                     >
-                      {skill}
+                      ✓ {skill}
                     </span>
                   ))}
                 </div>
@@ -297,110 +285,107 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
           </div>
         )}
 
-        {/* TAB 2: Cinema Gear Suite (Interactive Studio Rig Inspector) */}
+        {/* TAB 2: Cinema Rig & Weaponry Suite */}
         {activeTab === 'gear' && (
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '30px',
+              gap: '24px',
               alignItems: 'center',
-              animation: 'fadeIn 0.4s ease',
+              animation: 'fadeIn 0.3s ease',
             }}
           >
-            {/* Gear Selector List */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {gearArsenal.map((item, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => {
-                    sound.playClick();
-                    setSelectedGearIndex(idx);
-                  }}
-                  onMouseEnter={() => sound.playHover()}
-                  style={{
-                    padding: '18px 22px',
-                    borderRadius: '18px',
-                    backgroundColor: selectedGearIndex === idx ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.03)',
-                    border: selectedGearIndex === idx ? '1px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.08)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                    <div
-                      style={{
-                        width: '36px',
-                        height: '36px',
-                        borderRadius: '10px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#ffffff',
-                        fontWeight: 900,
-                        fontSize: '12px',
-                        fontFamily: 'JetBrains Mono, monospace',
-                      }}
-                    >
-                      0{idx + 1}
-                    </div>
-                    <div>
-                      <div style={{ fontSize: '15px', fontWeight: 800, color: '#ffffff' }}>{item.name}</div>
-                      <div style={{ fontSize: '12px', color: '#a1a1aa', marginTop: '2px' }}>{item.role}</div>
-                    </div>
-                  </div>
-
-                  <span
+            {/* Gear Selector Comic Buttons */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              {gearArsenal.map((item, idx) => {
+                const isSelected = selectedGearIndex === idx;
+                return (
+                  <div
+                    key={item.name}
+                    onClick={() => {
+                      sound.playClick();
+                      setSelectedGearIndex(idx);
+                    }}
+                    onMouseEnter={() => sound.playHover()}
+                    className="comic-panel"
                     style={{
-                      padding: '4px 8px',
-                      borderRadius: '6px',
-                      backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                      fontSize: '10px',
-                      fontFamily: 'JetBrains Mono, monospace',
-                      color: '#ffffff',
-                      fontWeight: 700,
+                      padding: '16px 20px',
+                      borderRadius: '16px',
+                      border: '3px solid #000000',
+                      backgroundColor: isSelected ? '#ccff00' : '#141622',
+                      color: isSelected ? '#000000' : '#ffffff',
+                      boxShadow: isSelected ? '5px 5px 0px #000000' : '3px 3px 0px #000000',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      transform: isSelected ? 'translateX(6px)' : 'none',
+                      transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
                     }}
                   >
-                    {item.tag}
-                  </span>
-                </div>
-              ))}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                      <div
+                        style={{
+                          width: '36px',
+                          height: '36px',
+                          borderRadius: '10px',
+                          backgroundColor: isSelected ? '#000000' : '#1e2130',
+                          color: isSelected ? '#ccff00' : '#ffffff',
+                          border: '2px solid #000000',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        {item.icon}
+                      </div>
+
+                      <div>
+                        <div style={{ fontSize: '15px', fontWeight: 900, fontFamily: 'Space Grotesk, sans-serif' }}>
+                          {item.name}
+                        </div>
+                        <div style={{ fontSize: '12px', color: isSelected ? '#222' : '#8d90a0', fontWeight: 700 }}>
+                          {item.role}
+                        </div>
+                      </div>
+                    </div>
+
+                    <span
+                      style={{
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                        backgroundColor: '#000000',
+                        color: '#ccff00',
+                        fontSize: '10px',
+                        fontFamily: 'JetBrains Mono, monospace',
+                        fontWeight: 900,
+                      }}
+                    >
+                      {item.tag}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Gear Detail Display Card */}
+            {/* Selected Weapon Detail Comic Blueprint Card */}
             <div
-              className="glass-panel"
+              className="comic-panel"
               style={{
-                padding: '36px',
-                borderRadius: '28px',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
+                padding: '32px',
+                borderRadius: '24px',
+                border: '4px solid #000000',
+                boxShadow: '8px 8px 0px #ccff00, 8px 8px 0px 4px #000000',
+                backgroundColor: '#151722',
                 position: 'relative',
-                overflow: 'hidden',
-                backgroundColor: '#0c0c0e',
-                boxShadow: '0 25px 70px rgba(0, 0, 0, 0.9)',
               }}
             >
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '-40px',
-                  right: '-40px',
-                  width: '180px',
-                  height: '180px',
-                  borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%)',
-                  filter: 'blur(30px)',
-                  pointerEvents: 'none',
-                }}
-              />
-
-              <div style={{ fontSize: '11px', fontFamily: 'JetBrains Mono, monospace', color: '#a1a1aa', fontWeight: 800, marginBottom: '8px' }}>
-                HARDWARE SPEC SHEET • ITEM 0{selectedGearIndex + 1}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <ComicBadge text="GEAR SPECIFICATION" subtext="ACTIVE WEAPON" bg="#ffe600" rotation={-2} />
+                <ComicBurst size={60} color="#ccff00">
+                  <span style={{ fontSize: '10px', fontWeight: 900 }}>PRO</span>
+                </ComicBurst>
               </div>
 
               <h3
@@ -408,14 +393,15 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                   fontSize: 'clamp(2rem, 3.2vw, 2.6rem)',
                   fontWeight: 900,
                   color: '#ffffff',
-                  fontFamily: isAr ? 'Alexandria, sans-serif' : 'Syne, sans-serif',
+                  fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
                   marginBottom: '10px',
+                  filter: 'drop-shadow(2px 2px 0px #000000)',
                 }}
               >
                 {gearArsenal[selectedGearIndex].name}
               </h3>
 
-              <div style={{ fontSize: '14px', color: '#ffffff', fontWeight: 700, marginBottom: '16px' }}>
+              <div style={{ fontSize: '15px', color: '#ccff00', fontWeight: 800, marginBottom: '20px' }}>
                 {gearArsenal[selectedGearIndex].role}
               </div>
 
@@ -423,21 +409,22 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                 style={{
                   padding: '20px',
                   borderRadius: '16px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backgroundColor: '#0a0a10',
+                  border: '2.5px solid #000000',
+                  boxShadow: '4px 4px 0px #000000',
                   marginBottom: '24px',
                 }}
               >
-                <div style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'JetBrains Mono, monospace', marginBottom: '6px' }}>
-                  {isAr ? 'المواصفات الفنية المعتمدة' : 'TECHNICAL SPECIFICATIONS'}
+                <div style={{ fontSize: '11px', color: '#ccff00', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900, marginBottom: '6px' }}>
+                  {isAr ? 'المواصفات الفنية المعتمدة' : 'TECHNICAL SPECIFICATIONS & CAPABILITIES'}
                 </div>
-                <div style={{ fontSize: '15px', color: '#ffffff', lineHeight: 1.6, fontWeight: 500 }}>
+                <div style={{ fontSize: '14px', color: '#ffffff', lineHeight: 1.6, fontWeight: 500 }}>
                   {gearArsenal[selectedGearIndex].specs}
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#a1a1aa', fontSize: '12px' }}>
-                <CheckCircle2 size={14} color="#ffffff" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ccff00', fontSize: '12px', fontWeight: 800 }}>
+                <CheckCircle2 size={16} color="#ccff00" />
                 <span>
                   {isAr
                     ? 'يتم استخدام هذا العتاد مباشرة في تصوير إعلانات البراندات'
@@ -448,14 +435,14 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
           </div>
         )}
 
-        {/* TAB 3: Brand Constellation Network */}
+        {/* TAB 3: Allied Brand Network */}
         {activeTab === 'partners' && (
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
               gap: '16px',
-              animation: 'fadeIn 0.4s ease',
+              animation: 'fadeIn 0.3s ease',
             }}
           >
             {brands.map((b) => (
@@ -466,26 +453,56 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                   if (onSelectBrand) onSelectBrand(b.name);
                 }}
                 onMouseEnter={() => sound.playHover()}
+                className="comic-panel"
                 style={{
                   padding: '22px',
                   borderRadius: '18px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#141622',
+                  border: '3px solid #000000',
+                  boxShadow: '5px 5px 0px #000000',
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease',
+                  transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
                 }}
-                className="magnetic-btn"
+                onMouseOver={(e: React.MouseEvent<HTMLDivElement>) => {
+                  e.currentTarget.style.transform = 'translate(-4px, -4px)';
+                  e.currentTarget.style.boxShadow = '7px 7px 0px #ccff00';
+                }}
+                onMouseOut={(e: React.MouseEvent<HTMLDivElement>) => {
+                  e.currentTarget.style.transform = 'translate(0px, 0px)';
+                  e.currentTarget.style.boxShadow = '5px 5px 0px #000000';
+                }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '16px', fontWeight: 900, color: '#ffffff', fontFamily: isAr ? 'Alexandria, sans-serif' : 'Syne, sans-serif' }}>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      fontWeight: 900,
+                      color: '#ffffff',
+                      fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
+                    }}
+                  >
                     {isAr ? b.name_ar : b.name}
                   </span>
-                  <ArrowUpRight size={16} color="#ffffff" />
+                  <ArrowUpRight size={18} color="#ccff00" />
                 </div>
-                <div style={{ fontSize: '12px', color: '#a1a1aa', fontFamily: 'JetBrains Mono, monospace' }}>
+
+                <div style={{ fontSize: '12px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
                   {isAr ? b.sector_ar : b.sector_en}
                 </div>
-                <div style={{ fontSize: '11px', color: '#ffffff', marginTop: '10px', fontWeight: 700 }}>
+
+                <div
+                  style={{
+                    display: 'inline-block',
+                    marginTop: '12px',
+                    padding: '3px 10px',
+                    borderRadius: '6px',
+                    backgroundColor: '#000000',
+                    color: '#ccff00',
+                    fontSize: '11px',
+                    fontWeight: 900,
+                    border: '1.5px solid #000000',
+                  }}
+                >
                   {b.badge}
                 </div>
               </div>

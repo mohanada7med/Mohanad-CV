@@ -92,54 +92,56 @@ export const CustomCursor: React.FC = () => {
 
   return (
     <div style={{ pointerEvents: 'none', position: 'fixed', inset: 0, zIndex: 10000, overflow: 'hidden' }}>
-      {/* Central Sharp Dot */}
+      {/* Central Sharp Comic Dot */}
       <div
         style={{
           position: 'fixed',
           left: `${position.x}px`,
           top: `${position.y}px`,
-          width: hasLabel ? '0px' : isHovering ? '6px' : '8px',
-          height: hasLabel ? '0px' : isHovering ? '6px' : '8px',
-          backgroundColor: '#ffffff',
+          width: hasLabel ? '0px' : isHovering ? '8px' : '10px',
+          height: hasLabel ? '0px' : isHovering ? '8px' : '10px',
+          backgroundColor: '#ccff00',
+          border: '2px solid #000000',
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
           transition: 'width 0.2s, height 0.2s, opacity 0.2s',
           opacity: hasLabel ? 0 : 1,
-          boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)',
+          boxShadow: '2px 2px 0px #000000',
         }}
       />
 
-      {/* Trailing Responsive Ring / Badge */}
+      {/* Trailing Responsive Cartoon Ring / Badge */}
       <div
         style={{
           position: 'fixed',
           left: `${trailingPos.x}px`,
           top: `${trailingPos.y}px`,
-          width: hasLabel ? '88px' : isHovering ? '48px' : '32px',
-          height: hasLabel ? '88px' : isHovering ? '48px' : '32px',
+          width: hasLabel ? '92px' : isHovering ? '44px' : '30px',
+          height: hasLabel ? '92px' : isHovering ? '44px' : '30px',
           borderRadius: '50%',
-          border: hasLabel ? '1px solid #ffffff' : isHovering ? '1.5px solid #ffffff' : '1px solid rgba(255, 255, 255, 0.4)',
-          backgroundColor: hasLabel ? 'rgba(10, 10, 12, 0.95)' : isHovering ? 'rgba(255, 255, 255, 0.12)' : 'transparent',
-          backdropFilter: hasLabel ? 'blur(8px)' : 'none',
-          transform: `translate(-50%, -50%) scale(${isClicking ? 0.85 : 1})`,
-          transition: 'width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, border-color 0.2s',
+          border: '2.5px solid #000000',
+          backgroundColor: hasLabel ? '#ccff00' : isHovering ? 'rgba(204, 255, 0, 0.25)' : 'transparent',
+          transform: `translate(-50%, -50%) scale(${isClicking ? 0.82 : 1})`,
+          transition: 'width 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: hasLabel ? '0 0 24px rgba(255, 255, 255, 0.3)' : 'none',
+          boxShadow: hasLabel ? '4px 4px 0px #000000' : 'none',
         }}
       >
         {hasLabel && (
           <span
             style={{
-              color: '#ffffff',
+              color: '#070709',
               fontSize: '11px',
               fontFamily: 'JetBrains Mono, monospace',
-              fontWeight: 700,
-              letterSpacing: '0.08em',
+              fontWeight: 900,
+              letterSpacing: '0.04em',
               textTransform: 'uppercase',
               textAlign: 'center',
               userSelect: 'none',
+              padding: '4px',
+              lineHeight: 1.2,
             }}
           >
             {cursorText}

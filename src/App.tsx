@@ -101,9 +101,10 @@ export function App() {
           top: 0,
           left: 0,
           right: 0,
-          height: '3px',
+          height: '4px',
           zIndex: 10001,
-          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          backgroundColor: '#000000',
+          borderBottom: '1px solid #000000',
           pointerEvents: 'none',
         }}
       >
@@ -114,8 +115,8 @@ export function App() {
             width: '100%',
             transformOrigin: 'left center',
             transform: 'scaleX(0)',
-            background: 'linear-gradient(90deg, #ffffff 0%, #a1a1aa 50%, #ffffff 100%)',
-            boxShadow: '0 0 12px rgba(255, 255, 255, 0.8)',
+            background: 'linear-gradient(90deg, #ccff00 0%, #ffe600 50%, #ccff00 100%)',
+            boxShadow: '0 0 12px rgba(204, 255, 0, 0.9)',
           }}
         />
       </div>

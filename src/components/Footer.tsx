@@ -21,10 +21,11 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
 
   return (
     <footer
+      className="comic-halftone-bg"
       style={{
         position: 'relative',
-        backgroundColor: '#040406',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: '#090a0e',
+        borderTop: '4px solid #000000',
         paddingTop: '90px',
         paddingBottom: '50px',
         overflow: 'hidden',
@@ -37,7 +38,7 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
             userSelect: 'none',
             textAlign: 'center',
             marginBottom: '60px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+            borderBottom: '2px solid #000000',
             paddingBottom: '50px',
           }}
         >
@@ -49,18 +50,20 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
               lineHeight: 0.88,
               letterSpacing: '-0.04em',
               textTransform: 'uppercase',
+              filter: 'drop-shadow(6px 6px 0px #000000)',
             }}
           >
             <span style={{ color: '#ffffff' }}>MOHANAD </span>
-            <span className="text-stroke-subtle">AHMED</span>
+            <span style={{ color: '#ccff00' }}>AHMED</span>
           </div>
           <div
             style={{
               fontSize: 'clamp(1.5rem, 4vw, 3rem)',
-              fontFamily: 'Alexandria, sans-serif',
-              fontWeight: 800,
-              color: '#ccff00',
+              fontFamily: 'var(--font-display-ar)',
+              fontWeight: 900,
+              color: '#ffe600',
               marginTop: '12px',
+              filter: 'drop-shadow(3px 3px 0px #000000)',
             }}
           >
             مهند أحمد

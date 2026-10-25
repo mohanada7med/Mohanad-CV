@@ -1,34 +1,45 @@
+@font-face {
+  font-family: 'Narjis';
+  src: url('/assets/fonts/font.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --bg-deep: #070709;
-  --bg-espresso: #0e0a08;
-  --bg-chocolate: #261710;
-  --bg-chocolate-light: #382419;
-  --cream-putty: #ccd5c9;
-  --cream-putty-hover: #e4ebe0;
-  --bg-darker: #040405;
-  --bg-surface: #0e0f14;
-  --bg-card: #13141b;
-  --bg-card-hover: #191b24;
-  --lime: #ffffff;
-  --lime-glow: rgba(255, 255, 255, 0.25);
-  --orange: #e4e4e7;
-  --orange-glow: rgba(255, 255, 255, 0.15);
-  --cyan: #f4f4f5;
+  --bg-deep: #0a0b0f;
+  --bg-espresso: #0d0e14;
+  --bg-chocolate: #12131c;
+  --bg-chocolate-light: #191b26;
+  --cream-putty: #f5f6fa;
+  --cream-putty-hover: #ffffff;
+  --bg-darker: #050608;
+  --bg-surface: #0e1017;
+  --bg-card: #141620;
+  --bg-card-hover: #1c1e2b;
+  --lime: #ccff00;
+  --lime-glow: rgba(204, 255, 0, 0.4);
+  --orange: #ff9900;
+  --orange-glow: rgba(255, 153, 0, 0.3);
+  --cyan: #00e5ff;
   --white: #ffffff;
+  --comic-ink: #000000;
+  --comic-yellow: #ffe600;
+  --comic-pink: #ff3366;
   --gray-100: #f4f4f5;
   --gray-300: #d4d4d8;
   --gray-500: #a1a1aa;
   --gray-700: #52525b;
   --gray-800: #27272a;
   --gray-900: #18181b;
-  --border-subtle: rgba(255, 255, 255, 0.1);
-  --border-medium: rgba(255, 255, 255, 0.2);
-  --border-lime: rgba(255, 255, 255, 0.35);
-  --border-orange: rgba(255, 255, 255, 0.35);
-  --font-display-en: 'Syne', 'Space Grotesk', sans-serif;
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-medium: rgba(255, 255, 255, 0.25);
+  --border-lime: #ccff00;
+  --border-orange: #ff9900;
+  --font-display-en: 'Syne', Impact, sans-serif;
   --font-body-en: 'Space Grotesk', -apple-system, sans-serif;
-  --font-display-ar: 'Alexandria', sans-serif;
-  --font-body-ar: 'IBM Plex Sans Arabic', sans-serif;
+  --font-display-ar: 'Narjis', 'Alexandria', sans-serif;
+  --font-body-ar: 'Narjis', 'IBM Plex Sans Arabic', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -444,5 +455,124 @@ html[dir="rtl"] .animate-marquee {
   }
 }
 
+/* ==========================================================================
+   CARTOON & COMIC INTERACTIVE DESIGN SYSTEM
+   ========================================================================== */
 
+/* Cartoon Comic Panel System */
+.comic-panel {
+  background: #12141d;
+  border: 3.5px solid #000000;
+  border-radius: 20px;
+  box-shadow: 6px 6px 0px #000000;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
 
+.comic-panel-lime {
+  background: #12141d;
+  border: 3.5px solid #000000;
+  border-radius: 20px;
+  box-shadow: 6px 6px 0px var(--lime);
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.comic-panel-lime:hover, .comic-panel:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0px var(--lime);
+}
+
+.comic-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border: 3px solid #000000;
+  border-radius: 999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background-color: var(--lime);
+  color: #070709;
+  box-shadow: 4px 4px 0px #000000;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background-color 0.2s;
+  user-select: none;
+}
+
+.comic-btn:hover {
+  transform: translate(-3px, -3px) scale(1.03);
+  box-shadow: 7px 7px 0px #000000;
+}
+
+.comic-btn:active {
+  transform: translate(2px, 2px) scale(0.97);
+  box-shadow: 1px 1px 0px #000000;
+}
+
+.comic-btn-white {
+  background-color: #ffffff;
+  color: #070709;
+}
+
+.comic-btn-white:hover {
+  background-color: #f2f3f7;
+  box-shadow: 7px 7px 0px var(--lime);
+}
+
+/* Halftone comic background */
+.comic-halftone-bg {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
+.comic-halftone-lime {
+  background-image: radial-gradient(circle, rgba(204, 255, 0, 0.12) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
+/* Comic Text Shadows */
+.comic-text-shadow {
+  text-shadow: 3px 3px 0px #000000;
+}
+
+.comic-text-shadow-lime {
+  text-shadow: 4px 4px 0px #000000, 0 0 25px rgba(204, 255, 0, 0.5);
+}
+
+.comic-title-stroke {
+  -webkit-text-stroke: 2px #000000;
+  paint-order: stroke fill;
+}
+
+/* Squash and Stretch Letter Animation */
+.comic-letter {
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+.comic-letter:hover {
+  transform: translateY(-8px) scale(1.15) rotate(3deg);
+  color: var(--lime) !important;
+}
+
+/* Float Idle Keyframe */
+@keyframes comic-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1.5deg); }
+}
+
+.animate-comic-float {
+  animation: comic-float 3.5s ease-in-out infinite;
+}
+
+@keyframes comic-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.animate-comic-pulse {
+  animation: comic-pulse 2s ease-in-out infinite;
+}
