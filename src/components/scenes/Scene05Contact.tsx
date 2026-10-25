@@ -3,7 +3,7 @@ import { PORTFOLIO_DATA, type Language } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 import confetti from 'canvas-confetti';
 import { ComicBadge, ComicStars } from '../comic/ComicElements';
-import { MessageCircle, Mail, Copy, Check, ArrowUpRight, Flame, MapPin, ArrowUp } from 'lucide-react';
+import { MessageCircle, Mail, Copy, Check, ArrowUpRight, Flame } from 'lucide-react';
 
 interface Scene05ContactProps {
   lang: Language;
@@ -413,118 +413,7 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
             position: 'relative',
           }}
         >
-          {/* Comic Eyebrow Badge */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '-14px',
-              left: isAr ? 'auto' : '20px',
-              right: isAr ? '20px' : 'auto',
-            }}
-          >
-            <ComicBadge text="EPILOGUE" subtext="CREDITS" bg="#ffe600" rotation={-1} />
-          </div>
 
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '20px',
-              paddingTop: '8px',
-            }}
-          >
-            {/* Monogram & Title */}
-            <div>
-              <div
-                style={{
-                  fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
-                  fontWeight: 900,
-                  fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.1,
-                }}
-              >
-                <span style={{ color: '#ffffff' }}>MOHANAD</span>{' '}
-                <span style={{ color: '#ccff00' }}>AHMED</span>
-                {isAr && (
-                  <span style={{ color: '#ffe600', margin: '0 10px', fontSize: '0.85em' }}>
-                    مهند أحمد
-                  </span>
-                )}
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  color: '#a1a3b5',
-                  fontSize: '12px',
-                  fontFamily: 'JetBrains Mono, monospace',
-                  marginTop: '4px',
-                }}
-              >
-                <MapPin size={13} color="#ccff00" />
-                <span>
-                  {isAr
-                    ? 'أسيوط، مصر — متاح لتصوير الإعلانات محلياً ودولياً'
-                    : 'Assiut, Egypt — Available for domestic & global shoots'}
-                </span>
-              </div>
-            </div>
-
-            {/* Copyright & Replay Action Button */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-              <div
-                style={{
-                  color: '#717388',
-                  fontSize: '11px',
-                  fontFamily: 'JetBrains Mono, monospace',
-                  fontWeight: 700,
-                }}
-              >
-                © 2019 — 2026 • VIRAL REEL DIRECTOR
-              </div>
-
-              {/* Replay Scrollytelling Button */}
-              <button
-                onClick={() => {
-                  sound.playWhoosh();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                onMouseEnter={() => sound.playHover()}
-                data-cursor="REPLAY"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '10px 18px',
-                  borderRadius: '12px',
-                  backgroundColor: '#ccff00',
-                  color: '#000000',
-                  border: '2.5px solid #000000',
-                  boxShadow: '3px 3px 0px #000000',
-                  fontSize: '12px',
-                  fontWeight: 900,
-                  cursor: 'pointer',
-                  fontFamily: 'JetBrains Mono, monospace',
-                  transition: 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                }}
-                onMouseDown={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = 'translate(2px, 2px)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '1px 1px 0px #000000';
-                }}
-                onMouseUp={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = 'translate(0px, 0px)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = '3px 3px 0px #000000';
-                }}
-              >
-                <ArrowUp size={15} strokeWidth={3} />
-                <span>{isAr ? 'العودة للبداية' : 'REPLAY TO TOP'}</span>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </section>
