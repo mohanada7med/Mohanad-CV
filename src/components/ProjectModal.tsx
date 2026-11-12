@@ -62,9 +62,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     sound.playClick();
     const brandName = isAr ? project.brand_ar : project.brand;
     const text = isAr
-      ? `مرحباً مهند، أود مناقشة إنتاج عمل إعلاني مشابه لمشروعك مع (${brandName})!`
+      ? `مرحباً مهند، أود مناقشة مشروع محتوى أو تصوير مشابه لـ (${brandName})!`
       : `Hey Mohanad! I'd love to produce a project similar to what you did with (${brandName})!`;
-    window.open(`https://wa.me/201023456789?text=${encodeURIComponent(text)}`, '_blank');
+
+    if (PORTFOLIO_DATA.creator.whatsapp && PORTFOLIO_DATA.creator.whatsapp.trim().length > 5) {
+      const cleanPhone = PORTFOLIO_DATA.creator.whatsapp.replace(/[^0-9]/g, '');
+      window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
+    } else {
+      const subject = isAr
+        ? `طلب استفسار عن محتوى مشابه لـ (${brandName})`
+        : `Inquiry for project similar to (${brandName})`;
+      window.location.href = `mailto:${PORTFOLIO_DATA.creator.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    }
   };
 
   return (
@@ -554,23 +563,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', color: '#ccff00' }}>
                   <Layers size={16} color="#ccff00" />
                   <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900 }}>
-                    {lang === 'en' ? 'VERIFIED PERFORMANCE' : 'النتائج والاستبقاء'}
+                    {lang === 'en' ? 'PROJECT HIGHLIGHT' : 'طبيعة ومخرجات العمل'}
                   </span>
                 </div>
-                <p style={{ fontSize: '14px', color: '#ccff00', margin: 0, fontWeight: 800 }}>
+                <p style={{ fontSize: '14px', color: '#ccff00', margin: 0, fontWeight: 700 }}>
                   {lang === 'en' ? project.results_en : project.results_ar}
                 </p>
               </div>
             )}
 
-            {/* WhatsApp CTA inside modal */}
+            {/* Contact CTA inside modal */}
             <button
               onClick={handleDiscussWhatsApp}
               className="comic-btn"
               style={{
                 width: '100%',
                 padding: '12px 20px',
-                backgroundColor: '#25D366',
+                backgroundColor: '#ccff00',
                 color: '#000000',
                 border: '3px solid #000000',
                 boxShadow: '4px 4px 0px #000000',
@@ -579,7 +588,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               }}
             >
               <MessageCircle size={18} color="#000000" />
-              <span>{isAr ? 'اطلب فكرة إعلانية مماثلة لوجهتك' : 'Request Similar Campaign Concept'}</span>
+              <span>{isAr ? 'تواصل لتنفيذ محتوى مماثل لمشروعك' : 'Inquire About Similar Content'}</span>
             </button>
 
             {/* Navigation Buttons: Previous / Next Project */}

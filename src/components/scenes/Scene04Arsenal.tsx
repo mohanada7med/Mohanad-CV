@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PORTFOLIO_DATA, type Language, type Project } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 import { ComicBadge, ComicBurst } from '../comic/ComicElements';
@@ -8,7 +8,7 @@ interface Scene04ArsenalProps {
   lang: Language;
   onOpenProject?: (project: Project) => void;
   onSelectBrand?: (brandName: string) => void;
-  controlledTab?: 'skills' | 'gear' | 'partners';
+  controlledTab?: 'services' | 'gear' | 'partners';
 }
 
 export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
@@ -18,92 +18,59 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
 }) => {
   const isAr = lang === 'ar';
   const brands = PORTFOLIO_DATA.brands;
-  const [activeTab, setActiveTab] = useState<'skills' | 'gear' | 'partners'>('skills');
+  const [internalTab, setInternalTab] = useState<'services' | 'gear' | 'partners'>('services');
+  const activeTab = controlledTab ?? internalTab;
   const [selectedGearIndex, setSelectedGearIndex] = useState<number>(0);
 
-  useEffect(() => {
-    if (controlledTab) {
-      setActiveTab(controlledTab);
-    }
-  }, [controlledTab]);
+  const setActiveTab = (tab: 'services' | 'gear' | 'partners') => {
+    setInternalTab(tab);
+  };
 
-  // Creative Gear list with full cinema specs in comic styling
+  // Creative Gear list with practical specs
   const gearArsenal = [
     {
-      name: 'Sony Cinema FX3',
-      role: isAr ? 'السلاح السينمائي الرئيسي' : 'Primary Cinema Weapon',
-      specs: isAr ? 'مستشعر فل فريم 4K 120fps • كوديك All-Intra 10-bit 4:2:2 • تصوير سينمائي في أصعب ظروف الإضاءة' : 'Full-Frame 4K 120fps • 10-bit 4:2:2 S-Log3 Cinetone • Extreme low-light performance',
-      tag: '4K CINEMA',
+      name: 'Sony 4K Camera System',
+      role: isAr ? 'الكاميرا والتصوير الأساسي' : 'Primary 4K Camera Rig',
+      specs: isAr ? 'مستشعر فل فريم 4K • تصوير بدقة عالية وتفاصيل دقيقة • أداء ممتاز في مختلف ظروف الإضاءة' : 'Full-frame 4K capture • High dynamic range • Exceptional clarity in diverse lighting conditions',
+      tag: '4K VIDEO',
       bg: '#ccff00',
       icon: <Camera size={24} color="#000000" />,
     },
     {
-      name: 'Sony FE 24-70mm GM II',
-      role: isAr ? 'عدسة سينمائية فائقة الحدة' : 'Master Flagship Optical Glass',
-      specs: isAr ? 'فتحة F2.8 ثابتة • محركات XD Linear فائقة السرعة وبوكيه سينمائي كريمي يعزل الهدف تماماً' : 'Constant F2.8 • Ultra-fast Linear XD Motors & Creamy Bokeh for flawless subject isolation',
-      tag: 'G-MASTER',
+      name: 'Fast Cinema & Prime Lenses',
+      role: isAr ? 'عدسات احترافية فائقة النقاء' : 'Sharp Prime & Zoom Optics',
+      specs: isAr ? 'فتحة عدسة واسعة لعزل بصري ناعم • حدة ممتازة للقطات القريبة للمنتجات وتفاصيل الأماكن' : 'Wide aperture for natural depth of field • Crisp focus ideal for product details and venue angles',
+      tag: 'OPTICS',
       bg: '#00e5ff',
       icon: <Film size={24} color="#000000" />,
     },
     {
-      name: 'DaVinci Resolve Studio',
-      role: isAr ? 'مختبر هندسة الألوان والخيمياء' : 'Color Alchemy & Mastering Studio',
-      specs: isAr ? 'إدارة ألوان ACES احترافية • معايرة دقيقة لألوان البشرة وFilm Emulation يمنح طابعاً سينمائياً أصيلاً' : 'Node-based ACES / DWG Color Pipeline & Film Emulation for rich cinematic depth',
-      tag: 'COLOR LAB',
+      name: 'Post-Production & Editing Suite',
+      role: isAr ? 'المونتاج وتصحيح الألوان والصوت' : 'Editing, Color & Sound Studio',
+      specs: isAr ? 'مونتاج إيقاعي منظم • ضبط درجات الألوان لتناسب هوية البراند • تنقية وهندسة المؤثرات الصوتية' : 'Pacing-focused editing • Brand-matched color grading • Clean audio design and voice clarity',
+      tag: 'EDITING',
       bg: '#ff3366',
       icon: <Layers size={24} color="#ffffff" />,
     },
     {
-      name: 'DJI RS3 Pro Combo',
-      role: isAr ? 'مانع اهتزاز ومحرك حركة كربوني' : 'Carbon-Fiber 3-Axis Stabilizer',
-      specs: isAr ? 'فوكس ليدار آلي فائق الدقة • حركات كاميرا ناعمة ومعقدة تجعل اللقطة تبدو كإنتاج هوليوود' : 'LiDAR Range Finder Autofocus • Automated SuperSmooth Runs for Hollywood-scale camera blocking',
+      name: '3-Axis Motorized Gimbal',
+      role: isAr ? 'مانع اهتزاز وحركات كاميرا انسيابية' : '3-Axis Motorized Stabilizer',
+      specs: isAr ? 'حركات سينمائية سلسة لتغطية الأماكن والمشروعات • ثبات كامل أثناء الحركة والتصوير الميداني' : 'Smooth cinematic motion for venue walkthroughs • Stable on-location and handheld coverage',
       tag: 'MOTION',
       bg: '#ffe600',
       icon: <Flame size={24} color="#000000" />,
     },
     {
-      name: 'Aputure Amaran Studio Lighting',
-      role: isAr ? 'هندسة الإضاءة الدرامية' : 'Studio Key Lighting Rig',
-      specs: isAr ? 'سوفت بوكس 90 سم وفوانيس نشر ضوء • دقة ألوان CRI 95+ لألوان طعام وبشرة جذابة' : '90cm Lantern & Soft Dome • Studio CRI 95+ for appetizing food videography and flawless portraits',
+      name: 'Location & Studio Lighting Rig',
+      role: isAr ? 'إضاءة احترافية موجهة' : 'Key & Ambient Lighting Kit',
+      specs: isAr ? 'إضاءة سوفت ومشتتات لنشر الضوء بنعومة • دقة لونية عالية تبرز ألوان المنتجات والأطعمة بجاذبية' : 'Soft diffused lighting • High CRI color accuracy making food, products, and faces look natural',
       tag: 'LIGHTING',
       bg: '#ffffff',
       icon: <Zap size={24} color="#000000" />,
     },
   ];
 
-  // Technical Competency Pillars
-  const skillPillars = [
-    {
-      number: '01',
-      tag: 'DIRECTION',
-      tagBg: '#ccff00',
-      titleEn: 'Cinema Direction & Cinematography',
-      titleAr: 'الإخراج والتصوير السينمائي',
-      descriptionEn: 'Lighting design, dynamic camera movement, anamorphic framing, and intentional mise-en-scène crafted for high-end commercials.',
-      descriptionAr: 'توزيع إضاءة متقدم، حركات كاميرا انسيابية، وتكوينات كادر مدروسة لإنتاج إعلانات تجارية تعكس فخامة البراند.',
-      skills: ['Sony Cinema FX3', 'Dynamic Camera Blocking', 'Lighting Architecture', 'Commercial Set Direction'],
-    },
-    {
-      number: '02',
-      tag: 'ALCHEMY',
-      tagBg: '#ff3366',
-      titleEn: 'Post-Production & Color Alchemy',
-      titleAr: 'المونتاج والتلوين السينمائي',
-      descriptionEn: 'Rhythm editing tuned to human attention spans, DaVinci Resolve color science, sound design, and impact SFX that reinforce each story beat.',
-      descriptionAr: 'مونتاج إيقاعي يتماشى مع نبض المشاهد، تصحيح وتلوين ألوان دقيق على دافينشي ريزولف، وهندسة صوتية تبرز المشاعر.',
-      skills: ['DaVinci Resolve', 'Adobe Premiere Pro', 'Sound Design & Mastering', 'S-Log3 Color Grading'],
-    },
-    {
-      number: '03',
-      tag: 'VIRAL HOOKS',
-      tagBg: '#ffe600',
-      titleEn: 'UGC & Viral Hook Engineering',
-      titleAr: 'سيكولوجية الهوك والمحتوى الفيروسي',
-      descriptionEn: 'Deconstructing viewer drop-off within the first 400ms. Structuring fast payoff loops, tension curves, and seamless CTA handoffs.',
-      descriptionAr: 'تحليل دقيق لأول 400 ميلي ثانية لمنع تخطي الإعلان، بناء تصاعد درامي سريع، وتوجيه المشاهد للتحويل والشراء.',
-      skills: ['Pattern Interrupts', '94% Retention Optimization', 'Short-Form Narrative', 'Conversion UGC'],
-    },
-  ];
+  const services = PORTFOLIO_DATA.services;
 
   return (
     <section
@@ -134,7 +101,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <ComicBadge text="PANEL #04" subtext="WEAPONS" bg="#ff3366" textColor="#ffffff" rotation={-2} />
+            <ComicBadge text="PANEL #04" subtext={isAr ? 'الخدمات' : 'SERVICES'} bg="#ff3366" textColor="#ffffff" rotation={-2} />
             <h2
               style={{
                 fontSize: 'clamp(1.6rem, 2.8vw, 2.4rem)',
@@ -147,7 +114,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                 filter: 'drop-shadow(3px 3px 0px #000000)',
               }}
             >
-              {isAr ? 'العتاد التقني والأسلحة الإبداعية' : 'THE CREATIVE WEAPONRY & ARSENAL'}
+              {isAr ? 'الخدمات وصناعة المحتوى والعتاد' : 'SERVICES, GEAR & COLLABORATIONS'}
             </h2>
           </div>
 
@@ -166,9 +133,9 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
             }}
           >
             {[
-              { id: 'skills', labelEn: 'Superpower Matrix', labelAr: 'المهارات والخبرات' },
-              { id: 'gear', labelEn: 'Cinema Rig Suite', labelAr: 'العتاد والكاميرات' },
-              { id: 'partners', labelEn: 'Allied Brands', labelAr: 'شبكة الشركاء' },
+              { id: 'services', labelEn: 'Services & Scope', labelAr: 'الخدمات وصناعة المحتوى' },
+              { id: 'gear', labelEn: 'Camera & Gear', labelAr: 'المعدات وأدوات العمل' },
+              { id: 'partners', labelEn: 'Collaborations', labelAr: 'البراندات والشركاء' },
             ].map((tab) => {
               const isActive = activeTab === tab.id;
               return (
@@ -200,22 +167,22 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
           </div>
         </div>
 
-        {/* TAB 1: Comic Superpower Skill Cards */}
-        {activeTab === 'skills' && (
+        {/* TAB 1: Real Services from PORTFOLIO_DATA */}
+        {activeTab === 'services' && (
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
               gap: '20px',
               animation: 'fadeIn 0.3s ease',
             }}
           >
-            {skillPillars.map((pillar) => (
+            {services.map((srv) => (
               <div
-                key={pillar.number}
+                key={srv.id}
                 className="comic-panel"
                 style={{
-                  padding: '28px',
+                  padding: '24px',
                   borderRadius: '20px',
                   border: '3.5px solid #000000',
                   boxShadow: '6px 6px 0px #000000',
@@ -229,7 +196,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                 onMouseEnter={(e) => {
                   sound.playHover();
                   (e.currentTarget as HTMLElement).style.transform = 'translate(-4px, -4px)';
-                  (e.currentTarget as HTMLElement).style.boxShadow = `8px 8px 0px ${pillar.tagBg}`;
+                  (e.currentTarget as HTMLElement).style.boxShadow = '8px 8px 0px #ccff00';
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.transform = 'translate(0px, 0px)';
@@ -237,58 +204,63 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                 }}
               >
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <ComicBadge text={`POWER #${pillar.number}`} subtext={pillar.tag} bg={pillar.tagBg} rotation={-2} />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                    <ComicBadge text={`SERVICE #${srv.number}`} subtext={srv.id.toUpperCase()} bg="#ccff00" rotation={-2} />
                     <Sparkles size={18} color="#ccff00" />
                   </div>
 
                   <h3
                     style={{
-                      fontSize: '22px',
+                      fontSize: '20px',
                       fontWeight: 900,
                       color: '#ffffff',
                       fontFamily: isAr ? 'var(--font-display-ar)' : 'var(--font-display-en)',
-                      marginBottom: '12px',
+                      marginBottom: '10px',
                       lineHeight: 1.25,
                       filter: 'drop-shadow(2px 2px 0px #000000)',
                     }}
                   >
-                    {isAr ? pillar.titleAr : pillar.titleEn}
+                    {isAr ? srv.title_ar : srv.title_en}
                   </h3>
 
                   <p
                     style={{
                       fontSize: '14px',
-                      lineHeight: 1.7,
+                      lineHeight: 1.6,
                       color: '#d0d2e2',
-                      marginBottom: '24px',
+                      marginBottom: '20px',
                       fontFamily: isAr ? 'var(--font-body-ar)' : 'var(--font-body-en)',
                     }}
                   >
-                    {isAr ? pillar.descriptionAr : pillar.descriptionEn}
+                    {isAr ? srv.short_desc_ar : srv.short_desc_en}
                   </p>
                 </div>
 
-                {/* Comic Skill Chips */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                  {pillar.skills.map((skill, sIdx) => (
-                    <span
-                      key={sIdx}
-                      style={{
-                        padding: '6px 12px',
-                        borderRadius: '8px',
-                        backgroundColor: '#0a0a0f',
-                        border: '2px solid #000000',
-                        color: '#f5f6fa',
-                        fontSize: '11px',
-                        fontWeight: 800,
-                        fontFamily: 'JetBrains Mono, monospace',
-                        boxShadow: '2px 2px 0px #000000',
-                      }}
-                    >
-                      ✓ {skill}
-                    </span>
-                  ))}
+                {/* Deliverables Chips */}
+                <div>
+                  <div style={{ fontSize: '11px', fontFamily: 'JetBrains Mono, monospace', color: '#ccff00', fontWeight: 900, marginBottom: '8px' }}>
+                    {isAr ? 'مخرجات الخدمة والتسليم:' : 'DELIVERABLES:'}
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {(isAr ? srv.deliverables_ar : srv.deliverables_en).map((item, dIdx) => (
+                      <span
+                        key={dIdx}
+                        style={{
+                          padding: '5px 10px',
+                          borderRadius: '8px',
+                          backgroundColor: '#0a0a0f',
+                          border: '2px solid #000000',
+                          color: '#f5f6fa',
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          fontFamily: isAr ? 'var(--font-body-ar)' : 'JetBrains Mono, monospace',
+                          boxShadow: '2px 2px 0px #000000',
+                        }}
+                      >
+                        ✓ {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -392,7 +364,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                <ComicBadge text="GEAR SPECIFICATION" subtext="ACTIVE WEAPON" bg="#ffe600" rotation={-2} />
+                <ComicBadge text="GEAR SPECIFICATION" subtext={isAr ? 'مواصفات العتاد' : 'EQUIPMENT'} bg="#ffe600" rotation={-2} />
                 <ComicBurst size={60} color="#ccff00">
                   <span style={{ fontSize: '10px', fontWeight: 900 }}>PRO</span>
                 </ComicBurst>
@@ -426,7 +398,7 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                 }}
               >
                 <div style={{ fontSize: '11px', color: '#ccff00', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900, marginBottom: '6px' }}>
-                  {isAr ? 'المواصفات الفنية المعتمدة' : 'TECHNICAL SPECIFICATIONS & CAPABILITIES'}
+                  {isAr ? 'المواصفات والقدرات الفنية' : 'TECHNICAL SPECIFICATIONS & CAPABILITIES'}
                 </div>
                 <div style={{ fontSize: '14px', color: '#ffffff', lineHeight: 1.6, fontWeight: 500 }}>
                   {gearArsenal[selectedGearIndex].specs}
@@ -437,8 +409,8 @@ export const Scene04Arsenal: React.FC<Scene04ArsenalProps> = ({
                 <CheckCircle2 size={16} color="#ccff00" />
                 <span>
                   {isAr
-                    ? 'يتم استخدام هذا العتاد مباشرة في تصوير إعلانات البراندات'
-                    : 'Deployed directly on set for commercial client productions'}
+                    ? 'عتاد مخصص لإنتاج وتصوير محتوى احترافي يخدم هوية مشروعك'
+                    : 'Deployed on-location and in studio for reliable, high-standard content'}
                 </span>
               </div>
             </div>

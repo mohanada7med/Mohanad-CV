@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { type Language } from '../data/portfolioData';
+import { PORTFOLIO_DATA, type Language } from '../data/portfolioData';
 import { sound } from '../utils/audio';
 import {
   MessageCircle,
@@ -53,26 +53,33 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
 
   const dockItems = [
     {
-      id: 'whatsapp',
+      id: 'contact_action',
       sceneIndex: -1,
-      labelEn: 'WhatsApp Direct',
-      labelAr: 'تواصل مباشر واتساب',
+      labelEn: 'Contact Me',
+      labelAr: 'تواصل معي',
       icon: MessageCircle,
       bg: '#25D366',
       activeColor: '#000000',
       action: () => {
         sound.playClick();
-        window.open(
-          'https://wa.me/201023456789?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D9%85%D9%87%D9%86%D8%AF%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AA%D8%B9%D8%A7%D9%88%D9%86%20%D9%85%D8%B9%D9%83%20%D9%81%D9%8A%20%D9%85%D8%B4%D8%B1%D9%88%D8%B9%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88',
-          '_blank'
-        );
+        if (PORTFOLIO_DATA.creator.whatsapp && PORTFOLIO_DATA.creator.whatsapp.trim().length > 5) {
+          const cleanPhone = PORTFOLIO_DATA.creator.whatsapp.replace(/[^0-9]/g, '');
+          window.open(
+            `https://wa.me/${cleanPhone}?text=${encodeURIComponent(
+              lang === 'ar' ? 'مرحباً مهند، أود الاستفسار عن مشروع محتوى أو تصوير' : 'Hi Mohanad, I’d like to discuss a content project'
+            )}`,
+            '_blank'
+          );
+        } else {
+          handleJump(4, '#scene-contact');
+        }
       },
     },
     {
       id: 'intro',
       sceneIndex: 0,
-      labelEn: 'Act 01 • Hero Splash',
-      labelAr: 'الفصل 01 • البداية',
+      labelEn: '01 • Intro',
+      labelAr: '01 • البداية',
       icon: Film,
       bg: '#ffffff',
       activeColor: '#000000',
@@ -81,8 +88,8 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
     {
       id: 'about',
       sceneIndex: 1,
-      labelEn: 'Act 02 • The Story & 3s Rule',
-      labelAr: 'الفصل 02 • القصة وسر الـ 3 ثواني',
+      labelEn: '02 • The Story',
+      labelAr: '02 • عن مهند',
       icon: User,
       bg: '#ffffff',
       activeColor: '#000000',
@@ -91,8 +98,8 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
     {
       id: 'projects',
       sceneIndex: 2,
-      labelEn: 'Act 03 • The Reel Vault',
-      labelAr: 'الفصل 03 • معرض الريلز',
+      labelEn: '03 • Projects',
+      labelAr: '03 • المشاريع',
       icon: FolderKanban,
       bg: '#ffffff',
       activeColor: '#000000',
@@ -101,8 +108,8 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
     {
       id: 'arsenal',
       sceneIndex: 3,
-      labelEn: 'Act 04 • The Arsenal & Gear',
-      labelAr: 'الفصل 04 • العتاد والمهارات',
+      labelEn: '04 • Services & Gear',
+      labelAr: '04 • الخدمات والعتاد',
       icon: LayoutGrid,
       bg: '#ffffff',
       activeColor: '#000000',
@@ -111,8 +118,8 @@ export const FloatingDock: React.FC<FloatingDockProps> = ({
     {
       id: 'finale',
       sceneIndex: 4,
-      labelEn: 'Act 05 • Grand Finale & Credits',
-      labelAr: 'الفصل 05 • التعاون والحقوق',
+      labelEn: '05 • Contact',
+      labelAr: '05 • التواصل',
       icon: Sparkles,
       bg: '#ffffff',
       activeColor: '#000000',

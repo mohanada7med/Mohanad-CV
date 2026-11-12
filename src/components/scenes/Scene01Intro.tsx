@@ -244,7 +244,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
               boxShadow: '3px 3px 0px #000000',
             }}
           >
-            ★ SUPREME HERO SPREAD
+            ★ {isAr ? 'حكايات بصرية • تجارب حقيقية' : 'VISUAL STORIES • REAL MOMENTS'}
           </div>
         </div>
 
@@ -265,7 +265,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
           }}
         >
           <span style={{ width: '9px', height: '9px', borderRadius: '50%', backgroundColor: '#ccff00', animation: 'comic-pulse 1.3s infinite' }} />
-          <span>{isAr ? 'متاح لتصوير الإعلانات الكبرى' : 'OPEN FOR BIG PRODUCTIONS'}</span>
+          <span>{isAr ? 'متاح للتعاون وصناعة المحتوى' : 'AVAILABLE FOR CREATIVE PROJECTS'}</span>
         </div>
       </div>
 
@@ -335,7 +335,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
               }}
             >
               <Flame size={16} color="#ffe600" />
-              <span>{isAr ? 'المخرج السينمائي' : 'FILM DIRECTOR'}</span>
+              <span>{isAr ? 'صانع محتوى وفيديوهات' : 'CONTENT & VIDEO CREATOR'}</span>
             </div>
 
             {/* الاسم الأول الضخم بتأثير 3D Block Typography */}
@@ -376,7 +376,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
               }}
             >
               <Award size={18} color="#ff2a5f" />
-              <span>20M+ VIEWS IMPACT</span>
+              <span>{isAr ? 'منذ 2019 • أسيوط ومصر' : 'SINCE 2019 • VISUAL STORIES'}</span>
             </div>
           </div>
 
@@ -447,7 +447,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <Film size={16} color="#ccff00" />
-                  <span style={{ color: '#ccff00' }}>FX3 RIG / MASTER</span>
+                  <span style={{ color: '#ccff00' }}>4K PRODUCTION</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <Target size={14} color="#ffe600" />
@@ -551,7 +551,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
               }}
             >
               <Video size={16} color="#000000" />
-              <span>{isAr ? 'صانع محتوى UGC' : 'VIRAL UGC CREATOR'}</span>
+              <span>{isAr ? 'راوي حكايات وتجارب' : 'VISUAL STORYTELLER'}</span>
             </div>
 
             {/* الاسم الثاني الضخم */}
@@ -592,7 +592,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
               }}
             >
               <Zap size={18} color="#000000" />
-              <span>100K+ COMMUNITY</span>
+              <span>{isAr ? 'أسيوط • مصر' : 'ASSIUT • EGYPT'}</span>
             </div>
           </div>
         </div>
@@ -621,8 +621,8 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
             }}
           >
             {isAr
-              ? 'صناعة إعلانات سينمائية ومحتوى فائق الجاذبية يحول المشاهدات إلى مبيعات حقيقية.'
-              : 'Fusing cinema-grade direction with high-retention UGC hooks for Egypt and Middle East’s biggest brands.'}
+              ? 'بحوّل روح الأماكن وتفاصيل المنتجات وحكايات الناس لمحتوى فيديو حقيقي، جذاب، وقريب من المتابع.'
+              : 'Turning places, brand products, and real human stories into honest, captivating visual content.'}
           </p>
         </div>
 
@@ -655,7 +655,7 @@ export const Scene01Intro: React.FC<Scene01IntroProps> = ({ lang, onExplore }) =
               boxShadow: '6px 6px 0px #000000',
             }}
           >
-            <span>{isAr ? 'تصفح القصة كاملة' : 'ENTER EPISODE'}</span>
+            <span>{isAr ? 'استكشف البورتفوليو' : 'EXPLORE MY WORK'}</span>
             <ArrowDown size={20} strokeWidth={3} />
           </button>
 

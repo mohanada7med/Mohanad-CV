@@ -1,5 +1,13 @@
 export type Language = 'en' | 'ar';
 
+export type ProjectCategory =
+  | 'Brand Story'
+  | 'UGC & Hooks'
+  | 'Food & Beverage'
+  | 'Tech & Lifestyle'
+  | 'Fashion & Urban'
+  | 'Local Places & Experiences';
+
 export interface Project {
   id: string;
   slug: string;
@@ -7,7 +15,7 @@ export interface Project {
   title_ar: string;
   brand: string;
   brand_ar: string;
-  category: 'Brand Story' | 'UGC & Hooks' | 'Food & Beverage' | 'Tech & Lifestyle' | 'Fashion & Urban';
+  category: ProjectCategory;
   category_ar: string;
   thumbnail: string;
   video_url: string;
@@ -68,523 +76,611 @@ export interface ProcessStep {
   tag_ar: string;
 }
 
+/**
+ * Portfolio content is intentionally limited to known background details.
+ * Replace the local media paths with real approved project assets.
+ * Do not publish project-specific performance claims unless you can verify them.
+ */
 export const PORTFOLIO_DATA = {
   creator: {
-    name_en: "Mohanad Ahmed",
-    name_ar: "مهند أحمد",
-    role_en: "Content Creator • UGC Specialist • Video Storyteller",
-    role_ar: "صانع محتوى • متخصص UGC • راوي قصص فيديو",
-    location_en: "Assiut, Egypt",
-    location_ar: "أسيوط، مصر",
-    audience_count: "100K+",
-    since_year: "2019",
-    portrait_image: "/assets/images/creator_portrait.jpg",
-    bts_image: "/assets/images/bts_production.jpg",
-    email: "mohanad.contact.creative@gmail.com",
-    whatsapp: "+201023456789", // Egyptian format for direct link
+    name_en: 'Mohanad Ahmed',
+    name_ar: 'مهند أحمد',
+    role_en: 'Content Creator • Video Creator • Storyteller',
+    role_ar: 'صانع محتوى • صانع فيديوهات • راوي حكايات',
+    location_en: 'Assiut, Egypt',
+    location_ar: 'أسيوط، مصر',
+    audience_count: '',
+    since_year: '2019',
+    portrait_image: '/assets/images/mohanad_action_pose.jpg',
+    bts_image: '/assets/images/bts_production.jpg',
+    email: 'ahmdmohanad28@gmail.com',
+    whatsapp: '',
     socials: {
-      tiktok: "https://www.tiktok.com",
-      instagram: "https://www.instagram.com",
-      whatsapp: "https://wa.me/201023456789",
-      youtube: "https://www.youtube.com",
-      behance: "https://www.behance.net",
-    }
+      // Add your exact profile URLs before displaying these links in the UI.
+      tiktok: '',
+      instagram: '',
+      whatsapp: '',
+      youtube: '',
+      behance: '',
+    },
   },
 
   brands: [
     {
-      id: "b-laban",
-      name: "B.Laban",
-      name_ar: "بلبن",
-      sector_en: "Viral Dessert & Food Retail",
-      sector_ar: "حلويات تريند ومنتجات ألبان",
-      description_en: "Collaborated on high-speed macro food videography and viral short-form launch reels capturing iconic dessert layering.",
-      description_ar: "تعاون في تصوير سينمائي ماكرو لحلويات بلبن وتغطية الإطلاقات التريند بأسلوب ريلز سريع وجذاب.",
-      badge: "Viral Hits",
-      featuredProjectId: "blaban-pistachio-rush"
+      id: 'b-laban',
+      name: 'B.Laban',
+      name_ar: 'بلبن',
+      sector_en: 'Food & Dessert',
+      sector_ar: 'أكل وحلويات',
+      description_en:
+        'Video content work for a well-known Egyptian dessert brand, with a focus on presenting the product in an engaging short-form format.',
+      description_ar:
+        'شغل فيديوهات لبراند حلويات مصري معروف، مع التركيز على تقديم المنتج بشكل جذاب يناسب المحتوى القصير.',
+      badge: 'Food Content',
+      featuredProjectId: 'blaban-video',
     },
     {
-      id: "el-araby",
-      name: "ElAraby Group",
-      name_ar: "مجموعة العربي",
-      sector_en: "Consumer Tech & Smart Living",
-      sector_ar: "أجهزة منزلية وإلكترونيات",
-      description_en: "Produced creative demonstration reels highlighting smart kitchen technology with dynamic lighting and relatable home scenarios.",
-      description_ar: "إنتاج محتوى فيديو إبداعي يبرز مميزات الأجهزة الذكية ومواقف منزلية واقعية بتصوير عالي الجودة.",
-      badge: "Tech Storytelling",
-      featuredProjectId: "elaraby-smart-kitchen"
+      id: 'qasr-napoli',
+      name: 'Qasr Napoli',
+      name_ar: 'قصر نابولي',
+      sector_en: 'Restaurant & Hospitality',
+      sector_ar: 'مطاعم وضيافة',
+      description_en:
+        'Photography and visual content work for a local venue in Assiut.',
+      description_ar:
+        'تصوير وصناعة محتوى بصري لمكان معروف في أسيوط.',
+      badge: 'Local Business',
+      featuredProjectId: 'qasr-napoli-content',
     },
     {
-      id: "van-doti",
-      name: "Van Doti",
-      name_ar: "فان دوتي",
-      sector_en: "Artisanal Waffles & Confectionery",
-      sector_ar: "وافل بلجيكي وحلويات",
-      description_en: "Crafted irresistible 3-second hook UGC videos showcasing warm Belgian waffles, slow-motion drizzles, and customer reactions.",
-      description_ar: "صناعة فيديوهات UGC بافتتاحيات تخطف العين (Hooks) تركز على ذوبان الشوكولاتة وردود الفعل الحقيقية.",
-      badge: "High-Hook UGC",
-      featuredProjectId: "vandoti-waffle-indulgence"
+      id: 'bella',
+      name: 'Bella',
+      name_ar: 'بيلا',
+      sector_en: 'Local Business',
+      sector_ar: 'مشروعات محلية',
+      description_en:
+        'Photography work creating visual content for a local business in Assiut.',
+      description_ar:
+        'شغل تصوير وصناعة محتوى بصري لمشروع محلي في أسيوط.',
+      badge: 'Photography',
+      featuredProjectId: 'bella-content',
     },
     {
-      id: "moqsar-napoli",
-      name: "Moqsar Napoli",
-      name_ar: "مقصر نابولي",
-      sector_en: "Urban Fashion & Tailored Streetwear",
-      sector_ar: "أزياء عصرية وملابس شبابية",
-      description_en: "Directed fast-paced cinematic fashion reels blending modern street culture with tailored Italian silhouettes.",
-      description_ar: "إخراج ريلز فاشن سريعة وحركية تمزج بين الستايل الإيطالي والطاقة الشبابية في شوارع المدينة.",
-      badge: "Street Cinematic",
-      featuredProjectId: "moqsar-streetwear-drop"
+      id: 'yango-play',
+      name: 'Yango Play',
+      name_ar: 'يانجو بلاي',
+      sector_en: 'Digital Entertainment',
+      sector_ar: 'ترفيه رقمي',
+      description_en:
+        'Video content collaboration connected to a digital entertainment platform.',
+      description_ar:
+        'تعاون في صناعة فيديوهات مرتبطة بمنصة للترفيه الرقمي.',
+      badge: 'Digital Content',
+      featuredProjectId: 'yango-play-video',
     },
-    {
-      id: "domty",
-      name: "Domty",
-      name_ar: "دومتي",
-      sector_en: "FMCG, Dairy & Beverages",
-      sector_ar: "صناعات غذائية وألبان وعصائر",
-      description_en: "Developed vibrant lifestyle video reels focusing on fresh morning routines, pure ingredients, and family table energy.",
-      description_ar: "تطوير ريلز لايف ستايل مبهجة تركز على طاقة الصباح والمكونات الطبيعية ولمّة العيلة.",
-      badge: "Lifestyle Energy",
-      featuredProjectId: "domty-morning-burst"
-    },
-    {
-      id: "jotun",
-      name: "Jotun",
-      name_ar: "جوتن",
-      sector_en: "Architectural Paints & Textures",
-      sector_ar: "دهانات معمارية وديكور",
-      description_en: "Created visually rich interior transformation reels showcasing color palettes, textured wall finishes, and room makeovers.",
-      description_ar: "إنتاج محتوى بصري فاخر يوثق تحول المساحات المعمارية باستخدام تناغم الألوان وتأثيرات الدهان المميزة.",
-      badge: "Design Aesthetic",
-      featuredProjectId: "jotun-palette-reveal"
-    }
   ] as BrandPartner[],
 
   projects: [
     {
-      id: "blaban-pistachio-rush",
-      slug: "b-laban-pistachio-rush",
-      title_en: "The Viral Pistachio Cascade",
-      title_ar: "شلال الفستق والكونافا التريند",
-      brand: "B.Laban",
-      brand_ar: "بلبن",
-      category: "Food & Beverage",
-      category_ar: "أغذية ومشروبات",
-      thumbnail: "/assets/images/blaban_dessert.jpg",
-      video_url: "/assets/images/blaban_dessert.jpg",
-      description_en: "A sensory-driven short-form video designed to halt viewers mid-scroll through high-speed macro texture shots and authentic sound design.",
-      description_ar: "فيديو قصير حسي يوقف إبهام المستخدم في أول ثانيتين من خلال لقطات ماكرو مفرطة الحيوية ومؤثرات صوتية تثير الشهية.",
-      creative_concept_en: "Contrast the loud crunch of golden kunafa with the slow, hypnotic pour of emerald pistachio cream in extreme macro.",
-      creative_concept_ar: "المفارقة الحسية بين قرمشة الكنافة الذهبية وتدفق صوص الفستق البطيء بتقريب ماكرو سينمائي.",
-      campaign_objective_en: "Build intense anticipation and crave-ability for the new seasonal jar dessert across TikTok & Instagram Reels.",
-      campaign_objective_ar: "خلق حالة من الرغبة والتريند للمنتج الموسمي الجديد على تيك توك وإنستجرام ريلز.",
-      results_en: "High retention rate through 100% completion in the first 5 seconds.",
-      results_ar: "معدل استبقاء ومشاهدة كاملة مرتفع جداً في الثواني الخمس الأولى.",
-      duration: "0:24",
-      aspect_ratio: "9:16",
-      year: "2024",
+      id: 'blaban-video',
+      slug: 'blaban-video',
+      title_en: 'B.Laban — Short-Form Video',
+      title_ar: 'فيديوهات بلبن',
+      brand: 'B.Laban',
+      brand_ar: 'بلبن',
+      category: 'Food & Beverage',
+      category_ar: 'أكل وحلويات',
+      thumbnail: '/assets/images/blaban_dessert.jpg',
+      video_url: '/assets/videos/blaban-video.mp4',
+      description_en:
+        'Short-form video work for a dessert brand, presenting the product through clear visuals and an engaging pace.',
+      description_ar:
+        'شغل فيديوهات قصيرة لبراند حلويات، بتقديم بصري واضح وإيقاع مناسب لطبيعة المحتوى على السوشيال ميديا.',
+      creative_concept_en:
+        'Make the product the focus through close-up shots, deliberate framing, and a concise visual sequence.',
+      creative_concept_ar:
+        'التركيز على المنتج بلقطات قريبة، وكادرات مدروسة، وتسلسل بصري مختصر.',
+      campaign_objective_en:
+        'Present the product in an engaging format suitable for social media.',
+      campaign_objective_ar:
+        'تقديم المنتج بشكل جذاب يناسب منصات التواصل الاجتماعي.',
+      duration: '0:35',
+      aspect_ratio: '9:16',
+      year: '2023',
       featured: true,
-      tags: ["Macro Videography", "Food Storytelling", "Viral Hook", "Sound Design"]
+      tags: ['Food Video', 'Short-Form', 'Product Focus'],
+      results_en: 'Macro dessert videography and engaging pacing designed for social engagement.',
+      results_ar: 'تصوير دقيق لحلويات بلبن بإيقاع سريع وجذاب مناسب لتفاعل السوشيال ميديا.',
     },
     {
-      id: "elaraby-smart-kitchen",
-      slug: "elaraby-smart-kitchen-cook",
-      title_en: "Precision Cook: 15-Minute Feast",
-      title_ar: "طبخ ذكي في ١٥ دقيقة فقط",
-      brand: "ElAraby Group",
-      brand_ar: "مجموعة العربي",
-      category: "Tech & Lifestyle",
-      category_ar: "تكنولوجيا ولايف ستايل",
-      thumbnail: "/assets/images/elaraby_tech.jpg",
-      video_url: "/assets/images/elaraby_tech.jpg",
-      description_en: "Relatable consumer storytelling demonstrating how modern smart appliances turn weeknight cooking stress into effortless dining.",
-      description_ar: "قصة واقعية تبيّن إزاي الأجهزة الذكية بتحوّل حيرة الطبخ بعد يوم شغل طويل لتجربة سريعة وممتعة وبدون مجهود.",
-      creative_concept_en: "Split-screen pacing contrasting chaotic manual cooking with the seamless single-touch intelligence of the appliance.",
-      creative_concept_ar: "مقارنة حركية بين فوضى الطبخ التقليدي وسهولة الضغطة الواحدة على الشاشة الذكية.",
-      campaign_objective_en: "Highlight convenience, modern design, and time-saving features for young couples and busy professionals.",
-      campaign_objective_ar: "إبراز سهولة الاستخدام وتوفير الوقت والتصميم العصري المناسب لجيل الشباب.",
-      results_en: "Generated enthusiastic comment conversations on appliance features and ease of use.",
-      results_ar: "تفاعل كبير في التعليقات حول تفاصيل الاستخدام وسهولة التنظيف.",
-      duration: "0:35",
-      aspect_ratio: "9:16",
-      year: "2024",
+      id: 'qasr-napoli-content',
+      slug: 'qasr-napoli',
+      title_en: 'Qasr Napoli — Photography',
+      title_ar: 'تصوير قصر نابولي',
+      brand: 'Qasr Napoli',
+      brand_ar: 'قصر نابولي',
+      category: 'Local Places & Experiences',
+      category_ar: 'أماكن وتجارب',
+      thumbnail: '/assets/images/moqsar_streetwear.jpg',
+      video_url: '/assets/videos/qasr-napoli.mp4',
+      description_en:
+        'Photography work for a local Assiut venue, capturing the place and presenting its atmosphere through visual content.',
+      description_ar:
+        'شغل تصوير لقصر نابولي في أسيوط، لإبراز المكان وأجوائه من خلال محتوى بصري مناسب للسوشيال ميديا.',
+      creative_concept_en:
+        'Use thoughtful framing and a clear visual story to help viewers get a feel for the venue.',
+      creative_concept_ar:
+        'استخدام كادرات مدروسة وحكاية بصرية بسيطة تنقل للمشاهد إحساس المكان.',
+      campaign_objective_en:
+        'Create visual material that introduces the venue and its atmosphere.',
+      campaign_objective_ar:
+        'تقديم محتوى بصري يعرّف الناس بالمكان وأجوائه.',
+      duration: '0:45',
+      aspect_ratio: '9:16',
+      year: '2023',
       featured: true,
-      tags: ["Commercial UGC", "Smart Living", "Product Demo", "Lighting"]
+      tags: ['Photography', 'Local Business', 'Visual Storytelling'],
+      results_en: 'Complete venue photography capturing ambient lighting, interior spaces, and hospitality vibe.',
+      results_ar: 'تغطية تصويرية شاملة تبرز الديكور والإضاءة وجلسات المكان وطابعه الخاص.',
     },
     {
-      id: "vandoti-waffle-indulgence",
-      slug: "van-doti-bubble-waffle",
-      title_en: "The 3-Second Bubble Crunch",
-      title_ar: "قرمشة البابل وافل في ٣ ثواني",
-      brand: "Van Doti",
-      brand_ar: "فان دوتي",
-      category: "UGC & Hooks",
-      category_ar: "UGC وافتتاحيات جذابة",
-      thumbnail: "/assets/images/vandoti_waffle.jpg",
-      video_url: "/assets/images/vandoti_waffle.jpg",
-      description_en: "High-octane UGC opening with an audible snap and warm chocolate drizzle, building immediate viewer engagement.",
-      description_ar: "فيديو UGC بنبض سريع يبتدئ بصوت القرمشة الحقيقي وسقوط الشوكولاتة الدافئة لشد الانتباه فوراً.",
-      creative_concept_en: "First-person perspective order-to-bite journey with natural lighting and unedited audio hooks.",
-      creative_concept_ar: "تجربة واقعية من منظور الزائر (POV) من لحظة الاستلام لأول قطمة مع صوت طبيعي نقي.",
-      campaign_objective_en: "Drive local foot traffic to branch locations and spur organic user saves.",
-      campaign_objective_ar: "زيادة الزيارات للفروع وحفظ الفيديو لتجربة الأصناف الجديدة.",
-      duration: "0:19",
-      aspect_ratio: "9:16",
-      year: "2024",
-      featured: false,
-      tags: ["POV Video", "Audio Hooks", "Dessert UGC", "Fast Pacing"]
-    },
-    {
-      id: "moqsar-streetwear-drop",
-      slug: "moqsar-napoli-winter-drop",
-      title_en: "Midnight Stride: Winter Collection",
-      title_ar: "خطوات منتصف الليل: كولكشن الشتاء",
-      brand: "Moqsar Napoli",
-      brand_ar: "مقصر نابولي",
-      category: "Fashion & Urban",
-      category_ar: "أزياء وموضة",
-      thumbnail: "/assets/images/moqsar_streetwear.jpg",
-      video_url: "/assets/images/moqsar_streetwear.jpg",
-      description_en: "Atmospheric fashion film shot in rain-slicked city streets, blending Italian cut tailoring with contemporary street energy.",
-      description_ar: "فيلم أزياء سينمائي في شوارع ممطرة ليلاً، يربط بين فخامة التفصيل الإيطالي والستايل الشبابي العصري.",
-      creative_concept_en: "Neon color grade reflecting on wet asphalt synchronized with custom bass-heavy rhythmic edit cuts.",
-      creative_concept_ar: "انعكاس أضواء النيون على الأرض المبللة بالتناغم مع انتقالات سريعة على إيقاع الموسيقى.",
-      campaign_objective_en: "Elevate brand perception from casual clothing store to lifestyle fashion staple.",
-      campaign_objective_ar: "ترسيخ صورة البراند كعلامة أزياء شبابية رائدة تعبّر عن التميز والجرأة.",
-      duration: "0:28",
-      aspect_ratio: "9:16",
-      year: "2023",
+      id: 'bella-content',
+      slug: 'bella-content',
+      title_en: 'Bella — Visual Content',
+      title_ar: 'تصوير ومحتوى بيلا',
+      brand: 'Bella',
+      brand_ar: 'بيلا',
+      category: 'Brand Story',
+      category_ar: 'محتوى للبراندات',
+      thumbnail: '/assets/images/vandoti_waffle.jpg',
+      video_url: '/assets/videos/bella.mp4',
+      description_en:
+        'Visual content work for a local business in Assiut, with an emphasis on presenting the business in a clear and appealing way.',
+      description_ar:
+        'شغل تصوير ومحتوى بصري لبيلا في أسيوط، مع التركيز على إظهار المكان أو المنتج بصورة واضحة وجذابة.',
+      creative_concept_en:
+        'Build a simple visual narrative around the business and the experience it offers.',
+      creative_concept_ar:
+        'بناء حكاية بصرية بسيطة حوالين المكان أو التجربة اللي بيقدمها.',
+      campaign_objective_en:
+        'Create social-ready visual content for the business.',
+      campaign_objective_ar:
+        'تجهيز محتوى بصري مناسب للنشر على السوشيال ميديا.',
+      duration: '0:30',
+      aspect_ratio: '9:16',
+      year: '2024',
       featured: true,
-      tags: ["Color Grading", "Fashion Film", "Beat Matching", "Urban Mood"]
+      tags: ['Visual Content', 'Photography', 'Assiut'],
+      results_en: 'Clean, appetizing product visuals ready for marketing campaigns and social media feeds.',
+      results_ar: 'لقطات منتجات نقية وجذابة مجهزة للاستخدام في الحملات الإعلانية وحسابات السوشيال ميديا.',
     },
     {
-      id: "domty-morning-burst",
-      slug: "domty-morning-table",
-      title_en: "Pure Morning Energy",
-      title_ar: "طاقة الصباح والبدايات الحقيقية",
-      brand: "Domty",
-      brand_ar: "دومتي",
-      category: "Brand Story",
-      category_ar: "قصص البراندات",
-      thumbnail: "/assets/images/domty_dairy.jpg",
-      video_url: "/assets/images/domty_dairy.jpg",
-      description_en: "A warm, sunlit breakfast reel celebrating authentic Egyptian morning routines, farm-fresh milk, and vibrant family breakfast tables.",
-      description_ar: "ريل دافئ ومشرق يحتفي بالروتين الصباحي المصري الأصيل، والحليب الطبيعي، ولمة الفطار اللي بتدي طاقة لليوم.",
-      creative_concept_en: "Natural window light catching condensation beads on cold bottles paired with genuine family laughter.",
-      creative_concept_ar: "التقاط قطرات الندى على الزجاج في ضوء الشمس الصباحي مع أصوات ولمحات عفوية واقعية.",
-      campaign_objective_en: "Strengthen emotional resonance as Egypt's trusted everyday breakfast essential.",
-      campaign_objective_ar: "تعزيز الرابط العاطفي مع العائلة كعنصر أساسي لا غنى عنه على مائدة الإفطار اليومية.",
-      duration: "0:30",
-      aspect_ratio: "9:16",
-      year: "2023",
-      featured: false,
-      tags: ["Lifestyle Reel", "Warm Cinematic", "Natural Light", "Brand Trust"]
+      id: 'yango-play-video',
+      slug: 'yango-play-video',
+      title_en: 'Yango Play — Video Content',
+      title_ar: 'فيديوهات يانجو بلاي',
+      brand: 'Yango Play',
+      brand_ar: 'يانجو بلاي',
+      category: 'Tech & Lifestyle',
+      category_ar: 'تكنولوجيا وترفيه',
+      thumbnail: '/assets/images/elaraby_tech.jpg',
+      video_url: '/assets/videos/yango-play.mp4',
+      description_en:
+        'Video content collaboration for a digital entertainment platform, bringing fresh energy and relatable everyday scenarios.',
+      description_ar:
+        'تعاون في صناعة محتوى فيديو لمنصة ترفيه رقمي، بطابع شبابي قريب من مواقف الحياة اليومية للمشاهدين.',
+      creative_concept_en:
+        'Connect digital streaming features with relatable lifestyle situations in a dynamic, vertical video style.',
+      creative_concept_ar:
+        'ربط مزايا المنصة الترفيهية بمواقف يومية مألوفة، بأسلوب فيديو رأسي حركي وممتع.',
+      campaign_objective_en:
+        'Highlight the entertainment experience in a creator-led, authentic voice.',
+      campaign_objective_ar:
+        'تسليط الضوء على تجربة الترفيه بصوت صانع محتوى طبيعي وتلقائي.',
+      duration: '0:40',
+      aspect_ratio: '9:16',
+      year: '2024',
+      featured: true,
+      tags: ['Video Content', 'Digital Entertainment', 'Short-Form'],
+      results_en: 'Creator-driven entertainment video production tailored for social platforms.',
+      results_ar: 'إنتاج محتوى فيديو ترفيهي بروح صانع المحتوى مخصص لمنصات السوشيال ميديا.',
     },
-    {
-      id: "jotun-palette-reveal",
-      slug: "jotun-terracotta-harmony",
-      title_en: "The Texture of Space",
-      title_ar: "هارموني الألوان وتحوّل المكان",
-      brand: "Jotun",
-      brand_ar: "جوتن",
-      category: "Brand Story",
-      category_ar: "قصص البراندات",
-      thumbnail: "/assets/images/jotun_palette.jpg",
-      video_url: "/assets/images/jotun_palette.jpg",
-      description_en: "Artistic video documenting a blank living space transforming into an architectural sanctuary using earthy terracotta and sage hues.",
-      description_ar: "توثيق فني لتحول غرفة فارغة لمساحة معمارية أنيقة ودافئة عبر تناغم درجات الطمي والسيج من جوتن.",
-      creative_concept_en: "A seamless single-brushstroke transition that bridges the raw plaster wall to the fully furnished interior.",
-      creative_concept_ar: "حركة فرشاة واحدة ممتدة تعبر من الجدار الأولي إلى المساحة المؤثثة المكتملة بانسيابية.",
-      campaign_objective_en: "Inspire homeowners and interior enthusiasts to explore bold texture and premium paint finishes.",
-      campaign_objective_ar: "إلهام أصحاب البيوت ومحبي الديكور لاختيار درجات ألوان جريئة تضفي هوية للمكان.",
-      duration: "0:32",
-      aspect_ratio: "9:16",
-      year: "2024",
-      featured: false,
-      tags: ["Architectural Reel", "Color Harmony", "Transitions", "Interior Mood"]
-    }
   ] as Project[],
 
   services: [
     {
-      id: "short-form",
-      number: "01",
-      title_en: "Short-Form Video Production",
-      title_ar: "إنتاج الفيديوهات القصيرة",
-      short_desc_en: "End-to-end Reels, TikToks, and YouTube Shorts engineered with strong opening hooks, crisp audio, and seamless pacing.",
-      short_desc_ar: "إنتاج متكامل لريلز وتيك توك وشورتس مبني على افتتاحيات تشد الانتباه (Hooks) ومونتاج إيقاعي يضمن استمرار المشاهدة.",
-      deliverables_en: ["Script & Visual Concept", "4K Vertical Shooting", "Dynamic Motion Graphics", "Sound Design & Mix"],
-      deliverables_ar: ["السيناريو والفكرة البصرية", "تصوير عمودي بدقة 4K", "مؤثرات بصرية حركية", "هندسة صوت ومؤثرات"]
+      id: 'short-form',
+      number: '01',
+      title_en: 'Short-Form Video Creation',
+      title_ar: 'صناعة الفيديوهات القصيرة',
+      short_desc_en:
+        'Creating Reels and short videos that communicate an idea quickly and keep the story clear and engaging.',
+      short_desc_ar:
+        'صناعة ريلز وفيديوهات قصيرة توصل الفكرة بسرعة، وتحكيها بشكل بسيط وجذاب.',
+      deliverables_en: [
+        'Creative Idea',
+        'Video Shooting',
+        'Editing & Pacing',
+        'Social Media Export',
+      ],
+      deliverables_ar: [
+        'الفكرة الإبداعية',
+        'تصوير الفيديو',
+        'المونتاج وضبط الإيقاع',
+        'تجهيز الفيديو للنشر',
+      ],
     },
     {
-      id: "brand-collabs",
-      number: "02",
-      title_en: "Brand Storytelling & Sponsorships",
-      title_ar: "حكايات البراندات والرعايات",
-      short_desc_en: "Integrating consumer brands into authentic creator storylines without feeling like a scripted television advertisement.",
-      short_desc_ar: "دمج منتجات وعلامات البراندات في سياق واقعي جذاب يوصل الرسالة التسويقية بدون ما يحس المشاهد بملل الإعلانات التقليدية.",
-      deliverables_en: ["Brand Alignment Strategy", "Hook Formulations", "Organic Creator Presence", "Platform Optimization"],
-      deliverables_ar: ["خطة توافق هوية البراند", "صياغة الهوك المناسب", "ظهور عفوي ومؤثر للمنتج", "تكييف المحتوى لكل منصة"]
+      id: 'brand-content',
+      number: '02',
+      title_en: 'Brand & Business Content',
+      title_ar: 'محتوى للبراندات والمشروعات',
+      short_desc_en:
+        'Visual content that introduces a business, highlights its products, and gives people a reason to care.',
+      short_desc_ar:
+        'محتوى بصري يعرّف الناس بالمشروع، ويبرز منتجاته، ويوصل فكرته بطريقة قريبة منهم.',
+      deliverables_en: [
+        'Content Direction',
+        'Product or Venue Coverage',
+        'Short-Form Video',
+        'Platform-Ready Files',
+      ],
+      deliverables_ar: [
+        'تحديد اتجاه المحتوى',
+        'تصوير المنتجات أو المكان',
+        'فيديوهات قصيرة',
+        'ملفات جاهزة للنشر',
+      ],
     },
     {
-      id: "ugc-content",
-      number: "03",
-      title_en: "UGC-Style Content Creation",
-      title_ar: "محتوى الـ UGC الأصيل",
-      short_desc_en: "User-Generated Content tailored for performance marketing and paid ad campaigns that builds instant consumer trust.",
-      short_desc_ar: "محتوى بأسلوب المستخدم الحقيقي مصمم للحملات الإعلانية الممولة وبناء الثقة الفورية مع الجمهور والعملاء المحتملين.",
-      deliverables_en: ["Unboxing & First Impressions", "Problem-to-Solution Arcs", "Multiple Hook Variants", "Ad Ready Formats"],
-      deliverables_ar: ["فتح الصندوق والانطباع الأول", "سرد المشكلة والحل العملي", "نسخ متعددة للافتتاحية (Hooks)", "صيغ جاهزة للحملات الممولة"]
+      id: 'ugc',
+      number: '03',
+      title_en: 'UGC-Style Videos',
+      title_ar: 'فيديوهات بأسلوب UGC',
+      short_desc_en:
+        'Creator-style videos designed to feel direct, relatable, and natural rather than overly scripted.',
+      short_desc_ar:
+        'فيديوهات بروح صانع المحتوى، تكون قريبة من الناس وطبيعية من غير إحساس الإعلان التقليدي.',
+      deliverables_en: [
+        'Concept & Hook',
+        'Creator-Led Presentation',
+        'Product Demonstration',
+        'Edited Vertical Video',
+      ],
+      deliverables_ar: [
+        'الفكرة والافتتاحية',
+        'تقديم بأسلوب صانع المحتوى',
+        'عرض المنتج',
+        'فيديو عمودي بعد المونتاج',
+      ],
     },
     {
-      id: "product-demo",
-      number: "04",
-      title_en: "Product Promotion & Macro Demos",
-      title_ar: "استعراض المنتجات وتصوير الماكرو",
-      short_desc_en: "Showcasing textures, craftsmanship, and key selling points through specialized lighting and high-speed detail shots.",
-      short_desc_ar: "إبراز جودة التصنيع وتفاصيل المنتج الدقيقة من خلال إضاءة استوديو متخصصة ولقطات تقريبية (Macro) شديدة الوضوح.",
-      deliverables_en: ["Macro Detail Videography", "Feature Demonstrations", "Texture & Quality Focus", "Fast Explainer Pacing"],
-      deliverables_ar: ["تصوير ماكرو فائق الدقة", "شرح عملي للمميزات", "التركيز على ملمس وجودة الخامة", "شرح سلس وسريع"]
+      id: 'on-location',
+      number: '04',
+      title_en: 'On-Location Coverage',
+      title_ar: 'التصوير والتغطيات الميدانية',
+      short_desc_en:
+        'Capturing the atmosphere of places, businesses, launches, and experiences through video and photography.',
+      short_desc_ar:
+        'تصوير أجواء الأماكن والمشروعات والافتتاحات والتجارب بالفيديو والصور.',
+      deliverables_en: [
+        'On-Site Shooting',
+        'Atmosphere & Detail Shots',
+        'Short Recap Video',
+        'Edited Visual Assets',
+      ],
+      deliverables_ar: [
+        'تصوير في موقع العمل',
+        'لقطات للأجواء والتفاصيل',
+        'فيديو ملخص قصير',
+        'صور وفيديوهات بعد التعديل',
+      ],
     },
     {
-      id: "on-location",
-      number: "05",
-      title_en: "On-Location & Event Coverage",
-      title_ar: "التغطيات الميدانية والفعاليات",
-      short_desc_en: "Dynamic on-site shooting for new store openings, restaurant launches, festivals, and venue experiences.",
-      short_desc_ar: "تصوير ميداني حيوي لافتتاح الفروع والمطاعم والفعاليات الكبرى مع التقاط روح المكان وطاقة الزوار.",
-      deliverables_en: ["Same-Day Fast Turnaround", "Crowd & Atmosphere Energy", "Interactive Visitor Moments", "B-Roll Story Layering"],
-      deliverables_ar: ["تسليم سريع في نفس اليوم", "نقل طاقة المكان وتفاعل الحضور", "لقطات عفوية حية", "توليف سينمائي للقطات الجانبية"]
+      id: 'editing',
+      number: '05',
+      title_en: 'Video Editing',
+      title_ar: 'مونتاج الفيديوهات',
+      short_desc_en:
+        'Turning raw footage into a coherent video with purposeful pacing, clean cuts, sound, and captions when needed.',
+      short_desc_ar:
+        'تحويل اللقطات الخام لفيديو متماسك بإيقاع مناسب، وقطعات نظيفة، وصوت ونصوص عند الحاجة.',
+      deliverables_en: [
+        'Video Assembly',
+        'Color Correction',
+        'Sound Cleanup',
+        'Captions & Titles',
+      ],
+      deliverables_ar: [
+        'ترتيب وتجميع اللقطات',
+        'تصحيح الألوان',
+        'تحسين الصوت',
+        'كتابة النصوص والعناوين',
+      ],
     },
-    {
-      id: "editing-polishing",
-      number: "06",
-      title_en: "Creative Video Shooting & Editing",
-      title_ar: "التصوير والمونتاج الإبداعي",
-      short_desc_en: "Professional cinematography, color grading, sound design, and kinetic typography for raw footage or brand assets.",
-      short_desc_ar: "خدمات تصوير احترافي وتلوين سينمائي وتصميم صوتي ومونتاج إيقاعي متقدم يرفع من جودة أي مادة مصورة.",
-      deliverables_en: ["Color Grading & LUTs", "Sound FX Architecture", "Subtitles & Kinetic Type", "Speed Ramps & Whip Transitions"],
-      deliverables_ar: ["تلوين سينمائي مدروس", "مكتبة مؤثرات صوتية احترافية", "كتابة نصوص متحركة وواضحة", "انتقالات بصرية ذكية"]
-    }
   ] as ServiceItem[],
 
   timeline: [
     {
-      year: "2019",
-      title_en: "The First Frame",
-      title_ar: "البداية وأول فيديو",
-      description_en: "Picked up the camera in Assiut with a simple philosophy: capture honest stories that make people pause and feel something real.",
-      description_ar: "البداية في أسيوط بحماس وشغف كبير: صناعة قصص بسيطة وصادقة تخلي اللي يشوفها يقف ويحس بحاجة حقيقية."
+      year: '2019',
+      title_en: 'The First Frame',
+      title_ar: 'البداية من ورا الكاميرا',
+      description_en:
+        'Started creating visual content in Assiut, beginning with photography and learning how to tell stories through images.',
+      description_ar:
+        'بدأت رحلتي في أسيوط سنة 2019 من التصوير، ومع الوقت اتعلمت إزاي الصورة تحكي حكاية وتوصل إحساس.',
     },
     {
-      year: "2021",
-      title_en: "Expanding to Commercial UGC",
-      title_ar: "الانتقال للمحتوى التجاري والـ UGC",
-      description_en: "Began crafting dedicated short-form commercial content for food brands and local innovators, mastering the art of the 3-second hook.",
-      description_ar: "البدء في تصوير ريلز تجارية لبراندات الأكل والمشاريع المحلية، مع التركيز على علم 'الخطاف البصري' في أول ٣ ثواني."
+      year: 'Early Journey',
+      title_en: 'Working with Local Businesses',
+      title_ar: 'شغل مع أماكن ومشروعات في أسيوط',
+      description_en:
+        'Worked on photography and video content for local venues and businesses, including Qasr Napoli and Bella.',
+      description_ar:
+        'اشتغلت في التصوير وصناعة المحتوى لأماكن ومشروعات في أسيوط، منها قصر نابولي وبيلا.',
     },
     {
-      year: "2023",
-      title_en: "100K Community & Major Brands",
-      title_ar: "١٠٠ ألف متابع وشراكات كبرى",
-      description_en: "Crossed 100,000+ organic combined followers across TikTok and Instagram, partnering with household names like B.Laban and ElAraby Group.",
-      description_ar: "تخطي حاجز ١٠٠ ألف متابع حقيقي عبر تيك توك وإنستجرام، والتعاون مع براندات وطنية كبرى مثل بلبن ومجموعة العربي."
+      year: 'Ongoing',
+      title_en: 'From Photography to Storytelling',
+      title_ar: 'من التصوير لحكاية كاملة',
+      description_en:
+        'Expanded into video creation and content collaborations, including work associated with B.Laban and Yango Play.',
+      description_ar:
+        'وسّعت شغلي من التصوير لصناعة الفيديوهات وحكي القصص، واشتغلت على محتوى مرتبط ببلبن ويانجو بلاي.',
     },
     {
-      year: "2024 - 2026",
-      title_en: "Creative Direction & Cinematic Short-Form",
-      title_ar: "الإخراج الإبداعي والإنتاج السينمائي",
-      description_en: "Directing high-impact video campaigns for national brands including Domty, Jotun, and fashion innovators with end-to-end creative control.",
-      description_ar: "إخراج حملات ريلز كبرى لعلامات بارزة مثل دومتي وجوتن ومقصر نابولي برؤية إخراجية سينمائية متكاملة."
-    }
+      year: 'Today',
+      title_en: 'Stories from Assiut and Beyond',
+      title_ar: 'حكايات من أسيوط ولكل مكان',
+      description_en:
+        'Creating content with a personal point of view, bringing together people, places, businesses, and stories worth sharing.',
+      description_ar:
+        'بصنع محتوى من وجهة نظري، وبحاول أحكي حكايات الناس والأماكن والمشروعات بشكل بسيط وقريب من الجمهور.',
+    },
   ] as TimelineMilestone[],
 
   process: [
     {
-      number: "01",
-      title_en: "Discover",
-      title_ar: "الاستكشاف",
-      tag_en: "Brief & Audience",
-      tag_ar: "الهدف والجمهور",
-      description_en: "Deep dive into your product, brand DNA, competitive landscape, and the exact audience mindset we want to capture.",
-      description_ar: "فهم عميق للمنتج وهوية البراند، دراسة المنافسين، وتحديد الجمهور المستهدف بدقة وما يثير اهتمامهم."
+      number: '01',
+      title_en: 'Understand',
+      title_ar: 'نفهم المطلوب',
+      tag_en: 'Goal & Audience',
+      tag_ar: 'الهدف والجمهور',
+      description_en:
+        'Understand the business, the message, the audience, and what the video needs to achieve.',
+      description_ar:
+        'نفهم المشروع والرسالة والجمهور، وإيه المطلوب من الفيديو بالضبط.',
     },
     {
-      number: "02",
-      title_en: "Concept",
-      title_ar: "الفكرة والهوك",
-      tag_en: "The Golden Hook",
-      tag_ar: "افتتاحية تشد العين",
-      description_en: "Developing 3 bespoke creative angles with high-retention opening hooks designed to stop thumbs in under 2 seconds.",
-      description_ar: "ابتكار ٣ زوايا إبداعية مختلفة مع افتتاحيات قوية (Hooks) مصممة لوقف التمرير السريع في أقل من ثانيتين."
+      number: '02',
+      title_en: 'Find the Idea',
+      title_ar: 'نطلع بالفكرة',
+      tag_en: 'Concept & Hook',
+      tag_ar: 'الفكرة والافتتاحية',
+      description_en:
+        'Choose a clear angle and an opening that gives viewers a reason to keep watching.',
+      description_ar:
+        'نختار زاوية واضحة للفيديو وبداية تشد المشاهد وتخليه يكمل.',
     },
     {
-      number: "03",
-      title_en: "Story",
-      title_ar: "القصة والسيناريو",
-      tag_en: "Short-Form Flow",
-      tag_ar: "تسلسل سريع ومقنع",
-      description_en: "Scripting a concise, energetic narrative arc where the product shines naturally as the hero of the experience.",
-      description_ar: "كتابة سيناريو مكثف وسلس يربط المشاهد عاطفياً ويجعل المنتج هو البطل الطبيعي للتجربة بدون مبالغة."
+      number: '03',
+      title_en: 'Plan the Story',
+      title_ar: 'نرتب الحكاية',
+      tag_en: 'Simple Structure',
+      tag_ar: 'ترتيب المشاهد',
+      description_en:
+        'Organize the shots and message so the video feels natural, focused, and easy to follow.',
+      description_ar:
+        'نرتب اللقطات والرسالة عشان الفيديو يطلع طبيعي ومركز وسهل المتابعة.',
     },
     {
-      number: "04",
-      title_en: "Produce",
-      title_ar: "التصوير والإنتاج",
-      tag_en: "Cinematography",
-      tag_ar: "إضاءة وعدسات مخصصة",
-      description_en: "Shooting with cinema-grade cameras, motorized gimbals, specialized lighting, and macro lenses for maximum visual punch.",
-      description_ar: "التصوير بمعدات سينمائية وإضاءة احترافية وعدسات ماكرو تظهر أدق التفاصيل بأعلى جودة بصرية."
+      number: '04',
+      title_en: 'Shoot',
+      title_ar: 'نصور',
+      tag_en: 'On Location',
+      tag_ar: 'تصوير وتنفيذ',
+      description_en:
+        'Capture the footage with attention to framing, light, details, and the feeling of the place or product.',
+      description_ar:
+        'نصور مع الاهتمام بالكادر والإضاءة والتفاصيل والإحساس اللي المكان أو المنتج محتاج يوصله.',
     },
     {
-      number: "05",
-      title_en: "Edit",
-      title_ar: "المونتاج والصوت",
-      tag_en: "Pacing & Sound",
-      tag_ar: "إيقاع حركي ومؤثرات",
-      description_en: "Sculpting the cut with micro-transitions, bespoke sound effects, color grading, and on-brand typography overlays.",
-      description_ar: "بناء المونتاج بإيقاع مدروس، تلوين سينمائي، هندسة مؤثرات صوتية واقعية، وإضافة نصوص متحركة جذابة."
+      number: '05',
+      title_en: 'Edit',
+      title_ar: 'نمنتج',
+      tag_en: 'Pacing & Sound',
+      tag_ar: 'إيقاع وصوت',
+      description_en:
+        'Shape the footage into a clear story with suitable pacing, sound, and finishing touches.',
+      description_ar:
+        'نحوّل اللقطات لحكاية واضحة بإيقاع مناسب وصوت ولمسات نهائية.',
     },
     {
-      number: "06",
-      title_en: "Deliver",
-      title_ar: "التسليم والنشر",
-      tag_en: "Platform Ready",
-      tag_ar: "جاهز للنشر الفوري",
-      description_en: "Exporting optimized 9:16 vertical masters with customized thumbnails, caption recommendations, and posting guidance.",
-      description_ar: "تسليم الفيديوهات بالصيغ المعتمدة للمنصات بأعلى جودة مع اقتراح العناوين والكوفر الأنسب للنشر."
-    }
+      number: '06',
+      title_en: 'Deliver',
+      title_ar: 'نسلّم المحتوى',
+      tag_en: 'Ready to Publish',
+      tag_ar: 'جاهز للنشر',
+      description_en:
+        'Deliver the agreed files in the formats and dimensions needed for the selected platforms.',
+      description_ar:
+        'نسلّم الملفات المتفق عليها بالمقاسات والصيغ المناسبة للمنصات المطلوبة.',
+    },
   ] as ProcessStep[],
 
   stats: [
-    { value: "100K+", label_en: "Combined Community", label_ar: "متابع عبر المنصات", sub_en: "TikTok & Instagram Organic", sub_ar: "جمهور حقيقي ومتفاعل" },
-    { value: "2019", label_en: "Creating Stories Since", label_ar: "صناعة محتوى من", sub_en: "Years of Visual Evolution", sub_ar: "سنوات من التطور المستمر" },
-    { value: "6+", label_en: "Household Brand Collabs", label_ar: "براندات كبرى موثقة", sub_en: "National & Regional Leaders", sub_ar: "شراكات مع أسماء رائدة" },
-    { value: "100%", label_en: "Short-Form Dedication", label_ar: "تركيز كامل على الريلز", sub_en: "Engineered For Retention", sub_ar: "محتوى مبني على الاستبقاء" }
+    {
+      value: '2019',
+      label_en: 'Started Creating',
+      label_ar: 'بداية الرحلة',
+      sub_en: 'Photography to video storytelling',
+      sub_ar: 'من التصوير لحكاية بالفيديو',
+    },
+    {
+      value: 'Assiut',
+      label_en: 'Home Base',
+      label_ar: 'مكاني وبدايتي',
+      sub_en: 'Stories from Upper Egypt',
+      sub_ar: 'حكايات من أسيوط والصعيد',
+    },
+    {
+      value: 'Video',
+      label_en: 'My Main Medium',
+      label_ar: 'أداتي الأساسية',
+      sub_en: 'Short-form content and visual stories',
+      sub_ar: 'فيديوهات قصيرة وحكايات بصرية',
+    },
+    {
+      value: 'People',
+      label_en: 'My Point of View',
+      label_ar: 'الناس هي الحكاية',
+      sub_en: 'Places, people, and real experiences',
+      sub_ar: 'أماكن وناس وتجارب حقيقية',
+    },
   ],
 
   ui: {
     en: {
-      nav_work: "Work",
-      nav_brands: "Brands",
-      nav_about: "About",
-      nav_services: "Services",
-      nav_process: "Process",
-      nav_contact: "Contact",
+      nav_work: 'Work',
+      nav_brands: 'Collaborations',
+      nav_about: 'About',
+      nav_services: 'Services',
+      nav_process: 'Process',
+      nav_contact: 'Contact',
       nav_cta: "Let's Talk",
-      sound_toggle_on: "Audio Active",
-      sound_toggle_off: "Sound FX Off",
-      hero_badge: "100K+ AUDIENCE • SHORT-FORM STORYTELLER",
-      hero_title_line1: "SCROLL STOPPING",
-      hero_title_line2: "IS AN ART.",
-      hero_intro: "I turn everyday moments, products, and ideas into short-form stories people actually want to watch.",
-      hero_cta_explore: "EXPLORE THE WORK",
-      hero_cta_create: "LET'S CREATE SOMETHING",
-      hero_scroll_prompt: "SCROLL TO EXPERIENCE",
-      brands_heading: "THE BRANDS BEHIND THE STORIES.",
-      brands_sub: "Real campaigns created in collaboration with industry pioneers, food innovators, and market leaders.",
-      work_heading: "LESS TALK. MORE WORK.",
-      work_sub: "A curated selection of short-form campaigns engineered for attention, emotion, and retention.",
-      filter_all: "All Work",
-      filter_food: "Food & Beverage",
-      filter_tech: "Tech & Lifestyle",
-      filter_ugc: "UGC & Hooks",
-      filter_fashion: "Fashion & Urban",
-      filter_story: "Brand Stories",
-      btn_view_project: "Watch Project",
-      btn_close: "Close",
-      about_heading: "THE CAMERA IS JUST THE TOOL.",
-      about_sub: "Storytelling is the foundation. Based in Assiut, Egypt, creating visual experiences for brands everywhere.",
-      about_p1: "Since 2019, I've believed that short-form video shouldn't look like generic background noise. Whether it's the hypnotic pour of pistachio cream or the kinetic pulse of urban fashion, every second on screen has to earn its place.",
-      about_p2: "I handle concepts, shooting, and editing with a director's eye and an authentic creator's voice — bringing brands into the feeds of over 100,000 real people.",
-      timeline_title: "CREATIVE EVOLUTION",
-      services_heading: "WHAT WE CAN CREATE TOGETHER.",
-      services_sub: "Tailored visual solutions built specifically for short-form retention and organic audience love.",
-      process_heading: "FROM IDEA TO FINAL REEL.",
-      process_sub: "A disciplined 6-stage workflow engineered to produce captivating content on schedule.",
-      contact_heading: "YOUR NEXT CAMPAIGN COULD START HERE.",
-      contact_sub: "Have a product, a campaign, or an idea worth telling? Let's turn it into content people want to watch.",
-      form_name: "Your Name",
-      form_company: "Brand or Company",
-      form_email: "Email Address",
-      form_phone: "WhatsApp / Phone",
-      form_project_type: "Project Type",
-      form_type_ugc: "UGC & Hook Campaign",
-      form_type_brand: "Brand Commercial Reel",
-      form_type_product: "Product Macro Showcase",
-      form_type_full: "Full Production & Direction",
-      form_budget: "Estimated Budget",
-      form_budget_1: "Under $1,000 / EGP 50,000",
-      form_budget_2: "$1,000 - $3,000 / EGP 50k - 150k",
-      form_budget_3: "$3,000+ / EGP 150k+",
-      form_message: "Tell me about your idea or product",
-      form_message_placeholder: "What are you launching? Who is your audience? When do you need it?",
-      form_submit_whatsapp: "Generate Direct WhatsApp Message",
-      form_submit_email: "Send Email Inquiry",
-      form_copied_email: "Email Copied to Clipboard!",
-      footer_rights: "All rights reserved. Designed & built for Mohanad Ahmed.",
-      footer_location: "Assiut, Egypt — Available Worldwide"
+      sound_toggle_on: 'Audio On',
+      sound_toggle_off: 'Sound Off',
+      hero_badge: 'CONTENT CREATOR • ASSIUT, EGYPT • SINCE 2019',
+      hero_title_line1: 'EVERY PLACE',
+      hero_title_line2: 'HAS A STORY.',
+      hero_intro:
+        'I’m Mohanad — a content creator from Assiut. I turn people, places, products, and everyday moments into visual stories worth watching.',
+      hero_cta_explore: 'EXPLORE MY WORK',
+      hero_cta_create: 'LET’S CREATE TOGETHER',
+      hero_scroll_prompt: 'SCROLL TO EXPLORE',
+      brands_heading: 'PEOPLE I’VE WORKED WITH.',
+      brands_sub:
+        'A selection of brands and local businesses connected to my photography and video work.',
+      work_heading: 'A FEW STORIES I’VE HELPED TELL.',
+      work_sub:
+        'Selected photography and video projects. Each project should use the original published work and verified details.',
+      filter_all: 'All Work',
+      filter_food: 'Food & Beverage',
+      filter_tech: 'Tech & Lifestyle',
+      filter_ugc: 'UGC & Hooks',
+      filter_fashion: 'Fashion & Urban',
+      filter_story: 'Brand Stories',
+      btn_view_project: 'View Project',
+      btn_close: 'Close',
+      about_heading: 'THE CAMERA STARTED IT. THE STORY KEEPS ME GOING.',
+      about_sub:
+        'I started in Assiut in 2019 and grew from photography into video and content creation.',
+      about_p1:
+        'I’m interested in the details people might pass by: a place’s atmosphere, a product’s character, or a small moment that can become a good story. I like content that feels clear, human, and made for the people watching it.',
+      about_p2:
+        'My work includes photography and video content for local businesses and collaborations with brands. This portfolio brings selected work together in one place.',
+      timeline_title: 'THE JOURNEY SO FAR',
+      services_heading: 'WHAT I CAN HELP YOU CREATE.',
+      services_sub:
+        'Practical content services for brands, businesses, places, and ideas that deserve to be seen.',
+      process_heading: 'FROM THE FIRST IDEA TO THE FINAL VIDEO.',
+      process_sub:
+        'A straightforward process that keeps the idea, production, and final delivery aligned.',
+      contact_heading: 'HAVE A STORY TO TELL?',
+      contact_sub:
+        'Tell me about your business, product, or idea, and let’s discuss the right kind of content.',
+      form_name: 'Your Name',
+      form_company: 'Brand or Business',
+      form_email: 'Email Address',
+      form_phone: 'WhatsApp / Phone',
+      form_project_type: 'What do you need?',
+      form_type_ugc: 'UGC-Style Video',
+      form_type_brand: 'Brand or Business Video',
+      form_type_product: 'Product Showcase',
+      form_type_full: 'Shooting and Editing',
+      form_budget: 'Estimated Budget',
+      form_budget_1: 'Let’s discuss',
+      form_budget_2: 'EGP 10,000–50,000',
+      form_budget_3: 'EGP 50,000+',
+      form_message: 'Tell me about your project',
+      form_message_placeholder:
+        'What do you want to create? Who is it for, and when do you need it?',
+      form_submit_whatsapp: 'Prepare WhatsApp Message',
+      form_submit_email: 'Prepare Email Inquiry',
+      form_copied_email: 'Email copied',
+      footer_rights: 'All rights reserved. Mohanad Ahmed.',
+      footer_location: 'Assiut, Egypt — Open to suitable collaborations',
     },
     ar: {
-      nav_work: "الأعمال",
-      nav_brands: "البراندات",
-      nav_about: "عني",
-      nav_services: "الخدمات",
-      nav_process: "خطوات العمل",
-      nav_contact: "تواصل معي",
-      nav_cta: "يلا نتواصل",
-      sound_toggle_on: "الصوت مفعل",
-      sound_toggle_off: "مؤثرات الصوت مغلقة",
-      hero_badge: "جمهور +١٠٠ ألف • راوي قصص بالفيديو",
-      hero_title_line1: "مش كل فيديو",
-      hero_title_line2: "يستاهل يتشاف.",
-      hero_intro: "بحوّل الأفكار والمنتجات والمواقف العادية لفيديوهات تشد الانتباه وتخلّي الناس تكمل للآخر.",
-      hero_cta_explore: "شوف شغلي",
-      hero_cta_create: "يلا نعمل حاجة مختلفة",
-      hero_scroll_prompt: "انزل واستكشف التجربة",
-      brands_heading: "براندات جمعنا معاها حكايات.",
-      brands_sub: "حملات حقيقية تم إنتاجها بالتعاون مع علامات رائدة في السوق المصري في مجالات الأغذية والأجهزة والأزياء.",
-      work_heading: "الكلام كتير. خلّي الشغل يتكلم.",
-      work_sub: "مجموعة مختارة من حملات الريلز المصممة بذكاء لخطف الانتباه، وتوليد المشاعر، وتحقيق أعلى استبقاء.",
-      filter_all: "كل الأعمال",
-      filter_food: "أغذية ومشروبات",
-      filter_tech: "تكنولوجيا ولايف ستايل",
-      filter_ugc: "UGC وافتتاحيات",
-      filter_fashion: "أزياء وموضة",
-      filter_story: "قصص البراندات",
-      btn_view_project: "مشاهدة المشروع",
-      btn_close: "إغلاق",
-      about_heading: "الكاميرا مجرد أداة. الحكاية هي الأساس.",
-      about_sub: "القوة في القصة وطريقة حكيها. من أسيوط، بصنع تجارب بصرية لبراندات في كل مكان.",
-      about_p1: "من ٢٠١٩ وأنا مؤمن إن الفيديوهات القصيرة مش مجرد صوت في الخلفية. سواء كان سكب صوص الفستق الساحر أو طاقة الشارع في إعلان أزياء، كل ثانية على الشاشة لازم تستحق إن المشاهد يقف عندها.",
-      about_p2: "بتولى تطوير الأفكار والتصوير والمونتاج بعين المخرج وروح صانع المحتوى الحقيقي — وده اللي بنى مجتمع من أكثر من ١٠٠ ألف متابع حقيقي.",
-      timeline_title: "محطات الرحلة",
-      services_heading: "نقدر نعمل إيه مع بعض.",
-      services_sub: "حلول بصرية مصممة خصيصاً لتحقيق أعلى نسب مشاهدة وتفاعل وبناء حب حقيقي بين الجمهور والبراند.",
-      process_heading: "من أول الفكرة لحد الريل الأخير.",
-      process_sub: "خطوات واضحة ومنظمة من ٦ مراحل لضمان خروج المحتوى بأعلى مستوى وفي الوقت المحدد.",
-      contact_heading: "الحكاية الجاية ممكن تبدأ من هنا.",
-      contact_sub: "عندك منتج أو فكرة أو حملة؟ يلا نحولها لمحتوى الناس تحب تشوفه وتتكلم عنه.",
-      form_name: "الاسم",
-      form_company: "اسم البراند أو الشركة",
-      form_email: "البريد الإلكتروني",
-      form_phone: "رقم الواتساب / الهاتف",
-      form_project_type: "نوع المشروع المطلوب",
-      form_type_ugc: "حملة UGC بافتتاحيات قوية",
-      form_type_brand: "ريل إعلاني متكامل للبراند",
-      form_type_product: "استعراض منتج بتقنية الماكرو",
-      form_type_full: "إنتاج وإخراج إبداعي كامل",
-      form_budget: "الميزانية التقريبية",
-      form_budget_1: "أقل من ٥٠ ألف جنيه مصري",
-      form_budget_2: "من ٥٠ إلى ١٥٠ ألف جنيه",
-      form_budget_3: "أكثر من ١٥٠ ألف جنيه",
-      form_message: "تفاصيل فكرتك أو منتجك",
-      form_message_placeholder: "إيه المنتج اللي عاوزين نسوق له؟ مين جمهورك؟ وإيه الموعد المستهدف؟",
-      form_submit_whatsapp: "تجهيز رسالة واتساب مباشرة",
-      form_submit_email: "إرسال استفسار عبر الإيميل",
-      form_copied_email: "تم نسخ الإيميل بنجاح!",
-      footer_rights: "جميع الحقوق محفوظة. صُمم ونُفذ لمهند أحمد.",
-      footer_location: "أسيوط، مصر — متاح للتعاون محلياً ودولياً"
-    }
-  }
+      nav_work: 'شغلي',
+      nav_brands: 'تعاونات',
+      nav_about: 'عني',
+      nav_services: 'الخدمات',
+      nav_process: 'بنشتغل إزاي',
+      nav_contact: 'تواصل معايا',
+      nav_cta: 'يلا نتكلم',
+      sound_toggle_on: 'الصوت شغال',
+      sound_toggle_off: 'الصوت مقفول',
+      hero_badge: 'صانع محتوى • أسيوط، مصر • من 2019',
+      hero_title_line1: 'كل مكان',
+      hero_title_line2: 'وراه حكاية.',
+      hero_intro:
+        'أنا مهند، صانع محتوى من أسيوط. بحوّل الناس والأماكن والمنتجات والتفاصيل اليومية لحكايات بصرية تستاهل تتشاف.',
+      hero_cta_explore: 'شوف شغلي',
+      hero_cta_create: 'يلا نعمل حاجة مع بعض',
+      hero_scroll_prompt: 'انزل واكتشف الحكاية',
+      brands_heading: 'اشتغلت مع مين؟',
+      brands_sub:
+        'مجموعة من البراندات والمشروعات المحلية اللي ارتبط بيها شغلي في التصوير وصناعة الفيديو.',
+      work_heading: 'شوية حكايات من شغلي.',
+      work_sub:
+        'نماذج من شغل التصوير والفيديو. كل مشروع لازم يعرض العمل الأصلي وتفاصيله المؤكدة.',
+      filter_all: 'كل الشغل',
+      filter_food: 'أكل ومشروبات',
+      filter_tech: 'تكنولوجيا ولايف ستايل',
+      filter_ugc: 'UGC وافتتاحيات',
+      filter_fashion: 'أزياء وموضة',
+      filter_story: 'حكايات البراندات',
+      btn_view_project: 'شوف المشروع',
+      btn_close: 'إغلاق',
+      about_heading: 'الكاميرا كانت البداية. والحكاية هي اللي مكملة.',
+      about_sub:
+        'بدأت في أسيوط سنة 2019 بالتصوير، وبعدها وسّعت شغلي للفيديو وصناعة المحتوى.',
+      about_p1:
+        'بحب التفاصيل اللي ممكن الناس تعدّي من جنبها من غير ما تاخد بالها: روح مكان، أو شخصية منتج، أو موقف بسيط ممكن يتحول لحكاية حلوة. بالنسبة لي، المحتوى الناجح لازم يكون واضح وإنساني وقريب من الناس اللي بتتفرج.',
+      about_p2:
+        'اشتغلت في التصوير وصناعة الفيديوهات لمشروعات محلية، وكمان في تعاونات مع براندات. البورتفوليو ده بيجمع نماذج من الشغل في مكان واحد.',
+      timeline_title: 'رحلتي لحد دلوقتي',
+      services_heading: 'نقدر نعمل إيه مع بعض؟',
+      services_sub:
+        'خدمات محتوى عملية للبراندات والمشروعات والأماكن والأفكار اللي تستاهل الناس تشوفها.',
+      process_heading: 'من أول فكرة لحد الفيديو النهائي.',
+      process_sub:
+        'خطوات واضحة تخلّي الفكرة والتصوير والتسليم ماشيين في نفس الاتجاه.',
+      contact_heading: 'عندك حكاية عايز توصلها؟',
+      contact_sub:
+        'احكيلي عن مشروعك أو منتجك أو فكرتك، ونشوف أنسب نوع محتوى ليها.',
+      form_name: 'اسمك',
+      form_company: 'اسم البراند أو المشروع',
+      form_email: 'البريد الإلكتروني',
+      form_phone: 'رقم الواتساب أو الموبايل',
+      form_project_type: 'محتاج إيه؟',
+      form_type_ugc: 'فيديو بأسلوب UGC',
+      form_type_brand: 'فيديو لبراند أو مشروع',
+      form_type_product: 'استعراض منتج',
+      form_type_full: 'تصوير ومونتاج',
+      form_budget: 'الميزانية التقريبية',
+      form_budget_1: 'نتفق عليها حسب المطلوب',
+      form_budget_2: 'من 10,000 إلى 50,000 جنيه',
+      form_budget_3: 'أكتر من 50,000 جنيه',
+      form_message: 'احكيلي عن مشروعك',
+      form_message_placeholder:
+        'عايز تعمل إيه؟ مين الجمهور المستهدف؟ ومحتاج المحتوى إمتى؟',
+      form_submit_whatsapp: 'جهّز رسالة واتساب',
+      form_submit_email: 'جهّز رسالة إيميل',
+      form_copied_email: 'تم نسخ الإيميل',
+      footer_rights: 'جميع الحقوق محفوظة لمهند أحمد.',
+      footer_location: 'أسيوط، مصر — متاح للتعاون في المشاريع المناسبة',
+    },
+  },
 };

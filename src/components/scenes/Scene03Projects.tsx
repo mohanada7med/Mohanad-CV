@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PORTFOLIO_DATA, type Language, type Project } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 import { ComicBadge, ComicBurst } from '../comic/ComicElements';
@@ -21,14 +21,10 @@ export const Scene03Projects: React.FC<Scene03ProjectsProps> = ({
   const projects = PORTFOLIO_DATA.projects;
   const [internalIndex, setInternalIndex] = useState<number>(0);
 
-  // Sync with scroll-driven activeProjectIndex if provided
-  useEffect(() => {
-    if (activeProjectIndex !== undefined && activeProjectIndex >= 0 && activeProjectIndex < projects.length) {
-      setInternalIndex(activeProjectIndex);
-    }
-  }, [activeProjectIndex, projects.length]);
-
-  const activeIndex = activeProjectIndex !== undefined ? activeProjectIndex : internalIndex;
+  const activeIndex =
+    activeProjectIndex !== undefined && activeProjectIndex >= 0 && activeProjectIndex < projects.length
+      ? activeProjectIndex
+      : internalIndex;
   const currentProject = projects[activeIndex] || projects[0];
 
   const handleSelect = (idx: number) => {

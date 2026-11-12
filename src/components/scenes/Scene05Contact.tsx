@@ -17,6 +17,7 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
   const [selectedGoal, setSelectedGoal] = useState<'reel' | 'campaign' | 'ugc'>('reel');
   const [senderName, setSenderName] = useState<string>('');
   const [brandName, setBrandName] = useState<string>('');
+  const [projectNotes, setProjectNotes] = useState<string>('');
 
   const handleCopyEmail = () => {
     sound.playClick();
@@ -33,27 +34,47 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
     }
   };
 
-  const handleDirectWhatsApp = () => {
+  const getGoalLabel = () => {
+    if (selectedGoal === 'reel') return isAr ? 'فيديوهات قصيرة وريلز' : 'Short-Form Reels';
+    if (selectedGoal === 'campaign') return isAr ? 'تصوير وتغطية لمشروع أو مكان' : 'Venue or Brand Coverage';
+    return isAr ? 'استعراض منتج ومحتوى صانع محتوى' : 'Product Showcase & Creator Video';
+  };
+
+  const handleSendEmail = () => {
     sound.playChime();
     confetti({
-      particleCount: 100,
-      spread: 90,
+      particleCount: 80,
+      spread: 85,
       origin: { y: 0.7 },
-      colors: ['#ccff00', '#00e5ff', '#ffe600', '#ff3366'],
+      colors: ['#ccff00', '#00e5ff', '#ffe600'],
     });
 
-    const goalLabel =
-      selectedGoal === 'reel'
-        ? (isAr ? 'ريلز إعلاني فيروسي' : 'Viral Promo Reel')
-        : selectedGoal === 'campaign'
-          ? (isAr ? 'حملة إعلانية متكاملة' : 'Full Brand Campaign')
-          : (isAr ? 'محتوى UGC عالي الاستبقاء' : 'High-Retention UGC & Hooks');
+    const goalLabel = getGoalLabel();
+    const subject = isAr
+      ? `طلب تعاون محتوى: ${brandName || 'مشروع جديد'} - ${senderName || 'استفسار'}`
+      : `Collaboration Inquiry: ${brandName || 'New Project'} - ${senderName || 'Contact'}`;
 
+    const body = isAr
+      ? `مرحباً مهند،\n\nأنا: ${senderName || 'مهتم بالتعاون'}\nاسم البراند أو المشروع: ${brandName || 'غير محدد'}\nنوع المحتوى المطلوب: ${goalLabel}\n\nتفاصيل إضافية:\n${projectNotes || 'أود مناقشة تفاصيل العمل والميزانية والمواعيد المناسبة.'}\n\nشكراً لك.`
+      : `Hi Mohanad,\n\nName: ${senderName || 'Not specified'}\nBrand / Venue: ${brandName || 'Not specified'}\nRequested Service: ${goalLabel}\n\nProject Details:\n${projectNotes || 'I would like to discuss project details, timeline, and scope.'}\n\nBest regards.`;
+
+    window.location.href = `mailto:${creator.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  const handleDirectWhatsApp = () => {
+    sound.playChime();
+    const goalLabel = getGoalLabel();
     const msg = isAr
-      ? `مرحباً كابتن مهند! أنا ${senderName || 'مهتم بالتعاون'} من طرف ${brandName || 'علامة تجارية'}.\nحابين ننتج: ${goalLabel}.\nمحتاجين نحدد موعد ونبدأ التصوير!`
-      : `Hey Mohanad! I'm ${senderName || 'reaching out'} from ${brandName || 'our brand'}.\nWe want to collaborate on: ${goalLabel}.\nLet's roll cameras and make something iconic!`;
+      ? `مرحباً مهند، أنا ${senderName || 'مهتم بالتعاون'} بخصوص مشروع (${brandName || 'عمل جديد'}).\nالخدمة المطلوبة: ${goalLabel}.\n${projectNotes ? `تفاصيل: ${projectNotes}` : 'حابب نتفق على التفاصيل والموعد المناسب.'}`
+      : `Hi Mohanad, I'm ${senderName || 'reaching out'} regarding ${brandName || 'a new project'}.\nRequested: ${goalLabel}.\n${projectNotes ? `Notes: ${projectNotes}` : "Let's connect and discuss the next steps."}`;
 
-    window.open(`https://wa.me/201023456789?text=${encodeURIComponent(msg)}`, '_blank');
+    if (creator.whatsapp && creator.whatsapp.trim().length > 5) {
+      const cleanPhone = creator.whatsapp.replace(/[^0-9]/g, '');
+      window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    } else {
+      // If no WhatsApp number configured, fallback smoothly to email inquiry
+      handleSendEmail();
+    }
   };
 
   return (
@@ -103,7 +124,7 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
               filter: 'drop-shadow(3px 3px 0px #000000)',
             }}
           >
-            {isAr ? 'جاهز نعمل محتوى' : 'READY TO CREATE WHAT'}{' '}
+            {isAr ? 'جاهز نحكي حكاية مشروعك الجاي؟' : 'READY TO TELL YOUR STORY?'}{' '}
             <span
               style={{
                 color: '#ccff00',
@@ -112,7 +133,7 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                 textShadow: '3px 3px 0px #000000',
               }}
             >
-              {isAr ? 'يـوقـف الـسـكـرول ويصنع التريند؟' : 'STOPS THUMBS & GOES VIRAL?'}
+              {isAr ? 'بمحتوى بصري حقيقي يوصل للناس' : 'WITH REAL, ENGAGING VISUALS'}
             </span>
           </h2>
           <p
@@ -121,13 +142,13 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
               color: '#d4d5e5',
               marginTop: '8px',
               maxWidth: '650px',
-              lineHeight: 1.4,
+              lineHeight: 1.5,
               fontFamily: isAr ? 'var(--font-body-ar)' : 'var(--font-body-en)',
             }}
           >
             {isAr
-              ? 'سواء كنت براند يهدف للوصول لملايين المشاهدات أو تبحث عن هوية سينمائية لمنتجاتك، باب التعاون الإبداعي مفتوح الآن.'
-              : 'Whether you want a high-conversion viral campaign or iconic visual direction for your product, let us roll cameras on your next big hit.'}
+              ? 'سواء كان عندك براند أو مطعم أو مشروع محلي في أسيوط أو أي مكان في مصر — خلينا نتناقش في نوع المحتوى والتصوير الأنسب ليك.'
+              : 'Whether you run a brand, restaurant, or local business in Assiut or anywhere in Egypt — let’s create visuals that truly represent your work.'}
           </p>
         </div>
 
@@ -159,22 +180,22 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#ffffff' }}>
                   <Flame size={16} color="#ccff00" />
                   <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900 }}>
-                    FAST BRIEF BUILDER
+                    {isAr ? 'تجهيز تفاصيل المشروع' : 'PROJECT BRIEF BUILDER'}
                   </span>
                 </div>
-                <ComicBadge text="INSTANT" bg="#ffe600" rotation={2} />
+                <ComicBadge text={isAr ? 'تواصل مباشر' : 'DIRECT'} bg="#ffe600" rotation={2} />
               </div>
 
               {/* Goal Type Picker */}
               <div style={{ marginBottom: '12px' }}>
                 <label style={{ display: 'block', fontSize: '11px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '6px' }}>
-                  {isAr ? 'اختر هدف الحملة:' : 'SELECT OBJECTIVE:'}
+                  {isAr ? 'نوع المحتوى المطلوب:' : 'SELECT SERVICE:'}
                 </label>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '6px' }}>
                   {[
-                    { id: 'reel', labelEn: 'Viral Promo Reel', labelAr: 'ريلز إعلاني فيروسي' },
-                    { id: 'campaign', labelEn: 'Full Campaign', labelAr: 'حملة إعلانية متكاملة' },
-                    { id: 'ugc', labelEn: 'UGC & Hooks Series', labelAr: 'سلسلة UGC وهوكس' },
+                    { id: 'reel', labelEn: 'Short-Form Reels', labelAr: 'فيديوهات قصيرة وريلز' },
+                    { id: 'campaign', labelEn: 'Venue & Business Coverage', labelAr: 'تصوير وتغطية لمكان أو مشروع' },
+                    { id: 'ugc', labelEn: 'Product Showcase & Creator Video', labelAr: 'استعراض منتج / محتوى صانع محتوى' },
                   ].map((goal) => {
                     const isSelected = selectedGoal === goal.id;
                     return (
@@ -206,7 +227,7 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
               </div>
 
               {/* Fast Fields */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '8px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '10px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '4px' }}>
                     {isAr ? 'اسمك:' : 'YOUR NAME:'}
@@ -215,7 +236,7 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                     type="text"
                     value={senderName}
                     onChange={(e) => setSenderName(e.target.value)}
-                    placeholder={isAr ? 'أحمد' : 'Alex'}
+                    placeholder={isAr ? 'مثال: أحمد' : 'Alex'}
                     style={{
                       width: '100%',
                       padding: '8px 10px',
@@ -232,13 +253,13 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
 
                 <div>
                   <label style={{ display: 'block', fontSize: '10px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '4px' }}>
-                    {isAr ? 'الشركة:' : 'COMPANY:'}
+                    {isAr ? 'البراند أو المكان:' : 'BRAND / VENUE:'}
                   </label>
                   <input
                     type="text"
                     value={brandName}
                     onChange={(e) => setBrandName(e.target.value)}
-                    placeholder={isAr ? 'اسم البراند' : 'Acme'}
+                    placeholder={isAr ? 'اسم المشروع' : 'Brand name'}
                     style={{
                       width: '100%',
                       padding: '8px 10px',
@@ -253,23 +274,75 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                   />
                 </div>
               </div>
+
+              {/* Project notes field */}
+              <div>
+                <label style={{ display: 'block', fontSize: '10px', color: '#a1a3b5', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, marginBottom: '4px' }}>
+                  {isAr ? 'تفاصيل الفكرة (اختياري):' : 'PROJECT NOTES (OPTIONAL):'}
+                </label>
+                <input
+                  type="text"
+                  value={projectNotes}
+                  onChange={(e) => setProjectNotes(e.target.value)}
+                  placeholder={isAr ? 'عايز أصور ريلز لمنتج جديد في أسيوط...' : 'Need a short-form video for...'}
+                  style={{
+                    width: '100%',
+                    padding: '8px 10px',
+                    borderRadius: '8px',
+                    backgroundColor: '#0a0b10',
+                    border: '2px solid #000000',
+                    color: '#ffffff',
+                    fontSize: '12px',
+                    fontWeight: 500,
+                    outline: 'none',
+                  }}
+                />
+              </div>
             </div>
 
-            {/* Direct Action Button Trigger */}
-            <button
-              onClick={handleDirectWhatsApp}
-              data-cursor="WHATSAPP"
-              className="comic-btn"
-              style={{
-                width: '100%',
-                padding: '11px',
-                fontSize: '13px',
-              }}
-            >
-              <MessageCircle size={18} />
-              <span>{isAr ? 'محادثة واتساب مباشرة' : 'Send via WhatsApp'}</span>
-              <ArrowUpRight size={16} />
-            </button>
+            {/* Direct Action Buttons */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <button
+                onClick={handleSendEmail}
+                data-cursor="EMAIL"
+                className="comic-btn"
+                style={{
+                  width: '100%',
+                  padding: '11px',
+                  fontSize: '13px',
+                  backgroundColor: '#ccff00',
+                  color: '#000000',
+                }}
+              >
+                <Mail size={17} />
+                <span>{isAr ? 'إرسال التفاصيل بالإيميل المباشر' : 'Send via Direct Email'}</span>
+                <ArrowUpRight size={16} />
+              </button>
+
+              <button
+                onClick={handleDirectWhatsApp}
+                data-cursor="WHATSAPP"
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  borderRadius: '10px',
+                  backgroundColor: '#25D366',
+                  color: '#000000',
+                  border: '2.5px solid #000000',
+                  boxShadow: '3px 3px 0px #000000',
+                  fontWeight: 900,
+                  fontSize: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  cursor: 'pointer',
+                }}
+              >
+                <MessageCircle size={16} />
+                <span>{isAr ? 'تواصل عبر واتساب' : 'Chat via WhatsApp'}</span>
+              </button>
+            </div>
           </div>
 
           {/* Column 2: Cartoon Finale Character Composition */}
@@ -369,36 +442,54 @@ export const Scene05Contact: React.FC<Scene05ContactProps> = ({ lang }) => {
                 {copiedEmail ? <Check size={15} color="#00aa44" /> : <Copy size={15} />}
               </button>
 
-              {/* Social Channels Comic Badges */}
+              {/* Social Channels Comic Badges / Location Tag */}
               <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
                 {[
                   { name: 'Instagram', url: creator.socials.instagram, bg: '#ff3366', color: '#ffffff' },
                   { name: 'TikTok', url: creator.socials.tiktok, bg: '#000000', color: '#ccff00' },
                   { name: 'YouTube', url: creator.socials.youtube, bg: '#ffe600', color: '#000000' },
                   { name: 'Behance', url: creator.socials.behance, bg: '#00e5ff', color: '#000000' },
-                ].map((s) => (
-                  <a
-                    key={s.name}
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onMouseEnter={() => sound.playHover()}
-                    style={{
-                      padding: '5px 12px',
-                      borderRadius: '8px',
-                      backgroundColor: s.bg,
-                      color: s.color,
-                      border: '2px solid #000000',
-                      boxShadow: '2px 2px 0px #000000',
-                      fontSize: '11px',
-                      fontWeight: 900,
-                      textDecoration: 'none',
-                      fontFamily: 'JetBrains Mono, monospace',
-                    }}
-                  >
-                    {s.name} ↗
-                  </a>
-                ))}
+                ]
+                  .filter((s) => Boolean(s.url && s.url.trim().length > 0))
+                  .map((s) => (
+                    <a
+                      key={s.name}
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onMouseEnter={() => sound.playHover()}
+                      style={{
+                        padding: '5px 12px',
+                        borderRadius: '8px',
+                        backgroundColor: s.bg,
+                        color: s.color,
+                        border: '2px solid #000000',
+                        boxShadow: '2px 2px 0px #000000',
+                        fontSize: '11px',
+                        fontWeight: 900,
+                        textDecoration: 'none',
+                        fontFamily: 'JetBrains Mono, monospace',
+                      }}
+                    >
+                      {s.name} ↗
+                    </a>
+                  ))}
+
+                <div
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: '8px',
+                    backgroundColor: '#121422',
+                    border: '2px solid #000000',
+                    color: '#ccff00',
+                    fontSize: '11px',
+                    fontFamily: 'JetBrains Mono, monospace',
+                    fontWeight: 800,
+                    boxShadow: '2px 2px 0px #000000',
+                  }}
+                >
+                  📍 {isAr ? creator.location_ar : creator.location_en} • {isAr ? 'متاح للتعاون' : 'Open for Projects'}
+                </div>
               </div>
             </div>
           </div>

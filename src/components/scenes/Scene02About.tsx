@@ -54,7 +54,7 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
                 filter: 'drop-shadow(3px 3px 0px #000000)',
               }}
             >
-              {isAr ? 'قصة الرحلة وسر الـ 3 ثواني' : 'ORIGINS & THE 3-SECOND SECRET'}
+              {isAr ? 'عن الرحلة ورؤيتي في صناعة المحتوى' : 'THE STORY & VISUAL APPROACH'}
             </h2>
           </div>
 
@@ -71,7 +71,7 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
               boxShadow: '3px 3px 0px #000000',
             }}
           >
-            ★ CHAPTER: FROM 2019 TO 100K+
+            ★ {isAr ? 'من أسيوط • منذ 2019' : 'SINCE 2019 • ASSIUT & BEYOND'}
           </div>
         </div>
 
@@ -177,11 +177,11 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
                       <span>{isAr ? creator.location_ar : creator.location_en}</span>
                     </div>
                     <div style={{ color: '#ffffff', fontSize: '13px', fontWeight: 900, marginTop: '2px' }}>
-                      {isAr ? 'تصوير ميداني لكافة المحافظات' : 'Shooting across Egypt & MENA'}
+                      {isAr ? 'تصوير ميداني في أسيوط ومحافظات مصر' : 'On-location shooting in Assiut & Egypt'}
                     </div>
                   </div>
 
-                  <ComicBadge text="FX3 4K" subtext="RIG" bg="#ffffff" rotation={4} />
+                  <ComicBadge text="4K" subtext="RIG" bg="#ffffff" rotation={4} />
                 </div>
               </div>
             </div>
@@ -206,8 +206,8 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
               >
                 <div style={{ fontSize: '12px', lineHeight: 1.4, fontWeight: 800 }}>
                   {isAr
-                    ? '🎯 "أول 3 ثوانٍ هي المعركة الحقيقية لجذب انتباه المشاهد."'
-                    : '🎯 "The first 3 seconds are the entire battlefield for retention."'}
+                    ? '🎯 "الصورة الصادقة بتوصل للقلب والمشاهد من أول نظرة."'
+                    : '🎯 "Authentic visual stories resonate with people instantly."'}
                 </div>
               </SpeechBubble>
             </div>
@@ -229,14 +229,14 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
               }}
             >
               {isAr
-                ? 'لا نصنع فيديوهات عابرة، بل نبني مشاهد تلتصق بالذاكرة وتصنع التريند.'
-                : 'I do not make forgettable clips. I engineer visuals that stop thumbs & convert audiences.'}
+                ? 'الصورة مش مجرد لقطة.. الصورة حكاية بتعيش مع الناس وتبرز هوية المكان.'
+                : 'Visual content is not just footage — it is a genuine story that stays with people.'}
             </h3>
 
             <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#d4d5e2', margin: 0, fontFamily: isAr ? 'var(--font-body-ar)' : 'var(--font-body-en)' }}>
               {isAr
-                ? 'بدأت رحلتي في عالم صناعة الفيديو عام 2019 برؤية واحدة: الدمج بين جودة الصورة السينمائية وسيكولوجية الانتباه السريع في عصر السوشيال ميديا. مع جمهور تجاوز 100 ألف متابع وأكثر من 20 مليون مشاهدة، أصبحت كل ثانية في الفيديو محسوبة لتحقيق أعلى استبقاء ممكن.'
-                : 'Starting in 2019, my vision has been straightforward: fuse cinema-grade production with high-speed social media retention. With 100K+ followers and over 20M impressions, every second is paced to maximize thumb-stopping engagement and measurable brand growth.'}
+                ? 'بدأت رحلتي في أسيوط سنة 2019 بالتصوير وتوثيق التفاصيل، ومع الوقت طوّرت أسلوبي في صناعة الفيديوهات القصيرة والريلز. بركز على كادرات نظيفة، وإضاءة مريحة، وإيقاع بسيط يناسب روح المكان وطبيعة السوشيال ميديا، عشان كل فيديو يعبر عن حقيقته بدون مبالغة أو افتعال.'
+                : 'I started my journey in Assiut in 2019 with photography, later expanding into short-form video creation and visual storytelling. I focus on clean framing, natural pacing, and relatable narratives that let brands and places shine authentically.'}
             </p>
 
             {/* Three Comic Story Feature Panels */}
@@ -245,29 +245,29 @@ export const Scene02About: React.FC<Scene02AboutProps> = ({ lang }) => {
                 {
                   icon: <Zap size={20} color="#000000" strokeWidth={2.5} />,
                   bg: '#ccff00',
-                  badge: '400MS SHOCK',
-                  titleEn: 'Visual Pattern Interruption',
-                  titleAr: 'كسر النمط في 400ms',
-                  descEn: 'Instant visual hooks that stop users from swiping in the first split-second.',
-                  descAr: 'هوك بصري خاطف في أول كسر من الثانية يجبر المشاهد على التوقف ومتابعة القصة.',
+                  badge: isAr ? 'هوك ذكي' : 'SMART HOOK',
+                  titleEn: 'Engaging Opening & Hook',
+                  titleAr: 'كادر يبدأ الحكاية بذكاء',
+                  descEn: 'Captivating opening shots and angles that pull the audience into the story immediately.',
+                  descAr: 'افتتاحية وزاوية تصوير تشد المشاهد وتخليه يكمل الفيديو باهتمام وبشكل طبيعي.',
                 },
                 {
                   icon: <Flame size={20} color="#ffffff" strokeWidth={2.5} />,
                   bg: '#ff3366',
-                  badge: 'CINEMA RIG',
-                  titleEn: 'DaVinci Cinema Color Grading',
-                  titleAr: 'تلوين سينمائي احترافي',
-                  descEn: 'Studio-grade lighting, S-Log3 dynamics, and tailored color palette matching brand identity.',
-                  descAr: 'تصوير S-Log3 وألوان دافينشي ريزولف مخصصة تعكس فخامة وهوية كل علامة تجارية.',
+                  badge: isAr ? 'إضاءة وألوان' : 'COLOR & LIGHT',
+                  titleEn: 'Thoughtful Lighting & Color',
+                  titleAr: 'إضاءة طبيعية وتناغم ألوان',
+                  descEn: 'Clean framing, flattering lighting, and color grading that highlights product texture and venue mood.',
+                  descAr: 'إضاءة مدروسة وزوايا مريحة للعين مع تدرج ألوان يبرز جمال المكان وجودة المنتج.',
                 },
                 {
                   icon: <Award size={20} color="#000000" strokeWidth={2.5} />,
                   bg: '#ffe600',
-                  badge: '20M+ VIEWS',
-                  titleEn: 'Proven Brand ROI & Sales',
-                  titleAr: 'مبيعات وشهرة حقيقية',
-                  descEn: 'Real measurable conversion for leading brands like B.Laban, ElAraby, Domty, and Jotun.',
-                  descAr: 'شراكات ناجحة مع كبرى الشركات (بلبن، مجموعة العربي، دومتي، جوتن) حققت أرقاماً قياسية.',
+                  badge: isAr ? 'تعاونات واقعية' : 'PROVEN WORK',
+                  titleEn: 'Real Partnerships & Local Trust',
+                  titleAr: 'تعاونات حقيقية مع براندات وأماكن',
+                  descEn: 'Visual content for local favorites like Qasr Napoli and Bella, alongside collaborations with B.Laban and Yango Play.',
+                  descAr: 'شغل تصوير ومحتوى لأماكن معروفة زي قصر نابولي وبيلا، وتعاونات محتوى مع بلبن ويانجو بلاي.',
                 },
               ].map((panel, idx) => (
                 <div

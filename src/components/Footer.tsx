@@ -103,48 +103,54 @@ export const Footer: React.FC<FooterProps> = ({ lang }) => {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ccff00', fontSize: '12px', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
               <MapPin size={14} />
-              <span>{lang === 'en' ? t.footer_location : 'أسيوط، مصر — متاح للتعاون محلياً ودولياً'}</span>
+              <span>{t.footer_location}</span>
             </div>
             <div style={{ color: '#8d90a0', fontSize: '13px', marginTop: '6px' }}>
               {t.footer_rights} © 2019 — {CURRENT_YEAR}
             </div>
           </div>
 
-          {/* Social Links */}
+          {/* Social & Contact Links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-            <a
-              href={creator.socials.tiktok}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => sound.playHover()}
-              style={{ color: '#ffffff', textDecoration: 'none', fontSize: '13px', fontWeight: 700 }}
-            >
-              TikTok
-            </a>
-            <a
-              href={creator.socials.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => sound.playHover()}
-              style={{ color: '#ffffff', textDecoration: 'none', fontSize: '13px', fontWeight: 700 }}
-            >
-              Instagram
-            </a>
-            <a
-              href={creator.socials.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => sound.playHover()}
-              style={{ color: '#ffffff', textDecoration: 'none', fontSize: '13px', fontWeight: 700 }}
-            >
-              WhatsApp
-            </a>
+            {creator.socials.tiktok && (
+              <a
+                href={creator.socials.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => sound.playHover()}
+                style={{ color: '#ffffff', textDecoration: 'none', fontSize: '13px', fontWeight: 700 }}
+              >
+                TikTok
+              </a>
+            )}
+            {creator.socials.instagram && (
+              <a
+                href={creator.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => sound.playHover()}
+                style={{ color: '#ffffff', textDecoration: 'none', fontSize: '13px', fontWeight: 700 }}
+              >
+                Instagram
+              </a>
+            )}
+            {creator.socials.whatsapp && (
+              <a
+                href={`https://wa.me/${creator.socials.whatsapp.replace(/[^0-9]/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => sound.playHover()}
+                style={{ color: '#ffffff', textDecoration: 'none', fontSize: '13px', fontWeight: 700 }}
+              >
+                WhatsApp
+              </a>
+            )}
             <a
               href={`mailto:${creator.email}`}
               onMouseEnter={() => sound.playHover()}
-              style={{ color: '#ffffff', textDecoration: 'none', fontSize: '13px', fontWeight: 700 }}
+              style={{ color: '#ccff00', textDecoration: 'none', fontSize: '13px', fontWeight: 800 }}
             >
-              Email
+              {creator.email}
             </a>
           </div>
 
