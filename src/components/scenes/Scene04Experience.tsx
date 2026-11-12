@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PORTFOLIO_DATA, type Language } from '../../data/portfolioData';
 import { sound } from '../../utils/audio';
 import { ComicBadge, CartoonDirectorChair, CartoonClapperboard } from '../comic/ComicElements';
-import { Video, Film, MapPin, Camera, Sparkles, Check, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface Scene04ExperienceProps {
   lang: Language;
