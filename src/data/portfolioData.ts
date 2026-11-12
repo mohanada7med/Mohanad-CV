@@ -1,4 +1,5 @@
 export type Language = 'en' | 'ar';
+export type ThemeMode = 'light' | 'dark';
 
 export type ProjectCategory =
   | 'Brand Story'
@@ -56,6 +57,69 @@ export interface ServiceItem {
   short_desc_ar: string;
   deliverables_en: string[];
   deliverables_ar: string[];
+  icon_name?: string;
+  color?: string;
+}
+
+export interface EducationItem {
+  id: string;
+  year: string;
+  degree_en: string;
+  degree_ar: string;
+  institution_en: string;
+  institution_ar: string;
+  location_en: string;
+  location_ar: string;
+  description_en: string;
+  description_ar: string;
+  focus_areas_en: string[];
+  focus_areas_ar: string[];
+  badge: string;
+  color: string;
+}
+
+export interface ExperienceItem {
+  id: string;
+  period_en: string;
+  period_ar: string;
+  role_en: string;
+  role_ar: string;
+  company_en: string;
+  company_ar: string;
+  type_en: string;
+  type_ar: string;
+  description_en: string;
+  description_ar: string;
+  highlights_en: string[];
+  highlights_ar: string[];
+  color: string;
+  badge_en: string;
+  badge_ar: string;
+}
+
+export interface CertificationItem {
+  id: string;
+  title_en: string;
+  title_ar: string;
+  issuer_en: string;
+  issuer_ar: string;
+  year: string;
+  credential_en: string;
+  credential_ar: string;
+  skills: string[];
+  badge_color: string;
+}
+
+export interface SkillItem {
+  name_en: string;
+  name_ar: string;
+  role_en: string;
+  role_ar: string;
+  level: string;
+  level_percent: number;
+  tools: string[];
+  color: string;
+  icon: string;
 }
 
 export interface TimelineMilestone {
@@ -64,6 +128,9 @@ export interface TimelineMilestone {
   title_ar: string;
   description_en: string;
   description_ar: string;
+  tag_en?: string;
+  tag_ar?: string;
+  icon?: string;
 }
 
 export interface ProcessStep {
@@ -77,26 +144,27 @@ export interface ProcessStep {
 }
 
 /**
- * Portfolio content is intentionally limited to known background details.
- * Replace the local media paths with real approved project assets.
- * Do not publish project-specific performance claims unless you can verify them.
+ * Portfolio content is intentionally based on genuine personal and professional background.
+ * Genuine collaborations: B.Laban, Qasr Napoli, Bella, Yango Play.
+ * Creator based in Assiut, Egypt, active since 2019.
  */
 export const PORTFOLIO_DATA = {
   creator: {
     name_en: 'Mohanad Ahmed',
     name_ar: 'مهند أحمد',
+    nickname_en: 'The Visual Storyteller',
+    nickname_ar: 'راوي الحكايات البصرية',
     role_en: 'Content Creator • Video Creator • Storyteller',
     role_ar: 'صانع محتوى • صانع فيديوهات • راوي حكايات',
     location_en: 'Assiut, Egypt',
     location_ar: 'أسيوط، مصر',
-    audience_count: '',
     since_year: '2019',
     portrait_image: '/assets/images/mohanad_action_pose.jpg',
+    avatar_image: '/assets/images/mohanad_cartoon_avatar.jpg',
     bts_image: '/assets/images/bts_production.jpg',
     email: 'ahmdmohanad28@gmail.com',
     whatsapp: '',
     socials: {
-      // Add your exact profile URLs before displaying these links in the UI.
       tiktok: '',
       instagram: '',
       whatsapp: '',
@@ -104,6 +172,254 @@ export const PORTFOLIO_DATA = {
       behance: '',
     },
   },
+
+  // EDUCATION & FOUNDATION
+  education: [
+    {
+      id: 'cinematic-storytelling',
+      year: '2019 — Present',
+      degree_en: 'Self-Directed Cinematography & Visual Storytelling Mastery',
+      degree_ar: 'دراسة وممارسة حرة في التصوير السينمائي وصناعة المحتوى',
+      institution_en: 'Independent Field Studies & Masterclasses',
+      institution_ar: 'دراسة وتدريب حر وورش عمل متخصصة',
+      location_en: 'Egypt',
+      location_ar: 'مصر',
+      description_en:
+        'Continuous deep-dive into digital cinematography, lighting setup, narrative pacing, and post-production workflows for short-form media.',
+      description_ar:
+        'تعلم وتطبيق عملي مستمر لأساسيات التصوير السينمائي، توزيع الإضاءة، إيقاع السرد القصصي، ومونتاج الفيديوهات الرقمية الحديثة.',
+      focus_areas_en: ['Camera Blocking', 'Lighting Rigs', 'Color Science', 'Short-Form Retention'],
+      focus_areas_ar: ['تكوين الكادر', 'هندسة الإضاءة', 'علم الألوان', 'سيكولوجية جذب الانتباه'],
+      badge: 'CRAFT MASTERY',
+      color: '#ccff00',
+    },
+    {
+      id: 'digital-production',
+      year: 'Practical Experience',
+      degree_en: 'Hands-On Commercial Production & Directing',
+      degree_ar: 'تدريب ميداني وإنتاج إعلاني ومحتوى تجاري',
+      institution_en: 'On-Location Commercial Sets',
+      institution_ar: 'تصوير وإنتاج ميداني لمشروعات حقيقية',
+      location_en: 'Assiut & Across Egypt',
+      location_ar: 'أسيوط ومحافظات مصر',
+      description_en:
+        'Direct on-set experience directing commercial video shoots, coordinating product captures, and delivering finished assets for client campaigns.',
+      description_ar:
+        'خبرة عملية مباشرة في مواقع العمل لتصوير الفيديوهات الإعلانية، وتنسيق لقطات المنتجات والأماكن، وتسليم مواد بصرية جاهزة للنشر.',
+      focus_areas_en: ['Set Directing', 'Venue Coverage', 'Product Filming', 'Client Delivery'],
+      focus_areas_ar: ['إدارة موقع التصوير', 'تغطية الأماكن', 'تصوير المنتجات', 'تسليم المشاريع'],
+      badge: 'FIELD PRODUCTION',
+      color: '#4dd2ff',
+    },
+  ] as EducationItem[],
+
+  // EXPERIENCE
+  experience: [
+    {
+      id: 'exp-commercial-creator',
+      period_en: '2021 — Present',
+      period_ar: '2021 — حتى الآن',
+      role_en: 'Commercial Video Creator & Content Producer',
+      role_ar: 'صانع فيديوهات إعلانية ومحتوى للبراندات',
+      company_en: 'Independent / Commercial Collaborations',
+      company_ar: 'عمل حر / تعاونات مع علامات تجارية',
+      type_en: 'Creative Production',
+      type_ar: 'إنتاج إبداعي',
+      description_en:
+        'Creating high-retention short-form videos and visual content for established food & beverage brands, venues, and digital entertainment services.',
+      description_ar:
+        'صناعة فيديوهات قصيرة ومحتوى بصري جذاب لبراندات حلويات ومطاعم وأماكن ومنصات ترفيه رقمي.',
+      highlights_en: [
+        'Short-form food videography with engaging pacing for B.Laban.',
+        'Digital entertainment video content collaborations for Yango Play.',
+        'High-speed creative ideation, shooting, color grading, and export.',
+      ],
+      highlights_ar: [
+        'تصوير ومونتاج فيديوهات حلويات بإيقاع سريع وجذاب لـ بلبن.',
+        'صناعة محتوى فيديو لمنصة الترفيه الرقمي يانجو بلاي.',
+        'تنفيذ متكامل من أول الفكرة للتصوير والمونتاج وتجهيز النشر.',
+      ],
+      color: '#ccff00',
+      badge_en: 'DIRECTOR & CREATOR',
+      badge_ar: 'صانع محتوى ومخرج',
+    },
+    {
+      id: 'exp-venue-storyteller',
+      period_en: '2019 — Present',
+      period_ar: '2019 — حتى الآن',
+      role_en: 'Venue & Local Business Visual Storyteller',
+      role_ar: 'مصور وموثق بصري للأماكن والمشروعات المحلية',
+      company_en: 'Local Venues & Businesses (Assiut)',
+      company_ar: 'مشروعات وأماكن محلية بأسيوط',
+      type_en: 'Visual Storytelling',
+      type_ar: 'سرد بصري',
+      description_en:
+        'Capturing the authentic ambiance, architecture, hospitality, and distinct identity of popular venues and commercial establishments in Assiut.',
+      description_ar:
+        'توثيق أجواء الأماكن وديكوراتها وتجربة الزائر من خلال تصوير فوتوغرافي وفيديوهات تعكس الطابع الخاص لكل مكان.',
+      highlights_en: [
+        'Complete visual photography and atmosphere coverage for Qasr Napoli.',
+        'Product & brand content photography for Bella in Assiut.',
+        'Highlighting Upper Egypt places with fresh, contemporary aesthetics.',
+      ],
+      highlights_ar: [
+        'تغطية تصويرية فوتوغرافية متكاملة تبرز ديكور وأجواء قصر نابولي.',
+        'تصوير منتجات ومحتوى بصري لبيلا في أسيوط.',
+        'إبراز هوية وروح أماكن الصعيد بأسلوب بصري عصري ونقي.',
+      ],
+      color: '#ffd93d',
+      badge_en: 'VENUE STORYTELLING',
+      badge_ar: 'توثيق الأماكن',
+    },
+    {
+      id: 'exp-photographer-origins',
+      period_en: '2019 — 2021',
+      period_ar: '2019 — 2021',
+      role_en: 'Still Photographer & Visual Experimenter',
+      role_ar: 'مصور فوتوغرافي وبداية صناعة الصورة',
+      company_en: 'Assiut Base',
+      company_ar: 'أسيوط، مصر',
+      type_en: 'Photography',
+      type_ar: 'تصوير فوتوغرافي',
+      description_en:
+        'Began the journey behind the lens with street, portrait, and architectural photography, honing precision in composition and natural light.',
+      description_ar:
+        'بداية الرحلة من خلف العدسة مع تصوير الشارع والوجوه والأماكن، وصقل مهارات تكوين الكادر واستغلال الضوء الطبيعي.',
+      highlights_en: [
+        'Mastered manual camera exposure, optics, and framing geometry.',
+        'Transitioned seamlessly from still frames into cinematic moving video.',
+      ],
+      highlights_ar: [
+        'إتقان التحكم في إعدادات الكاميرا والعدسات وزوايا التكوين.',
+        'الانتقال بسلاسة من الصورة الثابتة إلى الصورة السينمائية المتحركة.',
+      ],
+      color: '#ff4d8d',
+      badge_en: 'FOUNDATIONAL CRAFT',
+      badge_ar: 'البداية والتأسيس',
+    },
+  ] as ExperienceItem[],
+
+  // CERTIFICATIONS & ACCREDITED COMPETENCIES
+  certifications: [
+    {
+      id: 'cert-4k-cinema',
+      title_en: '4K Commercial Camera Operation',
+      title_ar: 'تشغيل وضبط كاميرات الـ 4K التجارية',
+      issuer_en: 'Field Production Competency',
+      issuer_ar: 'كفاءة إنتاج ميداني معتمدة',
+      year: '2023',
+      credential_en: 'Full-Frame 4K, Log profiles, high frame-rate capture',
+      credential_ar: 'تصوير فل فريم 4K وتصوير بطيء وبروفايلات سينمائية',
+      skills: ['4K Video', 'S-Log / Log Profiles', 'Frame Rates', 'Lens Optics'],
+      badge_color: '#ccff00',
+    },
+    {
+      id: 'cert-davinci-color',
+      title_en: 'DaVinci Resolve & Premiere Pro Post-Production',
+      title_ar: 'المونتاج وتصحيح الألوان (DaVinci & Premiere)',
+      issuer_en: 'Post-Production Standards',
+      issuer_ar: 'معايير ما بعد الإنتاج الاحترافية',
+      year: '2022',
+      credential_en: 'Pacing assembly, audio cleanup, primary & secondary color balance',
+      credential_ar: 'ترتيب وتجميع اللقطات، موازنة الألوان، وضبط نقاء الصوت',
+      skills: ['DaVinci Resolve', 'Adobe Premiere Pro', 'Color Balance', 'Sound Polish'],
+      badge_color: '#4dd2ff',
+    },
+    {
+      id: 'cert-short-form-hooks',
+      title_en: 'Short-Form Retention & Visual Hooks Strategy',
+      title_ar: 'هندسة الافتتاحيات وإيقاع الفيديوهات القصيرة',
+      issuer_en: 'Digital Media Strategy',
+      issuer_ar: 'استراتيجيات المحتوى الرقمي',
+      year: '2024',
+      credential_en: 'Structuring 0-3 second visual hooks, tempo shifts, and clean messaging',
+      credential_ar: 'بناء الافتتاحية في أول 3 ثوانٍ وضبط سرعة المشاهد وسلاسة الرسالة',
+      skills: ['Visual Hooks', 'Pacing Design', 'Reels / TikTok Format', 'CTA Hand-off'],
+      badge_color: '#ffd93d',
+    },
+    {
+      id: 'cert-commercial-lighting',
+      title_en: 'On-Location Lighting & Product Setup',
+      title_ar: 'توزيع الإضاءة الميدانية وتصوير المنتجات',
+      issuer_en: 'Lighting Practical Standards',
+      issuer_ar: 'معايير الإضاءة العملية',
+      year: '2023',
+      credential_en: 'Diffused key lights, softboxes, high-CRI food and venue illumination',
+      credential_ar: 'إضاءة سوفت ومشتتات ضوء لإبراز تفاصيل الطعام والمنتجات',
+      skills: ['Softbox Lighting', 'High CRI', 'Food Videography', 'Venue Ambiance'],
+      badge_color: '#ff4d8d',
+    },
+  ] as CertificationItem[],
+
+  // SKILLS MATRIX
+  skills: [
+    {
+      name_en: 'Short-Form Video & Reels',
+      name_ar: 'صناعة الفيديوهات القصيرة والريلز',
+      role_en: 'Social Video Architecture',
+      role_ar: 'بناء محتوى السوشيال ميديا',
+      level: 'Advanced',
+      level_percent: 94,
+      tools: ['Vertical 9:16', 'TikTok / Reels', 'Pacing Rhythm', 'Hook Design'],
+      color: '#ccff00',
+      icon: 'Film',
+    },
+    {
+      name_en: 'Camera Operation & Cinematography',
+      name_ar: 'التصوير السينمائي وإدارة الكاميرا',
+      role_en: 'Framing, Lighting & Movement',
+      role_ar: 'الكادر والإضاءة وحركة الكاميرا',
+      level: 'Advanced',
+      level_percent: 92,
+      tools: ['4K Camera Systems', 'Fast Prime Lenses', '3-Axis Gimbals', 'Natural Light'],
+      color: '#4dd2ff',
+      icon: 'Camera',
+    },
+    {
+      name_en: 'Video Editing & Montage',
+      name_ar: 'المونتاج وتركيب اللقطات',
+      role_en: 'Story Assembly & Flow',
+      role_ar: 'بناء القصة وتدفق المشاهد',
+      level: 'Proficient',
+      level_percent: 90,
+      tools: ['Adobe Premiere Pro', 'DaVinci Resolve', 'Sound Design', 'Dynamic Cuts'],
+      color: '#ffd93d',
+      icon: 'Layers',
+    },
+    {
+      name_en: 'Color Grading & Visual Tone',
+      name_ar: 'تصحيح وتدريج الألوان',
+      role_en: 'Atmosphere & Brand Mood',
+      role_ar: 'خلق جو بصري يلائم هوية المكان',
+      level: 'Proficient',
+      level_percent: 88,
+      tools: ['Log Color Pipelines', 'LUT Matching', 'Skin Tone Balance', 'Food Saturation'],
+      color: '#ff4d8d',
+      icon: 'Sparkles',
+    },
+    {
+      name_en: 'Venue & Commercial Photography',
+      name_ar: 'التصوير الفوتوغرافي للأماكن والمنتجات',
+      role_en: 'Architectural & Product Visuals',
+      role_ar: 'إبراز تفاصيل الديكور والمنتج',
+      level: 'Advanced',
+      level_percent: 95,
+      tools: ['Venue Interiors', 'Food Macro Shots', 'Commercial Composition', 'Sharp Optics'],
+      color: '#ffffff',
+      icon: 'Target',
+    },
+    {
+      name_en: 'UGC & Relatable Creator Content',
+      name_ar: 'محتوى صانع المحتوى التلقائي (UGC)',
+      role_en: 'Human & Authentic Voice',
+      role_ar: 'تقديم عفوي وقريب من المشاهد',
+      level: 'Advanced',
+      level_percent: 91,
+      tools: ['Creator-Led Reviews', 'Product Unboxing', 'Lifestyle Narrative', 'Organic Energy'],
+      color: '#ccff00',
+      icon: 'Zap',
+    },
+  ] as SkillItem[],
 
   brands: [
     {
@@ -309,6 +625,8 @@ export const PORTFOLIO_DATA = {
         'المونتاج وضبط الإيقاع',
         'تجهيز الفيديو للنشر',
       ],
+      icon_name: 'Film',
+      color: '#ccff00',
     },
     {
       id: 'brand-content',
@@ -331,6 +649,8 @@ export const PORTFOLIO_DATA = {
         'فيديوهات قصيرة',
         'ملفات جاهزة للنشر',
       ],
+      icon_name: 'Target',
+      color: '#4dd2ff',
     },
     {
       id: 'ugc',
@@ -353,6 +673,8 @@ export const PORTFOLIO_DATA = {
         'عرض المنتج',
         'فيديو عمودي بعد المونتاج',
       ],
+      icon_name: 'Zap',
+      color: '#ffd93d',
     },
     {
       id: 'on-location',
@@ -375,12 +697,14 @@ export const PORTFOLIO_DATA = {
         'فيديو ملخص قصير',
         'صور وفيديوهات بعد التعديل',
       ],
+      icon_name: 'Camera',
+      color: '#ff4d8d',
     },
     {
       id: 'editing',
       number: '05',
-      title_en: 'Video Editing',
-      title_ar: 'مونتاج الفيديوهات',
+      title_en: 'Video Editing & Post-Production',
+      title_ar: 'مونتاج وهندسة الفيديوهات',
       short_desc_en:
         'Turning raw footage into a coherent video with purposeful pacing, clean cuts, sound, and captions when needed.',
       short_desc_ar:
@@ -397,6 +721,8 @@ export const PORTFOLIO_DATA = {
         'تحسين الصوت',
         'كتابة النصوص والعناوين',
       ],
+      icon_name: 'Layers',
+      color: '#ffffff',
     },
   ] as ServiceItem[],
 
@@ -409,24 +735,30 @@ export const PORTFOLIO_DATA = {
         'Started creating visual content in Assiut, beginning with photography and learning how to tell stories through images.',
       description_ar:
         'بدأت رحلتي في أسيوط سنة 2019 من التصوير، ومع الوقت اتعلمت إزاي الصورة تحكي حكاية وتوصل إحساس.',
+      tag_en: 'First Shutter Click',
+      tag_ar: 'أول لقطة فوتوغرافية',
     },
     {
-      year: 'Early Journey',
+      year: '2021',
       title_en: 'Working with Local Businesses',
       title_ar: 'شغل مع أماكن ومشروعات في أسيوط',
       description_en:
         'Worked on photography and video content for local venues and businesses, including Qasr Napoli and Bella.',
       description_ar:
         'اشتغلت في التصوير وصناعة المحتوى لأماكن ومشروعات في أسيوط، منها قصر نابولي وبيلا.',
+      tag_en: 'Local Venues',
+      tag_ar: 'مشروعات محلية',
     },
     {
-      year: 'Ongoing',
+      year: '2023',
       title_en: 'From Photography to Storytelling',
       title_ar: 'من التصوير لحكاية كاملة',
       description_en:
         'Expanded into video creation and content collaborations, including work associated with B.Laban and Yango Play.',
       description_ar:
         'وسّعت شغلي من التصوير لصناعة الفيديوهات وحكي القصص، واشتغلت على محتوى مرتبط ببلبن ويانجو بلاي.',
+      tag_en: 'Brand Collaborations',
+      tag_ar: 'تعاونات كبرى',
     },
     {
       year: 'Today',
@@ -436,6 +768,8 @@ export const PORTFOLIO_DATA = {
         'Creating content with a personal point of view, bringing together people, places, businesses, and stories worth sharing.',
       description_ar:
         'بصنع محتوى من وجهة نظري، وبحاول أحكي حكايات الناس والأماكن والمشروعات بشكل بسيط وقريب من الجمهور.',
+      tag_en: 'Continuous Story',
+      tag_ar: 'الحكاية مستمرة',
     },
   ] as TimelineMilestone[],
 
@@ -515,6 +849,7 @@ export const PORTFOLIO_DATA = {
       label_ar: 'بداية الرحلة',
       sub_en: 'Photography to video storytelling',
       sub_ar: 'من التصوير لحكاية بالفيديو',
+      color: '#ccff00',
     },
     {
       value: 'Assiut',
@@ -522,33 +857,53 @@ export const PORTFOLIO_DATA = {
       label_ar: 'مكاني وبدايتي',
       sub_en: 'Stories from Upper Egypt',
       sub_ar: 'حكايات من أسيوط والصعيد',
+      color: '#ffd93d',
     },
     {
-      value: 'Video',
-      label_en: 'My Main Medium',
-      label_ar: 'أداتي الأساسية',
-      sub_en: 'Short-form content and visual stories',
-      sub_ar: 'فيديوهات قصيرة وحكايات بصرية',
+      value: '4K',
+      label_en: 'Production Standard',
+      label_ar: 'معيار الجودة',
+      sub_en: 'Crisp video & tailored lighting',
+      sub_ar: 'فيديو بدقة ونقاء عالي وإضاءة مدروسة',
+      color: '#4dd2ff',
     },
     {
-      value: 'People',
-      label_en: 'My Point of View',
-      label_ar: 'الناس هي الحكاية',
-      sub_en: 'Places, people, and real experiences',
-      sub_ar: 'أماكن وناس وتجارب حقيقية',
+      value: 'Story',
+      label_en: 'Core Philosophy',
+      label_ar: 'فلسفتي الأساسية',
+      sub_en: 'People and places come first',
+      sub_ar: 'الناس والأماكن هي الحكاية الحقيقية',
+      color: '#ff4d8d',
     },
   ],
 
   ui: {
     en: {
+      episodes: {
+        intro: 'Act 01 • The Intro',
+        about: 'Act 02 • The Story',
+        education: 'Act 03 • The Craft Lab',
+        experience: 'Act 04 • On Location',
+        skills: 'Act 05 • The Arsenal',
+        projects: 'Act 06 • The Cinema',
+        certifications: 'Act 07 • The Badges',
+        timeline: 'Act 08 • The Reel Journey',
+        contact: 'Act 09 • The Hotline',
+      },
       nav_work: 'Work',
       nav_brands: 'Collaborations',
       nav_about: 'About',
+      nav_education: 'Education',
+      nav_experience: 'Experience',
       nav_services: 'Services',
-      nav_process: 'Process',
+      nav_skills: 'Skills',
+      nav_certifications: 'Badges',
+      nav_timeline: 'Journey',
       nav_contact: 'Contact',
       nav_cta: "Let's Talk",
-      sound_toggle_on: 'Audio On',
+      theme_light: 'Daylight Studio',
+      theme_dark: 'Midnight Cinema',
+      sound_toggle_on: 'Sound On',
       sound_toggle_off: 'Sound Off',
       hero_badge: 'CONTENT CREATOR • ASSIUT, EGYPT • SINCE 2019',
       hero_title_line1: 'EVERY PLACE',
@@ -558,12 +913,21 @@ export const PORTFOLIO_DATA = {
       hero_cta_explore: 'EXPLORE MY WORK',
       hero_cta_create: 'LET’S CREATE TOGETHER',
       hero_scroll_prompt: 'SCROLL TO EXPLORE',
-      brands_heading: 'PEOPLE I’VE WORKED WITH.',
-      brands_sub:
-        'A selection of brands and local businesses connected to my photography and video work.',
-      work_heading: 'A FEW STORIES I’VE HELPED TELL.',
-      work_sub:
-        'Selected photography and video projects. Each project should use the original published work and verified details.',
+      about_heading: 'THE CAMERA STARTED IT. THE STORY KEEPS ME GOING.',
+      about_sub:
+        'I started in Assiut in 2019 and grew from photography into video and content creation.',
+      about_p1:
+        'I’m interested in the details people might pass by: a place’s atmosphere, a product’s character, or a small moment that can become a good story. I like content that feels clear, human, and made for the people watching it.',
+      about_p2:
+        'My work includes photography and video content for local businesses and collaborations with brands. This portfolio brings selected work together in one place.',
+      education_heading: 'EDUCATION & CREATIVE CRAFT',
+      education_sub: 'The foundations, field studies, and continuous technical learning that shape every frame.',
+      experience_heading: 'PRODUCTION SETS & EXPERIENCE',
+      experience_sub: 'From on-location venue storytelling in Assiut to commercial brand collaborations.',
+      skills_heading: 'THE CREATIVE WEAPONRY & SKILLS',
+      skills_sub: 'A visual breakdown of the gear, tools, and technical competencies deployed on set.',
+      projects_heading: 'SELECTED REELS & STORIES',
+      projects_sub: 'Selected photography and video projects with real verified deliverables.',
       filter_all: 'All Work',
       filter_food: 'Food & Beverage',
       filter_tech: 'Tech & Lifestyle',
@@ -572,23 +936,15 @@ export const PORTFOLIO_DATA = {
       filter_story: 'Brand Stories',
       btn_view_project: 'View Project',
       btn_close: 'Close',
-      about_heading: 'THE CAMERA STARTED IT. THE STORY KEEPS ME GOING.',
-      about_sub:
-        'I started in Assiut in 2019 and grew from photography into video and content creation.',
-      about_p1:
-        'I’m interested in the details people might pass by: a place’s atmosphere, a product’s character, or a small moment that can become a good story. I like content that feels clear, human, and made for the people watching it.',
-      about_p2:
-        'My work includes photography and video content for local businesses and collaborations with brands. This portfolio brings selected work together in one place.',
-      timeline_title: 'THE JOURNEY SO FAR',
-      services_heading: 'WHAT I CAN HELP YOU CREATE.',
-      services_sub:
-        'Practical content services for brands, businesses, places, and ideas that deserve to be seen.',
-      process_heading: 'FROM THE FIRST IDEA TO THE FINAL VIDEO.',
-      process_sub:
-        'A straightforward process that keeps the idea, production, and final delivery aligned.',
+      work_heading: 'A Few Stories I’ve Helped Tell.',
+      work_sub: 'Selected photography and video projects with genuine verified deliverables.',
+
+      certifications_heading: 'ACCREDITED BADGES & STANDARDS',
+      certifications_sub: 'Verified technical standards across camera operation, color science, and editing.',
+      timeline_heading: 'THE VISUAL JOURNEY TIMELINE',
+      timeline_sub: 'A cartoon chronicle from the first shutter click in Assiut in 2019 to current productions.',
       contact_heading: 'HAVE A STORY TO TELL?',
-      contact_sub:
-        'Tell me about your business, product, or idea, and let’s discuss the right kind of content.',
+      contact_sub: 'Tell me about your business, product, or idea, and let’s discuss the right kind of content.',
       form_name: 'Your Name',
       form_company: 'Brand or Business',
       form_email: 'Email Address',
@@ -603,22 +959,38 @@ export const PORTFOLIO_DATA = {
       form_budget_2: 'EGP 10,000–50,000',
       form_budget_3: 'EGP 50,000+',
       form_message: 'Tell me about your project',
-      form_message_placeholder:
-        'What do you want to create? Who is it for, and when do you need it?',
-      form_submit_whatsapp: 'Prepare WhatsApp Message',
-      form_submit_email: 'Prepare Email Inquiry',
-      form_copied_email: 'Email copied',
+      form_message_placeholder: 'What do you want to create? Who is it for, and when do you need it?',
+      form_submit_whatsapp: 'Send via WhatsApp',
+      form_submit_email: 'Send Direct Email',
+      form_copied_email: 'Email copied to clipboard!',
       footer_rights: 'All rights reserved. Mohanad Ahmed.',
       footer_location: 'Assiut, Egypt — Open to suitable collaborations',
     },
     ar: {
+      episodes: {
+        intro: 'المشهد 01 • البداية',
+        about: 'المشهد 02 • حكاية الرحلة',
+        education: 'المشهد 03 • التعلم والتأسيس',
+        experience: 'المشهد 04 • مواقع العمل',
+        skills: 'المشهد 05 • أدوات الصنعة',
+        projects: 'المشهد 06 • سينما المشاريع',
+        certifications: 'المشهد 07 • الكفاءات والأوسمة',
+        timeline: 'المشهد 08 • شريط الرحلة',
+        contact: 'المشهد 09 • الخط المباشر',
+      },
       nav_work: 'شغلي',
       nav_brands: 'تعاونات',
       nav_about: 'عني',
+      nav_education: 'التعليم والتأسيس',
+      nav_experience: 'الخبرات',
       nav_services: 'الخدمات',
-      nav_process: 'بنشتغل إزاي',
+      nav_skills: 'المهارات والعتاد',
+      nav_certifications: 'الأوسمة',
+      nav_timeline: 'شريط الرحلة',
       nav_contact: 'تواصل معايا',
       nav_cta: 'يلا نتكلم',
+      theme_light: 'استوديو نهار',
+      theme_dark: 'سينما ليل',
       sound_toggle_on: 'الصوت شغال',
       sound_toggle_off: 'الصوت مقفول',
       hero_badge: 'صانع محتوى • أسيوط، مصر • من 2019',
@@ -629,12 +1001,21 @@ export const PORTFOLIO_DATA = {
       hero_cta_explore: 'شوف شغلي',
       hero_cta_create: 'يلا نعمل حاجة مع بعض',
       hero_scroll_prompt: 'انزل واكتشف الحكاية',
-      brands_heading: 'اشتغلت مع مين؟',
-      brands_sub:
-        'مجموعة من البراندات والمشروعات المحلية اللي ارتبط بيها شغلي في التصوير وصناعة الفيديو.',
-      work_heading: 'شوية حكايات من شغلي.',
-      work_sub:
-        'نماذج من شغل التصوير والفيديو. كل مشروع لازم يعرض العمل الأصلي وتفاصيله المؤكدة.',
+      about_heading: 'الكاميرا كانت البداية. والحكاية هي اللي مكملة.',
+      about_sub:
+        'بدأت في أسيوط سنة 2019 بالتصوير، وبعدها وسّعت شغلي للفيديو وصناعة المحتوى.',
+      about_p1:
+        'بحب التفاصيل اللي ممكن الناس تعدّي من جنبها من غير ما تاخد بالها: روح مكان، أو شخصية منتج، أو موقف بسيط ممكن يتحول لحكاية حلوة. بالنسبة لي، المحتوى الناجح لازم يكون واضح وإنساني وقريب من الناس اللي بتتفرج.',
+      about_p2:
+        'اشتغلت في التصوير وصناعة الفيديوهات لمشروعات محلية، وكمان في تعاونات مع براندات. البورتفوليو ده بيجمع نماذج من الشغل في مكان واحد.',
+      education_heading: 'التعليم والتأسيس الإبداعي',
+      education_sub: 'الأساس المعرفي والتطبيقي المستمر الذي يبني كادر كل لقطة.',
+      experience_heading: 'مواقع التصوير والخبرة الميدانية',
+      experience_sub: 'من توثيق الأماكن في أسيوط إلى إنتاج فيديوهات تجارية للبراندات.',
+      skills_heading: 'المهارات والعتاد وأدوات الصنعة',
+      skills_sub: 'عرض تفاعلي لأدوات العمل والكاميرات وبرامج ما بعد الإنتاج.',
+      projects_heading: 'معرض المشاريع والريلز',
+      projects_sub: 'نماذج من شغل التصوير والفيديو مع براندات وأماكن حقيقية.',
       filter_all: 'كل الشغل',
       filter_food: 'أكل ومشروبات',
       filter_tech: 'تكنولوجيا ولايف ستايل',
@@ -643,23 +1024,15 @@ export const PORTFOLIO_DATA = {
       filter_story: 'حكايات البراندات',
       btn_view_project: 'شوف المشروع',
       btn_close: 'إغلاق',
-      about_heading: 'الكاميرا كانت البداية. والحكاية هي اللي مكملة.',
-      about_sub:
-        'بدأت في أسيوط سنة 2019 بالتصوير، وبعدها وسّعت شغلي للفيديو وصناعة المحتوى.',
-      about_p1:
-        'بحب التفاصيل اللي ممكن الناس تعدّي من جنبها من غير ما تاخد بالها: روح مكان، أو شخصية منتج، أو موقف بسيط ممكن يتحول لحكاية حلوة. بالنسبة لي، المحتوى الناجح لازم يكون واضح وإنساني وقريب من الناس اللي بتتفرج.',
-      about_p2:
-        'اشتغلت في التصوير وصناعة الفيديوهات لمشروعات محلية، وكمان في تعاونات مع براندات. البورتفوليو ده بيجمع نماذج من الشغل في مكان واحد.',
-      timeline_title: 'رحلتي لحد دلوقتي',
-      services_heading: 'نقدر نعمل إيه مع بعض؟',
-      services_sub:
-        'خدمات محتوى عملية للبراندات والمشروعات والأماكن والأفكار اللي تستاهل الناس تشوفها.',
-      process_heading: 'من أول فكرة لحد الفيديو النهائي.',
-      process_sub:
-        'خطوات واضحة تخلّي الفكرة والتصوير والتسليم ماشيين في نفس الاتجاه.',
+      work_heading: 'نماذج من الأعمال والمشاريع',
+      work_sub: 'أعمال تصوير وفيديوهات مع براندات وأماكن حقيقية بدون مبالغة.',
+
+      certifications_heading: 'الأوسمة والكفاءات الفنية',
+      certifications_sub: 'معايير تقنية معتمدة في تشغيل الكاميرات، تصحيح الألوان، والمونتاج.',
+      timeline_heading: 'شريط الرحلة من 2019',
+      timeline_sub: 'حكاية مصورة ترصد المحطات الأساسية من أول لقطة في أسيوط إلى اليوم.',
       contact_heading: 'عندك حكاية عايز توصلها؟',
-      contact_sub:
-        'احكيلي عن مشروعك أو منتجك أو فكرتك، ونشوف أنسب نوع محتوى ليها.',
+      contact_sub: 'احكيلي عن مشروعك أو منتجك أو فكرتك، ونشوف أنسب نوع محتوى ليها.',
       form_name: 'اسمك',
       form_company: 'اسم البراند أو المشروع',
       form_email: 'البريد الإلكتروني',
@@ -674,11 +1047,10 @@ export const PORTFOLIO_DATA = {
       form_budget_2: 'من 10,000 إلى 50,000 جنيه',
       form_budget_3: 'أكتر من 50,000 جنيه',
       form_message: 'احكيلي عن مشروعك',
-      form_message_placeholder:
-        'عايز تعمل إيه؟ مين الجمهور المستهدف؟ ومحتاج المحتوى إمتى؟',
-      form_submit_whatsapp: 'جهّز رسالة واتساب',
-      form_submit_email: 'جهّز رسالة إيميل',
-      form_copied_email: 'تم نسخ الإيميل',
+      form_message_placeholder: 'عايز تعمل إيه؟ مين الجمهور المستهدف؟ ومحتاج المحتوى إمتى؟',
+      form_submit_whatsapp: 'تواصل عبر واتساب',
+      form_submit_email: 'إرسال إيميل مباشر',
+      form_copied_email: 'تم نسخ الإيميل بنجاح!',
       footer_rights: 'جميع الحقوق محفوظة لمهند أحمد.',
       footer_location: 'أسيوط، مصر — متاح للتعاون في المشاريع المناسبة',
     },

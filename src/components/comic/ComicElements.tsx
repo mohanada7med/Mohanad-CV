@@ -397,3 +397,266 @@ export const ComicStars: React.FC<{ size?: number; color?: string; style?: React
     </svg>
   );
 };
+
+/**
+ * Interactive Cartoon Clapperboard
+ */
+export const CartoonClapperboard: React.FC<{
+  scene?: string;
+  take?: string;
+  date?: string;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+}> = ({ scene = '01', take = 'A', date = '2026', onClick, style = {} }) => {
+  const [clapped, setClapped] = React.useState(false);
+
+  const handleClick = () => {
+    setClapped(true);
+    onClick?.();
+    setTimeout(() => setClapped(false), 350);
+  };
+
+  return (
+    <div
+      onClick={handleClick}
+      className="cartoon-clapper select-none"
+      title="Click to Clap!"
+      style={{
+        position: 'relative',
+        width: '160px',
+        cursor: 'pointer',
+        transform: clapped ? 'scale(0.96) rotate(-4deg)' : 'scale(1)',
+        transition: 'transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)',
+        ...style,
+      }}
+    >
+      {/* Top moving bar */}
+      <div
+        style={{
+          width: '100%',
+          height: '28px',
+          backgroundColor: '#000000',
+          border: '3.5px solid #000000',
+          borderRadius: '8px 8px 0 0',
+          display: 'flex',
+          overflow: 'hidden',
+          transformOrigin: 'bottom left',
+          transform: clapped ? 'rotate(-24deg)' : 'rotate(-6deg)',
+          transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          boxShadow: '3px 3px 0px #000000',
+          marginBottom: '2px',
+        }}
+      >
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            style={{
+              flex: 1,
+              backgroundColor: i % 2 === 0 ? '#ffffff' : '#000000',
+              transform: 'skewX(-28deg)',
+              borderRight: '1px solid #000000',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main clapper slate */}
+      <div
+        style={{
+          backgroundColor: '#161824',
+          border: '3.5px solid #000000',
+          borderRadius: '0 0 14px 14px',
+          padding: '10px 12px',
+          color: '#ffffff',
+          boxShadow: '5px 5px 0px #ccff00, 5px 5px 0px 3.5px #000000',
+          fontFamily: 'JetBrains Mono, monospace',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '2px dashed rgba(255,255,255,0.2)', paddingBottom: '4px', marginBottom: '6px' }}>
+          <span style={{ fontSize: '10px', color: '#ccff00', fontWeight: 900 }}>PROD: MOHANAD</span>
+          <span style={{ fontSize: '10px', color: '#ff4d8d', fontWeight: 900 }}>4K</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '4px', textAlign: 'center', fontSize: '11px', fontWeight: 900 }}>
+          <div style={{ backgroundColor: '#0a0b12', padding: '3px', borderRadius: '4px', border: '1.5px solid #000' }}>
+            <div style={{ fontSize: '8px', color: '#a1a3b5' }}>SCENE</div>
+            <div style={{ color: '#ffffff' }}>{scene}</div>
+          </div>
+          <div style={{ backgroundColor: '#0a0b12', padding: '3px', borderRadius: '4px', border: '1.5px solid #000' }}>
+            <div style={{ fontSize: '8px', color: '#a1a3b5' }}>TAKE</div>
+            <div style={{ color: '#ffd93d' }}>{take}</div>
+          </div>
+          <div style={{ backgroundColor: '#0a0b12', padding: '3px', borderRadius: '4px', border: '1.5px solid #000' }}>
+            <div style={{ fontSize: '8px', color: '#a1a3b5' }}>YEAR</div>
+            <div style={{ color: '#ccff00' }}>{date}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Illustrated Cartoon 4K Camera Rig
+ */
+export const CartoonCameraRig: React.FC<{ size?: number; color?: string; style?: React.CSSProperties }> = ({
+  size = 140,
+  color = '#ccff00',
+  style = {},
+}) => {
+  return (
+    <svg
+      width={size}
+      height={size * 0.85}
+      viewBox="0 0 200 170"
+      style={{ overflow: 'visible', filter: 'drop-shadow(4px 4px 0px #000000)', ...style }}
+    >
+      {/* Top handles & mic */}
+      <rect x="55" y="15" width="80" height="14" rx="7" fill="#000000" stroke="#000000" strokeWidth="4" />
+      <rect x="75" y="5" width="40" height="12" rx="4" fill="#ffd93d" stroke="#000000" strokeWidth="3" />
+      {/* Camera body */}
+      <rect x="40" y="32" width="110" height="95" rx="18" fill="#161826" stroke="#000000" strokeWidth="5" />
+      {/* Viewfinder display */}
+      <rect x="15" y="52" width="28" height="42" rx="6" fill="#000000" stroke="#000000" strokeWidth="3" />
+      <rect x="18" y="56" width="20" height="34" rx="3" fill="#4dd2ff" />
+      {/* Lens barrel */}
+      <rect x="145" y="48" width="35" height="64" rx="8" fill="#000000" stroke="#000000" strokeWidth="4" />
+      <rect x="175" y="42" width="18" height="76" rx="6" fill="#ffd93d" stroke="#000000" strokeWidth="4" />
+      {/* Big lens glass with cartoon gleam */}
+      <circle cx="95" cy="78" r="32" fill="#000000" stroke="#000000" strokeWidth="4" />
+      <circle cx="95" cy="78" r="26" fill="#0a0b14" />
+      <circle cx="95" cy="78" r="18" fill={color} />
+      <ellipse cx="88" cy="72" rx="7" ry="4" fill="#ffffff" transform="rotate(-30 88 72)" />
+      {/* Red record indicator button */}
+      <circle cx="58" cy="48" r="6" fill="#ff4d8d" stroke="#000000" strokeWidth="2.5" />
+      {/* Battery / SD card badge */}
+      <rect x="52" y="105" width="32" height="12" rx="4" fill="#000000" />
+      <text x="56" y="114" fill="#ccff00" fontSize="8" fontWeight="900" fontFamily="monospace">4K RAW</text>
+    </svg>
+  );
+};
+
+/**
+ * Illustrated Cartoon Graduation & Knowledge Icon (Cap & Books)
+ */
+export const CartoonGraduationCap: React.FC<{ size?: number; style?: React.CSSProperties }> = ({
+  size = 120,
+  style = {},
+}) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 160 160"
+      style={{ overflow: 'visible', filter: 'drop-shadow(4px 4px 0px #000000)', ...style }}
+    >
+      {/* Stack of colorful books */}
+      <g>
+        {/* Book 1 (Bottom - Cyan) */}
+        <rect x="30" y="115" width="100" height="22" rx="5" fill="#4dd2ff" stroke="#000000" strokeWidth="4" />
+        <rect x="120" y="119" width="6" height="14" fill="#ffffff" />
+        {/* Book 2 (Middle - Pink) */}
+        <rect x="36" y="94" width="92" height="22" rx="5" fill="#ff4d8d" stroke="#000000" strokeWidth="4" />
+        <rect x="118" y="98" width="6" height="14" fill="#ffffff" />
+        {/* Book 3 (Top - Lime) */}
+        <rect x="42" y="74" width="82" height="21" rx="5" fill="#ccff00" stroke="#000000" strokeWidth="4" />
+      </g>
+      {/* Mortarboard / Graduation Cap */}
+      <g transform="translate(0, -6)">
+        {/* Skull cap base */}
+        <path d="M55 52 Q 80 62 105 52 L 105 66 Q 80 78 55 66 Z" fill="#000000" stroke="#000000" strokeWidth="3" />
+        {/* Diamond top */}
+        <polygon points="80,18 140,40 80,62 20,40" fill="#ffd93d" stroke="#000000" strokeWidth="4" />
+        {/* Button & Tassel */}
+        <circle cx="80" cy="40" r="5" fill="#000000" />
+        <path d="M80 40 Q 110 44 116 70" stroke="#ff4d8d" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+        <circle cx="116" cy="74" r="5" fill="#ff4d8d" stroke="#000000" strokeWidth="2" />
+      </g>
+    </svg>
+  );
+};
+
+/**
+ * Illustrated Cartoon Trophy Award
+ */
+export const CartoonTrophyAward: React.FC<{ size?: number; color?: string; style?: React.CSSProperties }> = ({
+  size = 110,
+  color = '#ffd93d',
+  style = {},
+}) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 140 140"
+      style={{ overflow: 'visible', filter: 'drop-shadow(4px 4px 0px #000000)', ...style }}
+    >
+      {/* Handles */}
+      <path
+        d="M25 40 Q 10 60 30 75 L 42 70 Q 25 58 35 44 Z"
+        fill="#000000"
+        stroke="#000000"
+        strokeWidth="2"
+      />
+      <path
+        d="M115 40 Q 130 60 110 75 L 98 70 Q 115 58 105 44 Z"
+        fill="#000000"
+        stroke="#000000"
+        strokeWidth="2"
+      />
+      {/* Cup body */}
+      <path
+        d="M32 25 L 108 25 Q 105 75 70 88 Q 35 75 32 25 Z"
+        fill={color}
+        stroke="#000000"
+        strokeWidth="4.5"
+      />
+      {/* Star emblem */}
+      <polygon
+        points="70,42 74,54 86,54 76,62 80,74 70,66 60,74 64,62 54,54 66,54"
+        fill="#ff4d8d"
+        stroke="#000000"
+        strokeWidth="2"
+      />
+      {/* Stem */}
+      <rect x="63" y="88" width="14" height="20" fill="#000000" />
+      {/* Base */}
+      <polygon points="50,108 90,108 98,126 42,126" fill="#161824" stroke="#000000" strokeWidth="4" />
+      <rect x="52" y="114" width="36" height="8" rx="2" fill="#ccff00" />
+    </svg>
+  );
+};
+
+/**
+ * Illustrated Cartoon Director's Chair & Megaphone
+ */
+export const CartoonDirectorChair: React.FC<{ size?: number; style?: React.CSSProperties }> = ({
+  size = 120,
+  style = {},
+}) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 150 150"
+      style={{ overflow: 'visible', filter: 'drop-shadow(4px 4px 0px #000000)', ...style }}
+    >
+      {/* Crossed chair legs */}
+      <line x1="35" y1="75" x2="105" y2="135" stroke="#000000" strokeWidth="6" strokeLinecap="round" />
+      <line x1="105" y1="75" x2="35" y2="135" stroke="#000000" strokeWidth="6" strokeLinecap="round" />
+      {/* Seat */}
+      <rect x="30" y="68" width="80" height="12" rx="4" fill="#ff4d8d" stroke="#000000" strokeWidth="4" />
+      {/* Backrest posts */}
+      <line x1="40" y1="30" x2="40" y2="70" stroke="#000000" strokeWidth="5" strokeLinecap="round" />
+      <line x1="100" y1="30" x2="100" y2="70" stroke="#000000" strokeWidth="5" strokeLinecap="round" />
+      {/* Backrest canvas */}
+      <rect x="32" y="32" width="76" height="26" rx="4" fill="#ccff00" stroke="#000000" strokeWidth="4" />
+      <text x="44" y="49" fill="#000000" fontSize="10" fontWeight="900" fontFamily="JetBrains Mono, monospace">DIRECTOR</text>
+      {/* Megaphone next to chair */}
+      <g transform="translate(90, 80) rotate(-20)">
+        <polygon points="10,25 45,10 45,40" fill="#ffd93d" stroke="#000000" strokeWidth="3.5" />
+        <rect x="5" y="20" width="8" height="10" rx="2" fill="#ff4d8d" stroke="#000000" strokeWidth="2.5" />
+        <rect x="22" y="28" width="6" height="14" rx="2" fill="#000000" />
+      </g>
+    </svg>
+  );
+};

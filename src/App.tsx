@@ -11,17 +11,15 @@ import { MasterScrollytelling } from './components/MasterScrollytelling';
 import { ProjectModal } from './components/ProjectModal';
 import { Footer } from './components/Footer';
 
-const CARTOON = {
-  ink: '#000000',
-  lime: '#ccff00',
-  pink: '#ff4d8d',
-  sun: '#ffd93d',
-};
-
 export function App() {
   const [lang, setLang] = useState<Language>(() => {
     const saved = localStorage.getItem('mohanad_lang');
     return saved === 'ar' ? 'ar' : 'en';
+  });
+
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('mohanad_theme');
+    return saved === 'dark' ? 'dark' : 'light';
   });
 
   const [isAudioActive, setIsAudioActive] = useState<boolean>(() => {
@@ -40,10 +38,22 @@ export function App() {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     localStorage.setItem('mohanad_lang', lang);
 
-    // dir changed -> recalculate pin positions
     const id = requestAnimationFrame(() => ScrollTrigger.refresh());
     return () => cancelAnimationFrame(id);
   }, [lang]);
+
+  // Synchronize theme with <html> attribute
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('mohanad_theme', theme);
+  }, [theme]);
 
   // Global scroll progress bar
   useEffect(() => {
@@ -70,6 +80,10 @@ export function App() {
     setLang(newLang);
   };
 
+  const handleThemeToggle = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
   const handleAudioToggle = () => {
     const newState = sound.toggle();
     setIsAudioActive(newState);
@@ -83,7 +97,7 @@ export function App() {
     if (matched) {
       setSelectedProject(matched);
     } else if (jumpSceneRef.current) {
-      jumpSceneRef.current(2); // Jump to Projects scene
+      jumpSceneRef.current(5); // Jump to Projects scene (Act 06)
     }
   };
 
@@ -107,7 +121,6 @@ export function App() {
     setSelectedProject(projects[nextIndex]);
   };
 
-  // Stable reference so MasterScrollytelling's effect doesn't re-run every render
   const handleRegisterJump = useCallback((fn: (index: number) => void) => {
     jumpSceneRef.current = fn;
   }, []);
@@ -122,7 +135,9 @@ export function App() {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: CARTOON.sun,
+        backgroundColor: 'var(--bg-page)',
+        color: 'var(--text-main)',
+        transition: 'background-color 0.3s ease',
       }}
     >
       {/* Cartoon scroll progress bar */}
@@ -134,8 +149,8 @@ export function App() {
           right: 0,
           height: '14px',
           zIndex: 10001,
-          backgroundColor: '#ffffff',
-          borderBottom: `4px solid ${CARTOON.ink}`,
+          backgroundColor: 'var(--bg-card)',
+          borderBottom: '4px solid var(--border-comic)',
           pointerEvents: 'none',
         }}
       >
@@ -146,14 +161,14 @@ export function App() {
             width: '100%',
             transformOrigin: lang === 'ar' ? 'right center' : 'left center',
             transform: 'scaleX(0)',
-            backgroundColor: CARTOON.pink,
-            borderRight: lang === 'ar' ? 'none' : `4px solid ${CARTOON.ink}`,
-            borderLeft: lang === 'ar' ? `4px solid ${CARTOON.ink}` : 'none',
+            backgroundColor: '#ff4d8d',
+            borderRight: lang === 'ar' ? 'none' : '4px solid var(--border-comic)',
+            borderLeft: lang === 'ar' ? '4px solid var(--border-comic)' : 'none',
           }}
         />
       </div>
 
-      {/* Halftone texture instead of film grain */}
+      {/* Halftone texture overlay */}
       <div
         aria-hidden
         className="halftone"
@@ -177,6 +192,8 @@ export function App() {
         onAudioToggle={handleAudioToggle}
         activeSceneIndex={activeSceneIndex}
         onNavigateToScene={handleNavigateToScene}
+        theme={theme}
+        onThemeToggle={handleThemeToggle}
       />
 
       {/* Main experience */}

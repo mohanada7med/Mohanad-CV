@@ -50,33 +50,50 @@
   --white: #ffffff;
   --cartoon-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Backgrounds (كانت غامقة، بقت فاتحة) */
-  --bg-deep: #ffd93d;
-  --bg-espresso: #ffe27a;
-  --bg-chocolate: #ffffff;
-  --bg-chocolate-light: #fff6cc;
-  --bg-darker: #ffc400;
-  --bg-surface: #ffffff;
+  /* Light Theme Defaults (Daylight Cartoon Studio) */
+  --bg-page: #ffd93d;
+  --bg-scene-alt: #ffe875;
   --bg-card: #ffffff;
-  --bg-card-hover: #fff6cc;
-  --cream-putty: #ffffff;
-  --cream-putty-hover: #ffffff;
+  --bg-card-alt: #fff8db;
+  --text-main: #000000;
+  --text-muted: #3f3f46;
+  --border-comic: #000000;
+  --shadow-comic: #000000;
+  --shadow-accent: #ff4d8d;
+  --halftone-dot: rgba(0, 0, 0, 0.16);
+  --stage-border: #000000;
+}
 
-  --comic-ink: #000000;
-  --comic-yellow: #ffe600;
-  --comic-pink: #ff4d8d;
+/* Dark Mode Theme (Midnight Cartoon Cinema) */
+html[data-theme="dark"],
+html.dark {
+  --bg-page: #0a0b12;
+  --bg-scene-alt: #10121d;
+  --bg-card: #161826;
+  --bg-card-alt: #1c1f30;
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
+  --border-comic: #000000;
+  --shadow-comic: #ccff00;
+  --shadow-accent: #ff4d8d;
+  --halftone-dot: rgba(255, 255, 255, 0.08);
+  --stage-border: #000000;
+}
 
-  --gray-100: #f4f4f5;
-  --gray-300: #d4d4d8;
-  --gray-500: #52525b;
-  --gray-700: #27272a;
-  --gray-800: #18181b;
-  --gray-900: #000000;
-
-  --border-subtle: rgba(0, 0, 0, 0.2);
-  --border-medium: rgba(0, 0, 0, 0.5);
-  --border-lime: #000000;
-  --border-orange: #000000;
+/* Light Mode Explicit */
+html[data-theme="light"],
+html.light {
+  --bg-page: #ffd93d;
+  --bg-scene-alt: #ffe875;
+  --bg-card: #ffffff;
+  --bg-card-alt: #fff8db;
+  --text-main: #000000;
+  --text-muted: #3f3f46;
+  --border-comic: #000000;
+  --shadow-comic: #000000;
+  --shadow-accent: #ff4d8d;
+  --halftone-dot: rgba(0, 0, 0, 0.16);
+  --stage-border: #000000;
 }
 
 *,
@@ -89,14 +106,15 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--sun);
-  color: var(--ink);
+  background-color: var(--bg-page);
+  color: var(--text-main);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -104,10 +122,11 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  background-color: var(--sun);
-  color: var(--ink);
+  background-color: var(--bg-page);
+  color: var(--text-main);
   position: relative;
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #root {
@@ -443,7 +462,8 @@ html[dir="rtl"] .monumental-name {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--sun);
+  background-color: var(--bg-page);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Corner frame brackets */
@@ -488,26 +508,25 @@ html[dir="rtl"] .monumental-name {
    ========================================================================== */
 
 .comic-panel {
-  background: #ffffff;
-  color: var(--ink);
-  border: 4px solid #000000;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 4px solid var(--border-comic);
   border-radius: 24px;
-  box-shadow: 7px 7px 0px #000000;
+  box-shadow: 7px 7px 0px var(--shadow-comic);
   position: relative;
   max-width: 100%;
-  transition: transform 0.25s var(--cartoon-bounce), box-shadow 0.25s ease;
+  transition: transform 0.25s var(--cartoon-bounce), box-shadow 0.25s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-/* الظل اللايم مش هيبان على الأصفر، فبقى وردي */
 .comic-panel-lime {
-  background: #ffffff;
-  color: var(--ink);
-  border: 4px solid #000000;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 4px solid var(--border-comic);
   border-radius: 24px;
-  box-shadow: 7px 7px 0px var(--pink);
+  box-shadow: 7px 7px 0px var(--shadow-accent);
   position: relative;
   max-width: 100%;
-  transition: transform 0.25s var(--cartoon-bounce), box-shadow 0.25s ease;
+  transition: transform 0.25s var(--cartoon-bounce), box-shadow 0.25s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 @media (hover: hover) {
@@ -581,7 +600,7 @@ html[dir="rtl"] .comic-btn {
 
 /* Halftone backgrounds (نقط سودا بدل البيضا) */
 .comic-halftone-bg {
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.14) 2px, transparent 2px);
+  background-image: radial-gradient(circle, var(--halftone-dot) 2px, transparent 2px);
   background-size: 16px 16px;
 }
 
